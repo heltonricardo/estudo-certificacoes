@@ -1,2 +1,1 @@
-# estudo-certificacoes
- 
+# Estudo para Certificações 👨🏻‍🔬
