@@ -2,6 +2,10 @@
 
 Repositório dedicado aos estudo para certificações:
 
+### Amazon
+
+- [CLF-C01 - AWS Cloud Practitioner](/amazon/clf-c01.md)
+
 ### Microsoft
 
 - [AZ-900 - Microsoft Azure Fundamentals](/microsoft/az-900.md)
