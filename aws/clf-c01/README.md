@@ -5,30 +5,33 @@
 <!-- TOC tocDepth:2..6 chapterDepth:2..6 -->
 
 - [1. Cloud Computing](#1-cloud-computing)
-  - [1.1. Benefícios](#11-benefícios)
-  - [1.2. Tipos de serviços](#12-tipos-de-serviços)
-    - [1.2.1. IaaS (Infraestrutura como Serviço)](#121-iaas-infraestrutura-como-serviço)
-    - [1.2.2. PaaS (Plataforma como Serviço)](#122-paas-plataforma-como-serviço)
-    - [1.2.3. SaaS (Software como Serviço)](#123-saas-software-como-serviço)
-  - [1.3. Modelos de implantação](#13-modelos-de-implantação)
-    - [1.3.1. Nuvem pública](#131-nuvem-pública)
-    - [1.3.2. Nuvem privada](#132-nuvem-privada)
-    - [1.3.3. Nuvem híbrida](#133-nuvem-híbrida)
-  - [1.4. Shared responsibility model](#14-shared-responsibility-model)
-  - [1.5. CLI e CloudShell](#15-cli-e-cloudshell)
-    - [1.5.1. CLI](#151-cli)
-    - [1.5.2. Cloud Shell](#152-cloud-shell)
+    - [1.1. Benefícios](#11-benefícios)
+    - [1.2. Tipos de serviços](#12-tipos-de-serviços)
+        - [1.2.1. IaaS (Infraestrutura como Serviço)](#121-iaas-infraestrutura-como-serviço)
+        - [1.2.2. PaaS (Plataforma como Serviço)](#122-paas-plataforma-como-serviço)
+        - [1.2.3. SaaS (Software como Serviço)](#123-saas-software-como-serviço)
+    - [1.3. Modelos de implantação](#13-modelos-de-implantação)
+        - [1.3.1. Nuvem pública](#131-nuvem-pública)
+        - [1.3.2. Nuvem privada](#132-nuvem-privada)
+        - [1.3.3. Nuvem híbrida](#133-nuvem-híbrida)
+    - [1.4. Shared responsibility model](#14-shared-responsibility-model)
+    - [1.5. CLI e CloudShell](#15-cli-e-cloudshell)
+        - [1.5.1. CLI](#151-cli)
+        - [1.5.2. Cloud Shell](#152-cloud-shell)
 - [2. Arquitetura de infraestrutura global](#2-arquitetura-de-infraestrutura-global)
-  - [2.1. Regiões da AWS](#21-regiões-da-aws)
-  - [2.2. Zonas de disponibilidade](#22-zonas-de-disponibilidade)
-  - [2.3. Zonas locais (Local zones)](#23-zonas-locais-local-zones)
-  - [2.4. AWS Wavelength](#24-aws-wavelength)
-  - [2.5. AWS Outposts](#25-aws-outposts)
+    - [2.1. Regiões da AWS](#21-regiões-da-aws)
+    - [2.2. Zonas de disponibilidade](#22-zonas-de-disponibilidade)
+    - [2.3. Zonas locais (Local zones)](#23-zonas-locais-local-zones)
+    - [2.4. AWS Wavelength](#24-aws-wavelength)
+    - [2.5. AWS Outposts](#25-aws-outposts)
 - [3. IAM](#3-iam)
-  - [3.1. Usuário (User)](#31-usuário-user)
-  - [3.2. Grupos (Groups)](#32-grupos-groups)
-  - [3.3. Funções (Roles)](#33-funções-roles)
-  - [3.4. Políticas (Policies)](#34-políticas-policies)
+    - [3.1. Usuário (User)](#31-usuário-user)
+    - [3.2. Grupos (Groups)](#32-grupos-groups)
+    - [3.3. Funções (Roles)](#33-funções-roles)
+    - [3.4. Políticas (Policies)](#34-políticas-policies)
+- [4. Amazon Elastic Compute Cloud (Amazon EC2)](#4-amazon-elastic-compute-cloud-amazon-ec2)
+    - [4.1. Benefícios](#41-benefícios)
+    - [4.2. User data](#42-user-data)
 
 <!-- /TOC -->
 
@@ -139,3 +142,27 @@ As funções são entidades do IAM que têm permissões associadas a elas e pode
 ### 3.4. Políticas (Policies)
 
 Políticas são `documentos que definem as permissões e ações` que os usuários, grupos e funções do IAM podem realizar em recursos específicos da AWS. Elas são escritas em **JSON (JavaScript Object Notation)** e detalham quais ações são permitidas ou negadas. As políticas **podem ser anexadas a usuários, grupos e funções** para controlar o acesso de maneira precisa.
+
+## 4. Amazon Elastic Compute Cloud (Amazon EC2)
+
+O Amazon EC2 é um serviço de computação em nuvem que permite aos usuários provisionar e gerenciar `máquinas virtuais escaláveis` em uma variedade de configurações. Essas máquinas virtuais, conhecidas como **instâncias EC2**, oferecem flexibilidade para escolher tipos de instâncias com diferentes recursos de CPU, memória, armazenamento e capacidades de rede.
+
+Os usuários **podem selecionar imagens pré-configuradas** (conhecidas como `AMIs`) ou criar suas próprias imagens para iniciar instâncias EC2 com sistemas operacionais e softwares específicos. O EC2 é amplamente utilizado para **hospedar aplicativos, executar tarefas de processamento, criar ambientes de teste e desenvolvimento, bem como para cargas de trabalho de análise e outras computações intensivas**.
+
+O `escalonamento vertical` (aumentar ou diminuir os recursos de uma única instância) e o `escalonamento horizontal` (adicionar ou remover instâncias) permitem adaptar facilmente a capacidade de computação às necessidades em constante mudança. O EC2 é um dos serviços fundamentais da AWS, que forma a base para muitas aplicações e arquiteturas na nuvem.
+
+### 4.1. Benefícios
+
+- `Controle total`: O Amazon EC2 oferece controle completo sobre as instâncias virtuais. Os usuários podem escolher tipos de instâncias, sistemas operacionais, configurações de segurança e personalizar as instâncias de acordo com suas necessidades.
+
+- `Segurança`: O EC2 permite a aplicação de medidas de segurança personalizadas, como grupos de segurança e autenticação MFA, para proteger instâncias e dados. Isso ajuda a manter a integridade dos sistemas hospedados.
+
+- `Conexão com outros serviços AWS`: As instâncias EC2 podem ser facilmente integradas a outros serviços da AWS, como o Amazon S3 para armazenamento de dados, o Amazon RDS para bancos de dados gerenciados e o Amazon CloudWatch para monitoramento. Isso cria ecossistemas de aplicativos completos.
+
+- `Custo flexível`: O modelo de precificação do EC2 é pay-as-you-go, o que significa que você paga apenas pelo tempo de utilização e pelos recursos consumidos. Isso proporciona flexibilidade para dimensionar recursos de acordo com as necessidades sem custos iniciais elevados.
+
+- `Facilidade de uso`: Com uma ampla gama de opções pré-configuradas, como as Amazon Machine Images (AMIs), e ferramentas de gerenciamento como o AWS Management Console, o EC2 simplifica o processo de implantação e administração de máquinas virtuais.
+
+### 4.2. User data
+
+User Data é um recurso do Amazon EC2 que permite aos usuários `especificar scripts ou comandos que serão executados automaticamente quando uma instância EC2 for inicializada`. Esses scripts podem ser usados para **realizar configurações, instalar software, aplicar atualizações ou executar outras tarefas** personalizadas durante o processo de inicialização da instância.
