@@ -2,8 +2,6 @@
 
 <img src="assets/badge.png" alt="CLF-C01 - AWS Cloud Practitioner" width="200"/>
 
-<hr />
-
 ## Cloud Computing
 
 A **computação em nuvem**, ou **cloud computing**, refere-se a um modelo de entrega de `serviços` de computação pela internet. Em vez de manter servidores e recursos locais, empresas e indivíduos podem acessar e utilizar poder de processamento, armazenamento e aplicativos virtualizados `hospedados em data centers remotos`. Isso permite escalabilidade flexível, custos mais controláveis e acesso conveniente a recursos tecnológicos, promovendo a agilidade e a eficiência nos negócios e nas atividades cotidianas.
@@ -69,3 +67,25 @@ A CLI (**Command-Line Interface**) é uma ferramenta que permite aos usuários i
 #### Cloud Shell
 
 O **Cloud Shell** é uma `interface interativa baseada em navegador` fornecida por alguns provedores de serviços em nuvem. Ele permite que os usuários acessem uma máquina virtual pré-configurada, já conectada às suas contas na nuvem, diretamente do navegador. Isso facilita a experimentação, a execução de comandos e a exploração de recursos **sem a necessidade de configurar ambientes locais**. O **Cloud Shell** é uma maneira conveniente de interagir com serviços em nuvem sem a necessidade de instalar ferramentas de linha de comando em sua máquina local.
+
+## Arquitetura de infraestrutura global
+
+### Regiões da AWS
+
+As regiões da AWS são `localizações geográficas` onde a infraestrutura da AWS está hospedada. **Cada região é composta por várias zonas de disponibilidade** e oferece uma variedade de serviços da AWS. Exemplos de regiões incluem US East (Norte da Virgínia), Ásia-Pacífico (Tóquio) e Europa (Frankfurt).
+
+### Zonas de disponibilidade
+
+Uma Zona de Disponibilidade (AZ) é um ou mais `data centers` fisicamente separados dentro de uma região. Isso ajuda a aumentar a **resiliência**, **redundância** e **disponibilidade** dos serviços. Os recursos implantados em diferentes AZs em uma região são isolados para garantir maior **confiabilidade**.
+
+### Zonas locais (Local zones)
+
+As Zonas Locais são `extensões das regiões` da AWS que permitem a execução de aplicativos e serviços perto de **locais específicos onde há uma demanda mais intensa** de computação. Isso ajuda a **reduzir a latência** para os usuários finais e oferece maior flexibilidade na implantação de recursos.
+
+### AWS Wavelength
+
+O AWS Wavelength é uma oferta que coloca recursos de computação e armazenamento da AWS em pontos de presença de `operadoras de telecomunicações`. Isso permite que aplicativos de baixa latência, como serviços de streaming de vídeo e jogos, sejam executados mais próximos dos usuários finais, aproveitando a infraestrutura de rede das operadoras.
+
+### AWS Outposts
+
+O AWS Outposts é um serviço que permite a extensão dos serviços da AWS para `ambientes on-premise (locais físicos das empresas)`. Isso possibilita a execução de serviços da AWS em hardware dedicado nas instalações do cliente, proporcionando uma experiência semelhante à nuvem, porém em um ambiente controlado pela empresa.
