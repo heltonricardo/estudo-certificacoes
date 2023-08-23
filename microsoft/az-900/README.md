@@ -1,6 +1,6 @@
 # AZ-900 - Microsoft Azure Fundamentals
 
-<img src="../assets/microsoft-certified-fundamentals-badge.svg" alt="AZ-900 - Microsoft Azure Fundamentals" width="200"/>
+<img src="assets/badge.svg" alt="AZ-900 - Microsoft Azure Fundamentals" width="200"/>
 
 <hr />
 
