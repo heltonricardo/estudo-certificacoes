@@ -2,9 +2,9 @@
 
 Repositório dedicado aos estudo para certificações:
 
-### Amazon
+### AWS
 
-- [CLF-C01 - AWS Cloud Practitioner](/amazon/clf-c01/README.md)
+- [CLF-C01 - AWS Cloud Practitioner](/aws/clf-c01/README.md)
 
 ### Microsoft
 
