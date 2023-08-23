@@ -89,3 +89,23 @@ O AWS Wavelength é uma oferta que coloca recursos de computação e armazenamen
 ### AWS Outposts
 
 O AWS Outposts é um serviço que permite a extensão dos serviços da AWS para `ambientes on-premise (locais físicos das empresas)`. Isso possibilita a execução de serviços da AWS em hardware dedicado nas instalações do cliente, proporcionando uma experiência semelhante à nuvem, porém em um ambiente controlado pela empresa.
+
+## IAM
+
+O IAM (**Identity and Access Management**) da AWS é um serviço que `gerencia o acesso aos recursos e serviços` da AWS de forma segura. Ele permite que você controle **quem** pode acessar seus recursos na AWS e quais **ações** específicas eles podem realizar. Com o IAM, você pode criar e gerenciar identidades (como usuários, grupos e funções) e **atribuir permissões granulares** para garantir a segurança e o princípio do menor privilégio, restringindo o acesso apenas ao que é necessário para os usuários e processos.
+
+### Usuário (User)
+
+Um usuário é uma `entidade com credenciais únicas que pode interagir com os serviços da AWS`. Os usuários são criados no IAM e podem ser pessoas reais ou processos automatizados. Cada usuário **possui um conjunto de credenciais** (nome de usuário e senha ou chaves de acesso) que são usadas para autenticar e autorizar suas ações na AWS.
+
+### Grupos (Groups)
+
+Grupos são `conjuntos lógicos de usuários`. Eles facilitam a **atribuição de permissões a múltiplos usuários de uma vez**. Em vez de atribuir permissões individualmente a cada usuário, você pode associar políticas de permissão a grupos, e os membros desse grupo herdarão essas permissões.
+
+### Funções (Roles)
+
+As funções são entidades do IAM que têm permissões associadas a elas e podem ser `temporariamente assumidas por usuários ou serviços dentro da AWS`. Elas são frequentemente usadas para permitir que serviços, como instâncias EC2 ou funções Lambda, `acessem recursos da AWS de maneira segura sem a necessidade de credenciais de longo prazo`. As funções também são usadas para fornecer **acesso temporário a usuários autenticados sem compartilhar chaves de acesso diretas**.
+
+### Políticas (Policies)
+
+Políticas são `documentos que definem as permissões e ações` que os usuários, grupos e funções do IAM podem realizar em recursos específicos da AWS. Elas são escritas em **JSON (JavaScript Object Notation)** e detalham quais ações são permitidas ou negadas. As políticas **podem ser anexadas a usuários, grupos e funções** para controlar o acesso de maneira precisa.
