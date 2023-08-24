@@ -5,41 +5,50 @@
 <!-- TOC tocDepth:2..6 chapterDepth:2..6 -->
 
 - [1. Cloud Computing](#1-cloud-computing)
-    - [1.1. Benefícios](#11-benefícios)
-    - [1.2. Tipos de serviços](#12-tipos-de-serviços)
-        - [1.2.1. IaaS (Infraestrutura como Serviço)](#121-iaas-infraestrutura-como-serviço)
-        - [1.2.2. PaaS (Plataforma como Serviço)](#122-paas-plataforma-como-serviço)
-        - [1.2.3. SaaS (Software como Serviço)](#123-saas-software-como-serviço)
-    - [1.3. Modelos de implantação](#13-modelos-de-implantação)
-        - [1.3.1. Nuvem pública](#131-nuvem-pública)
-        - [1.3.2. Nuvem privada](#132-nuvem-privada)
-        - [1.3.3. Nuvem híbrida](#133-nuvem-híbrida)
-    - [1.4. Shared responsibility model](#14-shared-responsibility-model)
-    - [1.5. CLI e CloudShell](#15-cli-e-cloudshell)
-        - [1.5.1. CLI](#151-cli)
-        - [1.5.2. Cloud Shell](#152-cloud-shell)
+  - [1.1. Benefícios](#11-benefícios)
+  - [1.2. Tipos de serviços](#12-tipos-de-serviços)
+    - [1.2.1. IaaS (Infraestrutura como Serviço)](#121-iaas-infraestrutura-como-serviço)
+    - [1.2.2. PaaS (Plataforma como Serviço)](#122-paas-plataforma-como-serviço)
+    - [1.2.3. SaaS (Software como Serviço)](#123-saas-software-como-serviço)
+  - [1.3. Modelos de implantação](#13-modelos-de-implantação)
+    - [1.3.1. Nuvem pública](#131-nuvem-pública)
+    - [1.3.2. Nuvem privada](#132-nuvem-privada)
+    - [1.3.3. Nuvem híbrida](#133-nuvem-híbrida)
+  - [1.4. Shared responsibility model](#14-shared-responsibility-model)
+  - [1.5. CLI e CloudShell](#15-cli-e-cloudshell)
+    - [1.5.1. CLI](#151-cli)
+    - [1.5.2. Cloud Shell](#152-cloud-shell)
 - [2. Arquitetura de infraestrutura global](#2-arquitetura-de-infraestrutura-global)
-    - [2.1. Regiões da AWS](#21-regiões-da-aws)
-    - [2.2. Zonas de disponibilidade](#22-zonas-de-disponibilidade)
-    - [2.3. Zonas locais (Local zones)](#23-zonas-locais-local-zones)
-    - [2.4. AWS Wavelength](#24-aws-wavelength)
-    - [2.5. AWS Outposts](#25-aws-outposts)
+  - [2.1. Regiões da AWS](#21-regiões-da-aws)
+  - [2.2. Zonas de disponibilidade](#22-zonas-de-disponibilidade)
+  - [2.3. Zonas locais (Local zones)](#23-zonas-locais-local-zones)
+  - [2.4. AWS Wavelength](#24-aws-wavelength)
+  - [2.5. AWS Outposts](#25-aws-outposts)
 - [3. IAM](#3-iam)
-    - [3.1. Usuário (User)](#31-usuário-user)
-    - [3.2. Grupos (Groups)](#32-grupos-groups)
-    - [3.3. Funções (Roles)](#33-funções-roles)
-    - [3.4. Políticas (Policies)](#34-políticas-policies)
+  - [3.1. Usuário (User)](#31-usuário-user)
+  - [3.2. Grupos (Groups)](#32-grupos-groups)
+  - [3.3. Funções (Roles)](#33-funções-roles)
+  - [3.4. Políticas (Policies)](#34-políticas-policies)
 - [4. Elastic Compute Cloud (EC2)](#4-elastic-compute-cloud-ec2)
-    - [4.1. Benefícios](#41-benefícios)
-    - [4.2. User data](#42-user-data)
+  - [4.1. Benefícios](#41-benefícios)
+  - [4.2. User data](#42-user-data)
 - [5. Batch](#5-batch)
 - [6. Lightsail](#6-lightsail)
 - [7. Elastic Container Service (ECS)](#7-elastic-container-service-ecs)
 - [8. Armazenamento](#8-armazenamento)
-    - [8.1. Categorias](#81-categorias)
-        - [8.1.1. Armazenamento em bloco (Block storage)](#811-armazenamento-em-bloco-block-storage)
-        - [8.1.2. Armazenamento de arquivos (File storage)](#812-armazenamento-de-arquivos-file-storage)
-        - [8.1.3. Armazenamento de objetos (Object storage)](#813-armazenamento-de-objetos-object-storage)
+  - [8.1. Categorias](#81-categorias)
+    - [8.1.1. Armazenamento em bloco (Block storage)](#811-armazenamento-em-bloco-block-storage)
+    - [8.1.2. Armazenamento de arquivos (File storage)](#812-armazenamento-de-arquivos-file-storage)
+    - [8.1.3. Armazenamento de objetos (Object storage)](#813-armazenamento-de-objetos-object-storage)
+  - [8.2. Elastic Block Store (EBS):](#82-elastic-block-store-ebs)
+    - [8.2.1. Tecnologias](#821-tecnologias)
+    - [8.2.2. Snapshots e backups](#822-snapshots-e-backups)
+  - [8.3. Simple Storage Service (S3)](#83-simple-storage-service-s3)
+    - [8.3.1. Classes de armazenamento](#831-classes-de-armazenamento)
+    - [8.3.2. Versionamento](#832-versionamento)
+    - [8.3.3. Ciclo de vida](#833-ciclo-de-vida)
+    - [8.3.4. Replicação de objetos](#834-replicação-de-objetos)
+  - [8.4. Storage Gateway:](#84-storage-gateway)
 
 <!-- /TOC -->
 
@@ -210,3 +219,53 @@ Fornece `sistemas de arquivos compartilhados` que podem ser acessados por vária
 #### 8.1.3. Armazenamento de objetos (Object storage)
 
 É otimizado para `armazenar e recuperar grandes quantidades de dados não estruturados`, como imagens, vídeos e backups. O Amazon Simple Storage Service (S3) é um serviço de armazenamento de objetos altamente durável e escalável. Ele oferece recursos para gerenciar, proteger e recuperar objetos em uma variedade de classes de armazenamento, dependendo dos requisitos de acesso e durabilidade.
+
+### 8.2. Elastic Block Store (EBS):
+
+Serviço de armazenamento em bloco projetado para fornecer `volumes de armazenamento persistentes e de alto desempenho para as instâncias EC2`. Os volumes EBS atuam como discos virtuais que podem ser anexados a instâncias EC2, oferecendo armazenamento durável e de baixa latência.
+
+#### 8.2.1. Tecnologias
+
+O EBS oferece uma variedade de tecnologias de volumes, cada um otimizado para diferentes casos de uso, incluindo armazenamento padrão, `armazenamento com alto desempenho (SSD)`, `armazenamento com baixo custo (HDD)` e `volumes otimizados para I/O`.
+
+#### 8.2.2. Snapshots e backups
+
+O EBS permite criar snapshots (`instantâneos`) dos volumes, que são `cópias de backup incremental dos dados`. Esses snapshots podem ser usados para **restaurar volumes, criar novos volumes a partir deles ou até mesmo compartilhar com outras regiões da AWS**.
+
+### 8.3. Simple Storage Service (S3)
+
+O Amazon S3 é um `serviço de armazenamento de objetos altamente escalável e durável`. Ele pode lidar com qualquer quantidade de dados e é projetado para escalabilidade massiva e alta disponibilidade.
+
+Oferece durabilidade elevada dos dados, replicando automaticamente os objetos em várias zonas de disponibilidade. Isso garante a proteção contra falhas de hardware e disponibilidade contínua.
+
+Os `objetos armazenados no S3 podem ser acessados a partir de qualquer lugar através de uma URL única`, tornando-o um serviço globalmente disponível. Eles são armazenados em `buckets` (baldes, em português). O bucket é o principal contêiner de armazenamento no S3. Os nomes dos buckets são exclusivos em toda a AWS.
+
+#### 8.3.1. Classes de armazenamento
+
+O Amazon S3 oferece diferentes classes de armazenamento, cada uma `otimizada para atender a diferentes requisitos de desempenho`, acesso e custo. Aqui estão algumas das principais classes de armazenamento oferecidas pelo S3:
+
+- `Standard`: Projetada para oferecer alta durabilidade e baixa latência. É adequada para dados frequentemente acessados e é uma boa escolha para aplicativos que exigem acesso rápido aos dados.
+
+- `Intelligent-Tiering`: Nessa classe, o S3 move automaticamente objetos entre duas camadas: uma camada de acesso frequente e uma camada de acesso eventual. Isso ajuda a otimizar custos, pois dados menos acessados são movidos para a camada de acesso eventual, enquanto dados frequentemente acessados permanecem na camada de acesso frequente.
+
+- `Glacier`: Projetada para armazenamento de arquivamento de longo prazo com custos mais baixos. Os objetos armazenados na classe Glacier podem levar mais tempo para serem recuperados, mas são uma opção econômica para retenção de dados a longo prazo.
+
+- `Glacier Deep Archive`: Classe mais econômica do S3 e é ideal para dados de arquivamento de longo prazo que raramente precisam ser acessados. Os tempos de recuperação são mais longos, mas os custos são mais baixos.
+
+- `One Zone-IA`: Essa classe oferece armazenamento de acesso eventual em uma única zona de disponibilidade, tornando-a mais econômica do que as classes de armazenamento replicadas em várias zonas.
+
+#### 8.3.2. Versionamento
+
+O versionamento permite o `controle e o armazenamento de múltiplas versões de objetos` em um bucket (repositório de objetos). Quando o versionamento é ativado para um bucket, o S3 mantém o histórico de todas as alterações feitas nos objetos, incluindo adições, modificações e exclusões.
+
+#### 8.3.3. Ciclo de vida
+
+O Amazon S3 oferece um recurso de gerenciamento de ciclo de vida que permite `automatizar o movimento de objetos entre classes de armazenamento diferentes à medida que envelhecem ou atendem a critérios específicos`. Isso ajuda a otimizar custos e manter o armazenamento eficiente ao longo do tempo.
+
+#### 8.3.4. Replicação de objetos
+
+A replicação de objetos no Amazon S3 é um recurso que permite `criar cópias dos objetos armazenados em um bucket do S3 e replicá-los em outro bucket`, seja na mesma região da AWS ou em uma região diferente. Esse recurso é útil para cenários em que você deseja ter cópias de backup ou manter cópias dos dados em diferentes regiões para fins de recuperação de desastres.
+
+### 8.4. Storage Gateway:
+
+O AWS Storage Gateway é um serviço que facilita a `integração de ambientes de armazenamento on-premises (locais) com a infraestrutura de nuvem da AWS`. Ele fornece uma ponte entre o armazenamento local e o armazenamento baseado em nuvem, permitindo que você aproveite os benefícios da nuvem sem necessariamente mover todos os seus dados.
