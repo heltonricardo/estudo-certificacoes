@@ -57,6 +57,21 @@
 - [11. Load Balancer](#11-load-balancer)
   - [11.1. Application Load Balancer (ALB)](#111-application-load-balancer-alb)
   - [11.2. Network Load Balancer (NLB)](#112-network-load-balancer-nlb)
+- [12. Billing e Pricing](#12-billing-e-pricing)
+  - [12.1. Modelos de precificação](#121-modelos-de-precificação)
+    - [12.1.1. Pay-as-You-Go (Pague Conforme o Uso)](#1211-pay-as-you-go-pague-conforme-o-uso)
+    - [12.1.2. Save When You Commit (Economize Quando se Compromete)](#1212-save-when-you-commit-economize-quando-se-compromete)
+    - [12.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)](#1213-pay-less-by-using-more-pague-menos-ao-usar-mais)
+  - [12.2. Gerenciamento de custos](#122-gerenciamento-de-custos)
+    - [12.2.1. Budgets](#1221-budgets)
+    - [12.2.2. Cost Explorer](#1222-cost-explorer)
+- [13. Planos de suporte ao cliente](#13-planos-de-suporte-ao-cliente)
+  - [13.1. Basic plan (Plano básico)](#131-basic-plan-plano-básico)
+  - [13.2. Developer plan (Plano para desenvolvedores)](#132-developer-plan-plano-para-desenvolvedores)
+  - [13.3. Business plan (Plano para negócios)](#133-business-plan-plano-para-negócios)
+  - [13.4. Enterprise plan (Plano empresarial)](#134-enterprise-plan-plano-empresarial)
+- [14. Organizations](#14-organizations)
+- [15. Cost Calculator](#15-cost-calculator)
 
 <!-- /TOC -->
 
@@ -321,3 +336,57 @@ O ALB é `otimizado para aplicativos da web e opera na camada 7` (HTTP/HTTPS). E
 ### 11.2. Network Load Balancer (NLB)
 
 O NLB opera na camada 4 (TCP/UDP) e é projetado para oferecer alto desempenho e baixa latência. Ele é ideal para cargas de trabalho que requerem distribuição de tráfego de rede de maneira eficiente, como aplicativos de streaming ou jogos online. Ele pode `enviar o tráfego para diferentes instâncias com base nas informações do tráfego, como o endereço de IP de origem ou a porta que está sendo usada`.
+
+## 12. Billing e Pricing
+
+### 12.1. Modelos de precificação
+
+#### 12.1.1. Pay-as-You-Go (Pague Conforme o Uso)
+
+Nesse modelo, você `paga apenas pelos recursos que utiliza, com base no consumo real`. É ideal para cargas de trabalho com variação de tráfego, pois permite dimensionar os recursos conforme a demanda, sem compromissos de longo prazo.
+
+#### 12.1.2. Save When You Commit (Economize Quando se Compromete)
+
+Com esse modelo, você pode obter descontos significativos ao `comprometer-se a usar recursos específicos por um período mais longo`. Exemplos incluem as instâncias reservadas (Reserved Instances) e os Savings Plans. Quanto mais você se compromete, maior é o desconto.
+
+#### 12.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)
+
+`À medida que seu uso aumenta, você pode se qualificar para níveis de desconto mais altos` em serviços como o Amazon S3 e o Amazon EC2. Isso incentiva a otimização de custos à medida que você consome mais recursos.
+
+### 12.2. Gerenciamento de custos
+
+#### 12.2.1. Budgets
+
+O AWS Budgets permite `definir limites de gastos mensais` para diferentes serviços e recursos da AWS. Ele `envia alertas` por e-mail ou mensagens de texto `quando você se aproxima ou excede esses limites`. Isso ajuda a controlar os custos e a tomar medidas preventivas para evitar surpresas financeiras.
+
+#### 12.2.2. Cost Explorer
+
+O AWS Cost Explorer é uma `ferramenta de análise de custos que fornece uma visão detalhada dos custos e uso` dos serviços da AWS. Ele permite **visualizar, analisar e entender como os recursos estão sendo utilizados** ao longo do tempo. Você pode explorar os dados de custos por serviços, regiões e períodos, identificando tendências e oportunidades para otimização.
+
+## 13. Planos de suporte ao cliente
+
+A AWS oferece vários planos de suporte ao cliente, cada um com diferentes níveis de suporte e recursos para atender às necessidades variadas dos clientes:
+
+### 13.1. Basic plan (Plano básico)
+
+O plano Basic é gratuito e inclui acesso ao AWS Trusted Advisor, `documentação online, fóruns de suporte comunitário` e suporte por e-mail para questões de cobrança e problemas de conta. Preços a partir de 29 USD/mês.
+
+### 13.2. Developer plan (Plano para desenvolvedores)
+
+Oferece `suporte técnico básico`, acesso a AWS Trusted Advisor e suporte por e-mail. É adequado para desenvolvedores e equipes que precisam de ajuda para resolver problemas técnicos. Resposta em até 12 horas. Preços a partir de 100 USD/mês.
+
+### 13.3. Business plan (Plano para negócios)
+
+Além do `suporte 24/7` e acesso ao Trusted Advisor, o plano Business inclui `suporte por telefone, com tempos de resposta mais rápidos, e ajuda em casos de uso de produção`. É indicado para empresas em produção que precisam de suporte mais abrangente. Respostas em até 1 hora. Preços a partir de 5.500 USD/mês.
+
+### 13.4. Enterprise plan (Plano empresarial)
+
+O plano Enterprise oferece `suporte 24/7 por telefone e acesso a arquitetos de soluções, além de assistência proativa, revisões de infraestrutura e suporte para casos de uso empresariais críticos`. Disponibiliza um gerente para a conta. Respostas em até 15 minutos. Preços a partir de 15.000 USD/mês.
+
+## 14. Organizations
+
+O AWS Organizations oferece uma `estrutura hierárquica para organizar contas da AWS`, permitindo a criação de uma `conta raiz e contas filhas associadas`. Essa abordagem simplifica a administração de várias contas, garantindo uma **gestão centralizada de recursos e acesso**. Além disso, o serviço possibilita o estabelecimento de políticas de controle de acesso e gerenciamento de recursos que se aplicam de maneira consistente a todas as contas dentro da organização. Isso fortalece a segurança e conformidade, bem como **ajuda a manter práticas uniformes** em ambientes distribuídos. A consolidação de pagamentos é uma vantagem adicional, permitindo que todas as cobranças de contas filhas sejam agrupadas e faturadas por uma única conta de faturamento central.
+
+## 15. Cost Calculator
+
+Ferramenta que permite estimar os custos de uso dos serviços da AWS com base em suas necessidades específicas. É uma maneira útil de obter uma estimativa aproximada dos gastos antes de implantar recursos na nuvem. Isso permite que você experimente cenários diferentes e tome decisões informadas sobre o tamanho e a configuração ideais dos recursos para atender às necessidades de desempenho e orçamento.
