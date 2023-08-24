@@ -35,6 +35,11 @@
 - [5. Batch](#5-batch)
 - [6. Lightsail](#6-lightsail)
 - [7. Elastic Container Service (ECS)](#7-elastic-container-service-ecs)
+- [8. Armazenamento](#8-armazenamento)
+    - [8.1. Categorias](#81-categorias)
+        - [8.1.1. Armazenamento em bloco (Block storage)](#811-armazenamento-em-bloco-block-storage)
+        - [8.1.2. Armazenamento de arquivos (File storage)](#812-armazenamento-de-arquivos-file-storage)
+        - [8.1.3. Armazenamento de objetos (Object storage)](#813-armazenamento-de-objetos-object-storage)
 
 <!-- /TOC -->
 
@@ -189,3 +194,19 @@ O Amazon ECS é um serviço de `orquestração de contêineres` altamente escal�
 As `tarefas do ECS representam unidades de trabalho individuais` que podem ser executadas em contêineres. Cada tarefa define quais contêineres serão executados juntos e como eles se comunicarão. O ECS gerencia a implantação e o escalonamento das tarefas em um cluster de instâncias **EC2** ou usando o serviço de instâncias **Fargate**, que permite executar contêineres sem a necessidade de provisionar ou gerenciar a infraestrutura subjacente.
 
 O ECS também oferece o **Amazon Elastic Container Registry (ECR)**, um serviço de registro de contêineres privado e altamente seguro. Ele permite que você armazene, gerencie e implante imagens de contêineres do Docker. O ECR integra-se perfeitamente com o ECS e outras ferramentas da AWS, facilitando o armazenamento e a distribuição de suas imagens de contêineres.
+
+## 8. Armazenamento
+
+### 8.1. Categorias
+
+#### 8.1.1. Armazenamento em bloco (Block storage)
+
+Fornece volumes de armazenamento virtuais que `atuam como discos rígidos` conectados às instâncias de computação. Os exemplos incluem o Amazon Elastic Block Store (EBS), que oferece volumes persistentes que podem ser anexados e desanexados das instâncias EC2. É ideal para aplicativos que precisam de acesso de baixa latência a dados, como bancos de dados e sistemas de arquivos.
+
+#### 8.1.2. Armazenamento de arquivos (File storage)
+
+Fornece `sistemas de arquivos compartilhados` que podem ser acessados por várias instâncias de computação. O Amazon Elastic File System (EFS) é um exemplo, oferecendo armazenamento compartilhado altamente disponível e escalável para as instâncias EC2. É útil para aplicativos que requerem compartilhamento de arquivos entre instâncias.
+
+#### 8.1.3. Armazenamento de objetos (Object storage)
+
+É otimizado para `armazenar e recuperar grandes quantidades de dados não estruturados`, como imagens, vídeos e backups. O Amazon Simple Storage Service (S3) é um serviço de armazenamento de objetos altamente durável e escalável. Ele oferece recursos para gerenciar, proteger e recuperar objetos em uma variedade de classes de armazenamento, dependendo dos requisitos de acesso e durabilidade.
