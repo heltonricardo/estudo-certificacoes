@@ -49,6 +49,14 @@
     - [8.3.3. Ciclo de vida](#833-ciclo-de-vida)
     - [8.3.4. Replicação de objetos](#834-replicação-de-objetos)
   - [8.4. Storage Gateway:](#84-storage-gateway)
+- [9. Route 53](#9-route-53)
+- [10. Auto scaling](#10-auto-scaling)
+  - [10.1. Scaling Up (Escalonamento vertical)](#101-scaling-up-escalonamento-vertical)
+  - [10.2. Scaling Out (Escalonamento horizontal)](#102-scaling-out-escalonamento-horizontal)
+  - [10.3. Políticas de escalonamento](#103-políticas-de-escalonamento)
+- [11. Load Balancer](#11-load-balancer)
+  - [11.1. Application Load Balancer (ALB)](#111-application-load-balancer-alb)
+  - [11.2. Network Load Balancer (NLB)](#112-network-load-balancer-nlb)
 
 <!-- /TOC -->
 
@@ -269,3 +277,47 @@ A replicação de objetos no Amazon S3 é um recurso que permite `criar cópias 
 ### 8.4. Storage Gateway:
 
 O AWS Storage Gateway é um serviço que facilita a `integração de ambientes de armazenamento on-premises (locais) com a infraestrutura de nuvem da AWS`. Ele fornece uma ponte entre o armazenamento local e o armazenamento baseado em nuvem, permitindo que você aproveite os benefícios da nuvem sem necessariamente mover todos os seus dados.
+
+## 9. Route 53
+
+É o serviço de **Sistema de Nomes de Domínio (DNS)** altamente escalável e confiável oferecido pela AWS. Ele permite que você `registre domínios, roteie o tráfego da Internet para recursos da AWS e de outros provedores`, além de oferecer recursos avançados de gerenciamento de DNS.
+
+O Route 53 suporta várias estratégias de roteamento de tráfego, como `balanceamento de carga, failover e roteamento geográfico`, permitindo direcionar o tráfego para recursos específicos com base em regras e localização geográfica dos usuários.
+
+## 10. Auto scaling
+
+Estratégia de escalonamento automático, que inclui o `Scaling Up` e o `Scaling Out`. Ela permite ajustar automaticamente a capacidade de recursos em resposta à demanda do aplicativo.
+
+### 10.1. Scaling Up (Escalonamento vertical)
+
+Nessa abordagem, você aumenta a capacidade de recursos, como CPU, RAM ou armazenamento, `em uma única instância`. Por exemplo, **você pode migrar para uma instância EC2 com mais recursos**, como CPU mais rápida ou mais memória RAM. Essa estratégia é mais rápida de implementar, mas pode atingir um limite de capacidade e pode ser mais custosa.
+
+### 10.2. Scaling Out (Escalonamento horizontal)
+
+Aqui, você aumenta a capacidade `adicionando mais instâncias idênticas` ao ambiente. Em vez de aumentar os recursos de uma única instância, você cria `várias instâncias que compartilham a carga`. Essa abordagem é mais flexível e escalável, permitindo lidar com grandes volumes de tráfego. É frequentemente usado com balanceadores de carga para distribuir o tráfego entre as instâncias.
+
+### 10.3. Políticas de escalonamento
+
+A AWS oferece dois tipos de políticas de escalonamento automáticas para o serviço Auto Scaling:
+
+`Target Tracking Scaling`: Mantém uma métrica-alvo, como a utilização da CPU ou a quantidade de requisições por segundo, em um valor específico. O Auto Scaling ajusta automaticamente o número de instâncias para manter a métrica próxima ao valor-alvo. É uma abordagem simples para manter o desempenho desejado.
+
+`Step Scaling`: Define ações específicas a serem tomadas em diferentes intervalos de métricas. Com base nas métricas, você pode configurar incrementos ou decrementos específicos no número de instâncias. Isso permite definir ajustes mais granulares em resposta a diferentes níveis de carga.
+
+## 11. Load Balancer
+
+Um Load Balancer (balanceador de carga) é um serviço que `distribui automaticamente o tráfego de entrada entre várias instâncias` de recursos, como instâncias EC2, para melhorar a disponibilidade, escalabilidade e confiabilidade dos aplicativos.
+
+Com múltiplas instâncias servindo o tráfego, se uma instância falhar, o Load Balancer redireciona o tráfego para as instâncias restantes, mantendo o aplicativo disponível.
+
+Com o Auto Scaling, os Load Balancers podem ser combinados para escalar horizontalmente, adicionando mais instâncias conforme a demanda aumenta.
+
+Atualmente a AWS oferece dois tipos principais de Load Balancers:
+
+### 11.1. Application Load Balancer (ALB)
+
+O ALB é `otimizado para aplicativos da web e opera na camada 7` (HTTP/HTTPS). Ele suporta roteamento baseado em conteúdo, permitindo `direcionar o tráfego para diferentes instâncias com base em informações de URL, cabeçalhos HTTP e outros atributos de aplicativos`. É adequado para cenários em que é necessário roteamento flexível e recursos específicos para aplicativos da web.
+
+### 11.2. Network Load Balancer (NLB)
+
+O NLB opera na camada 4 (TCP/UDP) e é projetado para oferecer alto desempenho e baixa latência. Ele é ideal para cargas de trabalho que requerem distribuição de tráfego de rede de maneira eficiente, como aplicativos de streaming ou jogos online. Ele pode `enviar o tráfego para diferentes instâncias com base nas informações do tráfego, como o endereço de IP de origem ou a porta que está sendo usada`.
