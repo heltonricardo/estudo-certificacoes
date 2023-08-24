@@ -29,9 +29,12 @@
     - [3.2. Grupos (Groups)](#32-grupos-groups)
     - [3.3. Funções (Roles)](#33-funções-roles)
     - [3.4. Políticas (Policies)](#34-políticas-policies)
-- [4. Amazon Elastic Compute Cloud (Amazon EC2)](#4-amazon-elastic-compute-cloud-amazon-ec2)
+- [4. Elastic Compute Cloud (EC2)](#4-elastic-compute-cloud-ec2)
     - [4.1. Benefícios](#41-benefícios)
     - [4.2. User data](#42-user-data)
+- [5. Batch](#5-batch)
+- [6. Lightsail](#6-lightsail)
+- [7. Elastic Container Service (ECS)](#7-elastic-container-service-ecs)
 
 <!-- /TOC -->
 
@@ -143,7 +146,7 @@ As funções são entidades do IAM que têm permissões associadas a elas e pode
 
 Políticas são `documentos que definem as permissões e ações` que os usuários, grupos e funções do IAM podem realizar em recursos específicos da AWS. Elas são escritas em **JSON (JavaScript Object Notation)** e detalham quais ações são permitidas ou negadas. As políticas **podem ser anexadas a usuários, grupos e funções** para controlar o acesso de maneira precisa.
 
-## 4. Amazon Elastic Compute Cloud (Amazon EC2)
+## 4. Elastic Compute Cloud (EC2)
 
 O Amazon EC2 é um serviço de computação em nuvem que permite aos usuários provisionar e gerenciar `máquinas virtuais escaláveis` em uma variedade de configurações. Essas máquinas virtuais, conhecidas como **instâncias EC2**, oferecem flexibilidade para escolher tipos de instâncias com diferentes recursos de CPU, memória, armazenamento e capacidades de rede.
 
@@ -166,3 +169,23 @@ O `escalonamento vertical` (aumentar ou diminuir os recursos de uma única inst�
 ### 4.2. User data
 
 User Data é um recurso do Amazon EC2 que permite aos usuários `especificar scripts ou comandos que serão executados automaticamente quando uma instância EC2 for inicializada`. Esses scripts podem ser usados para **realizar configurações, instalar software, aplicar atualizações ou executar outras tarefas** personalizadas durante o processo de inicialização da instância.
+
+## 5. Batch
+
+O AWS Batch é um serviço projetado para `executar facilmente cargas de trabalho de processamento em lote em escala`. Ele permite que você execute trabalhos em lote, como processamento de dados, análise, renderização de imagens ou qualquer tarefa que possa ser dividida em unidades independentes de trabalho.
+
+Ele gerencia automaticamente a **escalabilidade, provisionamento de recursos e a execução dos trabalhos em contêineres Docker**. Isso permite otimizar a utilização de recursos, pois o AWS Batch ajusta automaticamente a capacidade de acordo com as demandas dos trabalhos.
+
+## 6. Lightsail
+
+O Amazon Lightsail é um serviço da AWS projetado para `simplificar a criação e a implantação de aplicações web e websites`. Ele oferece uma abordagem mais fácil e acessível em comparação com outros serviços da AWS, como o Amazon EC2.
+
+Com o Lightsail, os usuários podem escolher `modelos pré-configurados` que incluem instâncias de servidor, armazenamento, rede e recursos de gerenciamento. Isso elimina a necessidade de configurar detalhes técnicos complexos, tornando o processo de lançamento de projetos online mais rápido.
+
+## 7. Elastic Container Service (ECS)
+
+O Amazon ECS é um serviço de `orquestração de contêineres` altamente escalável e gerenciado pela AWS. Ele permite que você execute e gerencie facilmente aplicativos em contêineres usando tecnologias como Docker.
+
+As `tarefas do ECS representam unidades de trabalho individuais` que podem ser executadas em contêineres. Cada tarefa define quais contêineres serão executados juntos e como eles se comunicarão. O ECS gerencia a implantação e o escalonamento das tarefas em um cluster de instâncias **EC2** ou usando o serviço de instâncias **Fargate**, que permite executar contêineres sem a necessidade de provisionar ou gerenciar a infraestrutura subjacente.
+
+O ECS também oferece o **Amazon Elastic Container Registry (ECR)**, um serviço de registro de contêineres privado e altamente seguro. Ele permite que você armazene, gerencie e implante imagens de contêineres do Docker. O ECR integra-se perfeitamente com o ECS e outras ferramentas da AWS, facilitando o armazenamento e a distribuição de suas imagens de contêineres.
