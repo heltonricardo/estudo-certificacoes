@@ -72,6 +72,15 @@
   - [13.4. Enterprise plan (Plano empresarial)](#134-enterprise-plan-plano-empresarial)
 - [14. Organizations](#14-organizations)
 - [15. Cost Calculator](#15-cost-calculator)
+- [16. Segurança](#16-segurança)
+  - [16.1. Shared Responsibility Model](#161-shared-responsibility-model)
+  - [16.2. AWS WAF (Web Application Firewall)](#162-aws-waf-web-application-firewall)
+  - [16.3. AWS Shield](#163-aws-shield)
+  - [16.4. AWS Inspector](#164-aws-inspector)
+  - [16.5. AWS Trusted Advisor](#165-aws-trusted-advisor)
+  - [16.6. AWS CloudTrail](#166-aws-cloudtrail)
+  - [16.7. Amazon Athena](#167-amazon-athena)
+  - [16.8. Amazon Macie](#168-amazon-macie)
 
 <!-- /TOC -->
 
@@ -390,3 +399,45 @@ O AWS Organizations oferece uma `estrutura hierárquica para organizar contas da
 ## 15. Cost Calculator
 
 Ferramenta que permite estimar os custos de uso dos serviços da AWS com base em suas necessidades específicas. É uma maneira útil de obter uma estimativa aproximada dos gastos antes de implantar recursos na nuvem. Isso permite que você experimente cenários diferentes e tome decisões informadas sobre o tamanho e a configuração ideais dos recursos para atender às necessidades de desempenho e orçamento.
+
+## 16. Segurança
+
+A AWS leva a `segurança e a conformidade` a sério, fornecendo ferramentas e recursos para ajudar os clientes a cumprir os requisitos regulatórios e as melhores práticas de segurança. O **AWS Artifact** é um serviço que simplifica o processo de obtenção de informações e documentação sobre a conformidade.
+
+### 16.1. Shared Responsibility Model
+
+O Shared Responsibility Model (**Modelo de Responsabilidade Compartilhada**) é um conceito fundamental na AWS que define as áreas de responsabilidade da AWS e dos clientes em relação à segurança e à conformidade dos recursos na nuvem.
+
+![](assets/2023-08-24-19-16-08.png)
+
+- `Responsabilidade da AWS`: A AWS é responsável pela segurança da infraestrutura subjacente que suporta os serviços na nuvem. Isso inclui data centers, redes, hardware e a integridade dos serviços oferecidos pela AWS.
+
+- `Responsabilidade do Cliente`: Os clientes da AWS têm responsabilidade pela segurança dos dados e aplicativos que eles hospedam na nuvem. Isso envolve a configuração correta dos recursos, gerenciamento de acesso, criptografia de dados, definição de políticas de segurança e conformidade com regulamentações.
+
+### 16.2. AWS WAF (Web Application Firewall)
+
+O AWS WAF é um `firewall` de aplicativos da web que ajuda a proteger aplicativos da web contra ataques comuns, como injeção SQL, cross-site scripting (XSS) e outros. Ele permite definir regras personalizadas para inspecionar e filtrar o tráfego da web, bloqueando solicitações maliciosas antes que elas atinjam o aplicativo.
+
+### 16.3. AWS Shield
+
+O AWS Shield é um serviço de proteção contra `DDoS` (Distributed Denial of Service) que ajuda a proteger recursos da AWS contra ataques de negação de serviço distribuído. Ele oferece duas camadas de proteção: o AWS Shield Standard, que é incluído gratuitamente com vários serviços da AWS, e o AWS Shield Advanced, que oferece proteção mais avançada, incluindo mitigação de ataques DDoS mais complexos.
+
+### 16.4. AWS Inspector
+
+O AWS Inspector é um `serviço de avaliação de segurança automatizado` que ajuda a identificar vulnerabilidades e falhas de segurança nos aplicativos hospedados na AWS. Ele realiza análises de segurança automatizadas e fornece recomendações para ajudar a remediar as vulnerabilidades encontradas.
+
+### 16.5. AWS Trusted Advisor
+
+O Trusted Advisor é uma ferramenta que `analisa a sua infraestrutura na nuvem` em busca de `otimizações de custos, desempenho, segurança e disponibilidade`. Ele oferece insights e recomendações personalizadas para melhorar a eficiência operacional e reduzir gastos desnecessários.
+
+### 16.6. AWS CloudTrail
+
+O CloudTrail é um `serviço de auditoria que registra todas as ações realizadas nas contas` da AWS, fornecendo um registro detalhado das atividades dos usuários e dos recursos. Ele ajuda a monitorar mudanças na infraestrutura, detectar atividades suspeitas e auxiliar em investigações de segurança.
+
+### 16.7. Amazon Athena
+
+O Amazon Athena é um serviço de análise interativa que permite `consultar e analisar dados armazenados no Amazon S3 usando SQL padrão`. Ele elimina a necessidade de configurar e gerenciar infraestrutura de banco de dados, permitindo a análise rápida e flexível de grandes volumes de dados.
+
+### 16.8. Amazon Macie
+
+O Amazon Macie é um serviço de segurança que usa `aprendizado de máquina para descobrir, classificar e proteger automaticamente informações confidenciais` em ambientes da AWS. Ele ajuda a identificar dados confidenciais, como informações de cartão de crédito ou números de segurança social, e oferece alertas e relatórios para proteger contra violações de segurança.
