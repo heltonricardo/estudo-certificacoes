@@ -29,58 +29,67 @@
   - [3.2. Grupos (Groups)](#32-grupos-groups)
   - [3.3. Funções (Roles)](#33-funções-roles)
   - [3.4. Políticas (Policies)](#34-políticas-policies)
-- [4. Elastic Compute Cloud (EC2)](#4-elastic-compute-cloud-ec2)
-  - [4.1. Benefícios](#41-benefícios)
-  - [4.2. User data](#42-user-data)
-- [5. Batch](#5-batch)
-- [6. Lightsail](#6-lightsail)
-- [7. Elastic Container Service (ECS)](#7-elastic-container-service-ecs)
-- [8. Armazenamento](#8-armazenamento)
-  - [8.1. Categorias](#81-categorias)
-    - [8.1.1. Armazenamento em bloco (Block storage)](#811-armazenamento-em-bloco-block-storage)
-    - [8.1.2. Armazenamento de arquivos (File storage)](#812-armazenamento-de-arquivos-file-storage)
-    - [8.1.3. Armazenamento de objetos (Object storage)](#813-armazenamento-de-objetos-object-storage)
-  - [8.2. Elastic Block Store (EBS):](#82-elastic-block-store-ebs)
-    - [8.2.1. Tecnologias](#821-tecnologias)
-    - [8.2.2. Snapshots e backups](#822-snapshots-e-backups)
-  - [8.3. Simple Storage Service (S3)](#83-simple-storage-service-s3)
-    - [8.3.1. Classes de armazenamento](#831-classes-de-armazenamento)
-    - [8.3.2. Versionamento](#832-versionamento)
-    - [8.3.3. Ciclo de vida](#833-ciclo-de-vida)
-    - [8.3.4. Replicação de objetos](#834-replicação-de-objetos)
-  - [8.4. Storage Gateway:](#84-storage-gateway)
-- [9. Route 53](#9-route-53)
-- [10. Auto scaling](#10-auto-scaling)
-  - [10.1. Scaling Up (Escalonamento vertical)](#101-scaling-up-escalonamento-vertical)
-  - [10.2. Scaling Out (Escalonamento horizontal)](#102-scaling-out-escalonamento-horizontal)
-  - [10.3. Políticas de escalonamento](#103-políticas-de-escalonamento)
-- [11. Load Balancer](#11-load-balancer)
-  - [11.1. Application Load Balancer (ALB)](#111-application-load-balancer-alb)
-  - [11.2. Network Load Balancer (NLB)](#112-network-load-balancer-nlb)
-- [12. Billing e Pricing](#12-billing-e-pricing)
-  - [12.1. Modelos de precificação](#121-modelos-de-precificação)
-    - [12.1.1. Pay-as-You-Go (Pague Conforme o Uso)](#1211-pay-as-you-go-pague-conforme-o-uso)
-    - [12.1.2. Save When You Commit (Economize Quando se Compromete)](#1212-save-when-you-commit-economize-quando-se-compromete)
-    - [12.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)](#1213-pay-less-by-using-more-pague-menos-ao-usar-mais)
-  - [12.2. Gerenciamento de custos](#122-gerenciamento-de-custos)
-    - [12.2.1. Budgets](#1221-budgets)
-    - [12.2.2. Cost Explorer](#1222-cost-explorer)
-- [13. Planos de suporte ao cliente](#13-planos-de-suporte-ao-cliente)
-  - [13.1. Basic plan (Plano básico)](#131-basic-plan-plano-básico)
-  - [13.2. Developer plan (Plano para desenvolvedores)](#132-developer-plan-plano-para-desenvolvedores)
-  - [13.3. Business plan (Plano para negócios)](#133-business-plan-plano-para-negócios)
-  - [13.4. Enterprise plan (Plano empresarial)](#134-enterprise-plan-plano-empresarial)
-- [14. Organizations](#14-organizations)
-- [15. Cost Calculator](#15-cost-calculator)
-- [16. Segurança](#16-segurança)
-  - [16.1. Shared Responsibility Model](#161-shared-responsibility-model)
-  - [16.2. AWS WAF (Web Application Firewall)](#162-aws-waf-web-application-firewall)
-  - [16.3. AWS Shield](#163-aws-shield)
-  - [16.4. AWS Inspector](#164-aws-inspector)
-  - [16.5. AWS Trusted Advisor](#165-aws-trusted-advisor)
-  - [16.6. AWS CloudTrail](#166-aws-cloudtrail)
-  - [16.7. Amazon Athena](#167-amazon-athena)
-  - [16.8. Amazon Macie](#168-amazon-macie)
+  - [3.5. Cognito](#35-cognito)
+- [4. WorkSpaces](#4-workspaces)
+- [5. Elastic Compute Cloud (EC2)](#5-elastic-compute-cloud-ec2)
+  - [5.1. Benefícios](#51-benefícios)
+  - [5.2. User data](#52-user-data)
+- [6. Batch](#6-batch)
+- [7. Lightsail](#7-lightsail)
+- [8. Elastic Container Service (ECS)](#8-elastic-container-service-ecs)
+  - [8.1. Fargate](#81-fargate)
+- [9. Neptune](#9-neptune)
+- [10. Armazenamento](#10-armazenamento)
+  - [10.1. Categorias](#101-categorias)
+    - [10.1.1. Armazenamento em bloco (Block storage)](#1011-armazenamento-em-bloco-block-storage)
+    - [10.1.2. Armazenamento de arquivos (File storage)](#1012-armazenamento-de-arquivos-file-storage)
+    - [10.1.3. Armazenamento de objetos (Object storage)](#1013-armazenamento-de-objetos-object-storage)
+  - [10.2. Elastic Block Store (EBS):](#102-elastic-block-store-ebs)
+    - [10.2.1. Tecnologias](#1021-tecnologias)
+    - [10.2.2. Snapshots e backups](#1022-snapshots-e-backups)
+  - [10.3. Simple Storage Service (S3)](#103-simple-storage-service-s3)
+    - [10.3.1. Classes de armazenamento](#1031-classes-de-armazenamento)
+    - [10.3.2. Versionamento](#1032-versionamento)
+    - [10.3.3. Ciclo de vida](#1033-ciclo-de-vida)
+    - [10.3.4. Replicação de objetos](#1034-replicação-de-objetos)
+  - [10.4. Storage Gateway:](#104-storage-gateway)
+- [11. Route 53](#11-route-53)
+- [12. Auto scaling](#12-auto-scaling)
+  - [12.1. Scaling Up (Escalonamento vertical)](#121-scaling-up-escalonamento-vertical)
+  - [12.2. Scaling Out (Escalonamento horizontal)](#122-scaling-out-escalonamento-horizontal)
+  - [12.3. Políticas de escalonamento](#123-políticas-de-escalonamento)
+- [13. Load Balancer](#13-load-balancer)
+  - [13.1. Application Load Balancer (ALB)](#131-application-load-balancer-alb)
+  - [13.2. Network Load Balancer (NLB)](#132-network-load-balancer-nlb)
+- [14. Fluxos de Trabalho](#14-fluxos-de-trabalho)
+  - [14.1. AWS Step Functions](#141-aws-step-functions)
+  - [14.2. AWS Glue](#142-aws-glue)
+- [15. Billing e Pricing](#15-billing-e-pricing)
+  - [15.1. Modelos de precificação](#151-modelos-de-precificação)
+    - [15.1.1. Pay-as-You-Go (Pague Conforme o Uso)](#1511-pay-as-you-go-pague-conforme-o-uso)
+    - [15.1.2. Save When You Commit (Economize Quando se Compromete)](#1512-save-when-you-commit-economize-quando-se-compromete)
+    - [15.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)](#1513-pay-less-by-using-more-pague-menos-ao-usar-mais)
+  - [15.2. Gerenciamento de custos](#152-gerenciamento-de-custos)
+    - [15.2.1. Budgets](#1521-budgets)
+    - [15.2.2. Cost Explorer](#1522-cost-explorer)
+- [16. Planos de suporte ao cliente](#16-planos-de-suporte-ao-cliente)
+  - [16.1. Basic plan (Plano básico)](#161-basic-plan-plano-básico)
+  - [16.2. Developer plan (Plano para desenvolvedores)](#162-developer-plan-plano-para-desenvolvedores)
+  - [16.3. Business plan (Plano para negócios)](#163-business-plan-plano-para-negócios)
+  - [16.4. Enterprise plan (Plano empresarial)](#164-enterprise-plan-plano-empresarial)
+- [17. Organizations](#17-organizations)
+- [18. Cost Calculator](#18-cost-calculator)
+- [19. Segurança e monitoramento](#19-segurança-e-monitoramento)
+  - [19.1. Shared Responsibility Model](#191-shared-responsibility-model)
+  - [19.2. AWS WAF (Web Application Firewall)](#192-aws-waf-web-application-firewall)
+  - [19.3. AWS Shield](#193-aws-shield)
+  - [19.4. AWS Inspector](#194-aws-inspector)
+  - [19.5. AWS Trusted Advisor](#195-aws-trusted-advisor)
+  - [19.6. AWS CloudTrail](#196-aws-cloudtrail)
+  - [19.7. Amazon Athena](#197-amazon-athena)
+  - [19.8. Amazon Macie](#198-amazon-macie)
+  - [19.9. CloudWatch](#199-cloudwatch)
+- [20. EventBridge](#20-eventbridge)
 
 <!-- /TOC -->
 
@@ -192,7 +201,15 @@ As funções são entidades do IAM que têm permissões associadas a elas e pode
 
 Políticas são `documentos que definem as permissões e ações` que os usuários, grupos e funções do IAM podem realizar em recursos específicos da AWS. Elas são escritas em **JSON (JavaScript Object Notation)** e detalham quais ações são permitidas ou negadas. As políticas **podem ser anexadas a usuários, grupos e funções** para controlar o acesso de maneira precisa.
 
-## 4. Elastic Compute Cloud (EC2)
+### 3.5. Cognito
+
+Amazon Cognito é um serviço de autenticação e gerenciamento de identidade que `facilita a criação de sistemas de autenticação seguros para aplicativos e recursos` na nuvem. Ele oferece recursos de autenticação, autorização e gerenciamento de usuários.
+
+## 4. WorkSpaces
+
+Serviço de `desktop virtual` que oferece `ambientes de trabalho na nuvem para usuários finais`. Ele permite que as organizações forneçam desktops acessíveis de qualquer lugar, proporcionando flexibilidade e mobilidade para os usuários.
+
+## 5. Elastic Compute Cloud (EC2)
 
 O Amazon EC2 é um serviço de computação em nuvem que permite aos usuários provisionar e gerenciar `máquinas virtuais escaláveis` em uma variedade de configurações. Essas máquinas virtuais, conhecidas como **instâncias EC2**, oferecem flexibilidade para escolher tipos de instâncias com diferentes recursos de CPU, memória, armazenamento e capacidades de rede.
 
@@ -200,7 +217,7 @@ Os usuários **podem selecionar imagens pré-configuradas** (conhecidas como `AM
 
 O `escalonamento vertical` (aumentar ou diminuir os recursos de uma única instância) e o `escalonamento horizontal` (adicionar ou remover instâncias) permitem adaptar facilmente a capacidade de computação às necessidades em constante mudança. O EC2 é um dos serviços fundamentais da AWS, que forma a base para muitas aplicações e arquiteturas na nuvem.
 
-### 4.1. Benefícios
+### 5.1. Benefícios
 
 - `Controle total`: O Amazon EC2 oferece controle completo sobre as instâncias virtuais. Os usuários podem escolher tipos de instâncias, sistemas operacionais, configurações de segurança e personalizar as instâncias de acordo com suas necessidades.
 
@@ -212,23 +229,23 @@ O `escalonamento vertical` (aumentar ou diminuir os recursos de uma única inst�
 
 - `Facilidade de uso`: Com uma ampla gama de opções pré-configuradas, como as Amazon Machine Images (AMIs), e ferramentas de gerenciamento como o AWS Management Console, o EC2 simplifica o processo de implantação e administração de máquinas virtuais.
 
-### 4.2. User data
+### 5.2. User data
 
 User Data é um recurso do Amazon EC2 que permite aos usuários `especificar scripts ou comandos que serão executados automaticamente quando uma instância EC2 for inicializada`. Esses scripts podem ser usados para **realizar configurações, instalar software, aplicar atualizações ou executar outras tarefas** personalizadas durante o processo de inicialização da instância.
 
-## 5. Batch
+## 6. Batch
 
 O AWS Batch é um serviço projetado para `executar facilmente cargas de trabalho de processamento em lote em escala`. Ele permite que você execute trabalhos em lote, como processamento de dados, análise, renderização de imagens ou qualquer tarefa que possa ser dividida em unidades independentes de trabalho.
 
 Ele gerencia automaticamente a **escalabilidade, provisionamento de recursos e a execução dos trabalhos em contêineres Docker**. Isso permite otimizar a utilização de recursos, pois o AWS Batch ajusta automaticamente a capacidade de acordo com as demandas dos trabalhos.
 
-## 6. Lightsail
+## 7. Lightsail
 
 O Amazon Lightsail é um serviço da AWS projetado para `simplificar a criação e a implantação de aplicações web e websites`. Ele oferece uma abordagem mais fácil e acessível em comparação com outros serviços da AWS, como o Amazon EC2.
 
 Com o Lightsail, os usuários podem escolher `modelos pré-configurados` que incluem instâncias de servidor, armazenamento, rede e recursos de gerenciamento. Isso elimina a necessidade de configurar detalhes técnicos complexos, tornando o processo de lançamento de projetos online mais rápido.
 
-## 7. Elastic Container Service (ECS)
+## 8. Elastic Container Service (ECS)
 
 O Amazon ECS é um serviço de `orquestração de contêineres` altamente escalável e gerenciado pela AWS. Ele permite que você execute e gerencie facilmente aplicativos em contêineres usando tecnologias como Docker.
 
@@ -236,35 +253,43 @@ As `tarefas do ECS representam unidades de trabalho individuais` que podem ser e
 
 O ECS também oferece o **Amazon Elastic Container Registry (ECR)**, um serviço de registro de contêineres privado e altamente seguro. Ele permite que você armazene, gerencie e implante imagens de contêineres do Docker. O ECR integra-se perfeitamente com o ECS e outras ferramentas da AWS, facilitando o armazenamento e a distribuição de suas imagens de contêineres.
 
-## 8. Armazenamento
+### 8.1. Fargate
 
-### 8.1. Categorias
+Serviço de `computação serverless que permite executar contêineres sem a necessidade de gerenciar a infraestrutura subjacente`. Com o Fargate, você pode implantar, gerenciar e escalar aplicativos em contêineres de maneira simplificada, focando apenas nas configurações do contêiner e não se preocupando com a infraestrutura subjacente.
 
-#### 8.1.1. Armazenamento em bloco (Block storage)
+## 9. Neptune
+
+O Amazon Neptune é um serviço de `banco de dados de grafo`. Permite criar e gerenciar bancos de dados de grafo altamente escaláveis, otimizados para armazenar e consultar dados de relacionamento complexos, como redes sociais, recomendações e sistemas de gerenciamento de conhecimento.
+
+## 10. Armazenamento
+
+### 10.1. Categorias
+
+#### 10.1.1. Armazenamento em bloco (Block storage)
 
 Fornece volumes de armazenamento virtuais que `atuam como discos rígidos` conectados às instâncias de computação. Os exemplos incluem o Amazon Elastic Block Store (EBS), que oferece volumes persistentes que podem ser anexados e desanexados das instâncias EC2. É ideal para aplicativos que precisam de acesso de baixa latência a dados, como bancos de dados e sistemas de arquivos.
 
-#### 8.1.2. Armazenamento de arquivos (File storage)
+#### 10.1.2. Armazenamento de arquivos (File storage)
 
 Fornece `sistemas de arquivos compartilhados` que podem ser acessados por várias instâncias de computação. O Amazon Elastic File System (EFS) é um exemplo, oferecendo armazenamento compartilhado altamente disponível e escalável para as instâncias EC2. É útil para aplicativos que requerem compartilhamento de arquivos entre instâncias.
 
-#### 8.1.3. Armazenamento de objetos (Object storage)
+#### 10.1.3. Armazenamento de objetos (Object storage)
 
 É otimizado para `armazenar e recuperar grandes quantidades de dados não estruturados`, como imagens, vídeos e backups. O Amazon Simple Storage Service (S3) é um serviço de armazenamento de objetos altamente durável e escalável. Ele oferece recursos para gerenciar, proteger e recuperar objetos em uma variedade de classes de armazenamento, dependendo dos requisitos de acesso e durabilidade.
 
-### 8.2. Elastic Block Store (EBS):
+### 10.2. Elastic Block Store (EBS):
 
 Serviço de armazenamento em bloco projetado para fornecer `volumes de armazenamento persistentes e de alto desempenho para as instâncias EC2`. Os volumes EBS atuam como discos virtuais que podem ser anexados a instâncias EC2, oferecendo armazenamento durável e de baixa latência.
 
-#### 8.2.1. Tecnologias
+#### 10.2.1. Tecnologias
 
 O EBS oferece uma variedade de tecnologias de volumes, cada um otimizado para diferentes casos de uso, incluindo armazenamento padrão, `armazenamento com alto desempenho (SSD)`, `armazenamento com baixo custo (HDD)` e `volumes otimizados para I/O`.
 
-#### 8.2.2. Snapshots e backups
+#### 10.2.2. Snapshots e backups
 
 O EBS permite criar snapshots (`instantâneos`) dos volumes, que são `cópias de backup incremental dos dados`. Esses snapshots podem ser usados para **restaurar volumes, criar novos volumes a partir deles ou até mesmo compartilhar com outras regiões da AWS**.
 
-### 8.3. Simple Storage Service (S3)
+### 10.3. Simple Storage Service (S3)
 
 O Amazon S3 é um `serviço de armazenamento de objetos altamente escalável e durável`. Ele pode lidar com qualquer quantidade de dados e é projetado para escalabilidade massiva e alta disponibilidade.
 
@@ -272,7 +297,7 @@ Oferece durabilidade elevada dos dados, replicando automaticamente os objetos em
 
 Os `objetos armazenados no S3 podem ser acessados a partir de qualquer lugar através de uma URL única`, tornando-o um serviço globalmente disponível. Eles são armazenados em `buckets` (baldes, em português). O bucket é o principal contêiner de armazenamento no S3. Os nomes dos buckets são exclusivos em toda a AWS.
 
-#### 8.3.1. Classes de armazenamento
+#### 10.3.1. Classes de armazenamento
 
 O Amazon S3 oferece diferentes classes de armazenamento, cada uma `otimizada para atender a diferentes requisitos de desempenho`, acesso e custo. Aqui estão algumas das principais classes de armazenamento oferecidas pelo S3:
 
@@ -286,41 +311,41 @@ O Amazon S3 oferece diferentes classes de armazenamento, cada uma `otimizada par
 
 - `One Zone-IA`: Essa classe oferece armazenamento de acesso eventual em uma única zona de disponibilidade, tornando-a mais econômica do que as classes de armazenamento replicadas em várias zonas.
 
-#### 8.3.2. Versionamento
+#### 10.3.2. Versionamento
 
 O versionamento permite o `controle e o armazenamento de múltiplas versões de objetos` em um bucket (repositório de objetos). Quando o versionamento é ativado para um bucket, o S3 mantém o histórico de todas as alterações feitas nos objetos, incluindo adições, modificações e exclusões.
 
-#### 8.3.3. Ciclo de vida
+#### 10.3.3. Ciclo de vida
 
 O Amazon S3 oferece um recurso de gerenciamento de ciclo de vida que permite `automatizar o movimento de objetos entre classes de armazenamento diferentes à medida que envelhecem ou atendem a critérios específicos`. Isso ajuda a otimizar custos e manter o armazenamento eficiente ao longo do tempo.
 
-#### 8.3.4. Replicação de objetos
+#### 10.3.4. Replicação de objetos
 
 A replicação de objetos no Amazon S3 é um recurso que permite `criar cópias dos objetos armazenados em um bucket do S3 e replicá-los em outro bucket`, seja na mesma região da AWS ou em uma região diferente. Esse recurso é útil para cenários em que você deseja ter cópias de backup ou manter cópias dos dados em diferentes regiões para fins de recuperação de desastres.
 
-### 8.4. Storage Gateway:
+### 10.4. Storage Gateway:
 
 O AWS Storage Gateway é um serviço que facilita a `integração de ambientes de armazenamento on-premises (locais) com a infraestrutura de nuvem da AWS`. Ele fornece uma ponte entre o armazenamento local e o armazenamento baseado em nuvem, permitindo que você aproveite os benefícios da nuvem sem necessariamente mover todos os seus dados.
 
-## 9. Route 53
+## 11. Route 53
 
 É o serviço de **Sistema de Nomes de Domínio (DNS)** altamente escalável e confiável oferecido pela AWS. Ele permite que você `registre domínios, roteie o tráfego da Internet para recursos da AWS e de outros provedores`, além de oferecer recursos avançados de gerenciamento de DNS.
 
 O Route 53 suporta várias estratégias de roteamento de tráfego, como `balanceamento de carga, failover e roteamento geográfico`, permitindo direcionar o tráfego para recursos específicos com base em regras e localização geográfica dos usuários.
 
-## 10. Auto scaling
+## 12. Auto scaling
 
 Estratégia de escalonamento automático, que inclui o `Scaling Up` e o `Scaling Out`. Ela permite ajustar automaticamente a capacidade de recursos em resposta à demanda do aplicativo.
 
-### 10.1. Scaling Up (Escalonamento vertical)
+### 12.1. Scaling Up (Escalonamento vertical)
 
 Nessa abordagem, você aumenta a capacidade de recursos, como CPU, RAM ou armazenamento, `em uma única instância`. Por exemplo, **você pode migrar para uma instância EC2 com mais recursos**, como CPU mais rápida ou mais memória RAM. Essa estratégia é mais rápida de implementar, mas pode atingir um limite de capacidade e pode ser mais custosa.
 
-### 10.2. Scaling Out (Escalonamento horizontal)
+### 12.2. Scaling Out (Escalonamento horizontal)
 
 Aqui, você aumenta a capacidade `adicionando mais instâncias idênticas` ao ambiente. Em vez de aumentar os recursos de uma única instância, você cria `várias instâncias que compartilham a carga`. Essa abordagem é mais flexível e escalável, permitindo lidar com grandes volumes de tráfego. É frequentemente usado com balanceadores de carga para distribuir o tráfego entre as instâncias.
 
-### 10.3. Políticas de escalonamento
+### 12.3. Políticas de escalonamento
 
 A AWS oferece dois tipos de políticas de escalonamento automáticas para o serviço Auto Scaling:
 
@@ -328,7 +353,7 @@ A AWS oferece dois tipos de políticas de escalonamento automáticas para o serv
 
 `Step Scaling`: Define ações específicas a serem tomadas em diferentes intervalos de métricas. Com base nas métricas, você pode configurar incrementos ou decrementos específicos no número de instâncias. Isso permite definir ajustes mais granulares em resposta a diferentes níveis de carga.
 
-## 11. Load Balancer
+## 13. Load Balancer
 
 Um Load Balancer (balanceador de carga) é um serviço que `distribui automaticamente o tráfego de entrada entre várias instâncias` de recursos, como instâncias EC2, para melhorar a disponibilidade, escalabilidade e confiabilidade dos aplicativos.
 
@@ -338,73 +363,83 @@ Com o Auto Scaling, os Load Balancers podem ser combinados para escalar horizont
 
 Atualmente a AWS oferece dois tipos principais de Load Balancers:
 
-### 11.1. Application Load Balancer (ALB)
+### 13.1. Application Load Balancer (ALB)
 
 O ALB é `otimizado para aplicativos da web e opera na camada 7` (HTTP/HTTPS). Ele suporta roteamento baseado em conteúdo, permitindo `direcionar o tráfego para diferentes instâncias com base em informações de URL, cabeçalhos HTTP e outros atributos de aplicativos`. É adequado para cenários em que é necessário roteamento flexível e recursos específicos para aplicativos da web.
 
-### 11.2. Network Load Balancer (NLB)
+### 13.2. Network Load Balancer (NLB)
 
 O NLB opera na camada 4 (TCP/UDP) e é projetado para oferecer alto desempenho e baixa latência. Ele é ideal para cargas de trabalho que requerem distribuição de tráfego de rede de maneira eficiente, como aplicativos de streaming ou jogos online. Ele pode `enviar o tráfego para diferentes instâncias com base nas informações do tráfego, como o endereço de IP de origem ou a porta que está sendo usada`.
 
-## 12. Billing e Pricing
+## 14. Fluxos de Trabalho
 
-### 12.1. Modelos de precificação
+### 14.1. AWS Step Functions
 
-#### 12.1.1. Pay-as-You-Go (Pague Conforme o Uso)
+O AWS Step Functions é um serviço específico da AWS que permite `criar, gerenciar e coordenar fluxos de trabalho de aplicativos` baseados em nuvem. Ele ajuda a orquestrar a execução de várias etapas ou passos, que podem envolver serviços diferentes da AWS, funções Lambda, estados, decisões e muito mais. Isso permite criar fluxos de trabalho complexos, automatizar processos e integrar serviços de maneira eficiente.
+
+### 14.2. AWS Glue
+
+O AWS Glue é um serviço de ETL (Extração, Transformação e Carregamento) que também pode ser usado para criar `fluxos de trabalho de dados`. Ele permite automatizar a extração, transformação e carregamento de dados entre diferentes fontes e destinos. Embora o Glue não seja exatamente um serviço de fluxo de trabalho geral, ele pode ser usado para criar pipelines de dados e automatizar processos relacionados a dados.
+
+## 15. Billing e Pricing
+
+### 15.1. Modelos de precificação
+
+#### 15.1.1. Pay-as-You-Go (Pague Conforme o Uso)
 
 Nesse modelo, você `paga apenas pelos recursos que utiliza, com base no consumo real`. É ideal para cargas de trabalho com variação de tráfego, pois permite dimensionar os recursos conforme a demanda, sem compromissos de longo prazo.
 
-#### 12.1.2. Save When You Commit (Economize Quando se Compromete)
+#### 15.1.2. Save When You Commit (Economize Quando se Compromete)
 
 Com esse modelo, você pode obter descontos significativos ao `comprometer-se a usar recursos específicos por um período mais longo`. Exemplos incluem as instâncias reservadas (Reserved Instances) e os Savings Plans. Quanto mais você se compromete, maior é o desconto.
 
-#### 12.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)
+#### 15.1.3. Pay Less by Using More (Pague Menos ao Usar Mais)
 
 `À medida que seu uso aumenta, você pode se qualificar para níveis de desconto mais altos` em serviços como o Amazon S3 e o Amazon EC2. Isso incentiva a otimização de custos à medida que você consome mais recursos.
 
-### 12.2. Gerenciamento de custos
+### 15.2. Gerenciamento de custos
 
-#### 12.2.1. Budgets
+#### 15.2.1. Budgets
 
 O AWS Budgets permite `definir limites de gastos mensais` para diferentes serviços e recursos da AWS. Ele `envia alertas` por e-mail ou mensagens de texto `quando você se aproxima ou excede esses limites`. Isso ajuda a controlar os custos e a tomar medidas preventivas para evitar surpresas financeiras.
 
-#### 12.2.2. Cost Explorer
+#### 15.2.2. Cost Explorer
 
 O AWS Cost Explorer é uma `ferramenta de análise de custos que fornece uma visão detalhada dos custos e uso` dos serviços da AWS. Ele permite **visualizar, analisar e entender como os recursos estão sendo utilizados** ao longo do tempo. Você pode explorar os dados de custos por serviços, regiões e períodos, identificando tendências e oportunidades para otimização.
 
-## 13. Planos de suporte ao cliente
+## 16. Planos de suporte ao cliente
 
 A AWS oferece vários planos de suporte ao cliente, cada um com diferentes níveis de suporte e recursos para atender às necessidades variadas dos clientes:
 
-### 13.1. Basic plan (Plano básico)
+### 16.1. Basic plan (Plano básico)
 
 O plano Basic é gratuito e inclui acesso ao AWS Trusted Advisor, `documentação online, fóruns de suporte comunitário` e suporte por e-mail para questões de cobrança e problemas de conta. Preços a partir de 29 USD/mês.
 
-### 13.2. Developer plan (Plano para desenvolvedores)
+### 16.2. Developer plan (Plano para desenvolvedores)
 
 Oferece `suporte técnico básico`, acesso a AWS Trusted Advisor e suporte por e-mail. É adequado para desenvolvedores e equipes que precisam de ajuda para resolver problemas técnicos. Resposta em até 12 horas. Preços a partir de 100 USD/mês.
 
-### 13.3. Business plan (Plano para negócios)
+### 16.3. Business plan (Plano para negócios)
 
 Além do `suporte 24/7` e acesso ao Trusted Advisor, o plano Business inclui `suporte por telefone, com tempos de resposta mais rápidos, e ajuda em casos de uso de produção`. É indicado para empresas em produção que precisam de suporte mais abrangente. Respostas em até 1 hora. Preços a partir de 5.500 USD/mês.
 
-### 13.4. Enterprise plan (Plano empresarial)
+### 16.4. Enterprise plan (Plano empresarial)
 
 O plano Enterprise oferece `suporte 24/7 por telefone e acesso a arquitetos de soluções, além de assistência proativa, revisões de infraestrutura e suporte para casos de uso empresariais críticos`. Disponibiliza um gerente para a conta. Respostas em até 15 minutos. Preços a partir de 15.000 USD/mês.
 
-## 14. Organizations
+## 17. Organizations
 
 O AWS Organizations oferece uma `estrutura hierárquica para organizar contas da AWS`, permitindo a criação de uma `conta raiz e contas filhas associadas`. Essa abordagem simplifica a administração de várias contas, garantindo uma **gestão centralizada de recursos e acesso**. Além disso, o serviço possibilita o estabelecimento de políticas de controle de acesso e gerenciamento de recursos que se aplicam de maneira consistente a todas as contas dentro da organização. Isso fortalece a segurança e conformidade, bem como **ajuda a manter práticas uniformes** em ambientes distribuídos. A consolidação de pagamentos é uma vantagem adicional, permitindo que todas as cobranças de contas filhas sejam agrupadas e faturadas por uma única conta de faturamento central.
 
-## 15. Cost Calculator
+## 18. Cost Calculator
 
 Ferramenta que permite estimar os custos de uso dos serviços da AWS com base em suas necessidades específicas. É uma maneira útil de obter uma estimativa aproximada dos gastos antes de implantar recursos na nuvem. Isso permite que você experimente cenários diferentes e tome decisões informadas sobre o tamanho e a configuração ideais dos recursos para atender às necessidades de desempenho e orçamento.
 
-## 16. Segurança
+## 19. Segurança e monitoramento
 
 A AWS leva a `segurança e a conformidade` a sério, fornecendo ferramentas e recursos para ajudar os clientes a cumprir os requisitos regulatórios e as melhores práticas de segurança. O **AWS Artifact** é um serviço que simplifica o processo de obtenção de informações e documentação sobre a conformidade.
 
-### 16.1. Shared Responsibility Model
+### 19.1. Shared Responsibility Model
 
 O Shared Responsibility Model (**Modelo de Responsabilidade Compartilhada**) é um conceito fundamental na AWS que define as áreas de responsabilidade da AWS e dos clientes em relação à segurança e à conformidade dos recursos na nuvem.
 
@@ -414,30 +449,38 @@ O Shared Responsibility Model (**Modelo de Responsabilidade Compartilhada**) é 
 
 - `Responsabilidade do Cliente`: Os clientes da AWS têm responsabilidade pela segurança dos dados e aplicativos que eles hospedam na nuvem. Isso envolve a configuração correta dos recursos, gerenciamento de acesso, criptografia de dados, definição de políticas de segurança e conformidade com regulamentações.
 
-### 16.2. AWS WAF (Web Application Firewall)
+### 19.2. AWS WAF (Web Application Firewall)
 
 O AWS WAF é um `firewall` de aplicativos da web que ajuda a proteger aplicativos da web contra ataques comuns, como injeção SQL, cross-site scripting (XSS) e outros. Ele permite definir regras personalizadas para inspecionar e filtrar o tráfego da web, bloqueando solicitações maliciosas antes que elas atinjam o aplicativo.
 
-### 16.3. AWS Shield
+### 19.3. AWS Shield
 
 O AWS Shield é um serviço de proteção contra `DDoS` (Distributed Denial of Service) que ajuda a proteger recursos da AWS contra ataques de negação de serviço distribuído. Ele oferece duas camadas de proteção: o AWS Shield Standard, que é incluído gratuitamente com vários serviços da AWS, e o AWS Shield Advanced, que oferece proteção mais avançada, incluindo mitigação de ataques DDoS mais complexos.
 
-### 16.4. AWS Inspector
+### 19.4. AWS Inspector
 
 O AWS Inspector é um `serviço de avaliação de segurança automatizado` que ajuda a identificar vulnerabilidades e falhas de segurança nos aplicativos hospedados na AWS. Ele realiza análises de segurança automatizadas e fornece recomendações para ajudar a remediar as vulnerabilidades encontradas.
 
-### 16.5. AWS Trusted Advisor
+### 19.5. AWS Trusted Advisor
 
 O Trusted Advisor é uma ferramenta que `analisa a sua infraestrutura na nuvem` em busca de `otimizações de custos, desempenho, segurança e disponibilidade`. Ele oferece insights e recomendações personalizadas para melhorar a eficiência operacional e reduzir gastos desnecessários.
 
-### 16.6. AWS CloudTrail
+### 19.6. AWS CloudTrail
 
 O CloudTrail é um `serviço de auditoria que registra todas as ações realizadas nas contas` da AWS, fornecendo um registro detalhado das atividades dos usuários e dos recursos. Ele ajuda a monitorar mudanças na infraestrutura, detectar atividades suspeitas e auxiliar em investigações de segurança.
 
-### 16.7. Amazon Athena
+### 19.7. Amazon Athena
 
 O Amazon Athena é um serviço de análise interativa que permite `consultar e analisar dados armazenados no Amazon S3 usando SQL padrão`. Ele elimina a necessidade de configurar e gerenciar infraestrutura de banco de dados, permitindo a análise rápida e flexível de grandes volumes de dados.
 
-### 16.8. Amazon Macie
+### 19.8. Amazon Macie
 
 O Amazon Macie é um serviço de segurança que usa `aprendizado de máquina para descobrir, classificar e proteger automaticamente informações confidenciais` em ambientes da AWS. Ele ajuda a identificar dados confidenciais, como informações de cartão de crédito ou números de segurança social, e oferece alertas e relatórios para proteger contra violações de segurança.
+
+### 19.9. CloudWatch
+
+O Amazon CloudWatch é um `serviço de monitoramento e observabilidade` que coleta e rastreia métricas, logs e eventos de recursos na nuvem. Ele permite visualizar, analisar e tomar ações em tempo real para garantir o desempenho, a disponibilidade e o monitoramento de recursos na nuvem.
+
+## 20. EventBridge
+
+O Amazon EventBridge é um `serviço de integração de eventos` que facilita a construção de arquiteturas orientadas a eventos, permitindo a comunicação e ação entre diferentes serviços e aplicativos.
