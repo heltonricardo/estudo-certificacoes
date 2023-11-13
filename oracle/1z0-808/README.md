@@ -11,6 +11,8 @@
   - [1.4. Método main](#14-método-main)
   - [1.5. Compilação e execução](#15-compilação-e-execução)
   - [1.6. Pacotes](#16-pacotes)
+  - [1.7. Criação de objetos](#17-criação-de-objetos)
+  - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-instância)
 
 <!-- /TOC -->
 
@@ -120,3 +122,76 @@ Também é possível usar wildcards (\*) para importar todas as classes de um pa
 > Para resolver ambiguidades ao usar wildcards pode-se **importar classes específicas**, **utilizar o nome completo da classe** ou **renomear classes localmente** usando `import ... as`.
 
 O pacote `java.lang` é automaticamente importado, não sendo necessária sua importação manual.
+
+### 1.7. Criação de objetos
+
+Em Java, a criação de objetos envolve o uso da palavra-chave "new" seguida pelo construtor da classe. Os passos básicos para criar um objeto são:
+
+```java
+// Declaração da Variável de Referência:
+TipoObjeto nomeObjeto;
+
+// Alocação de Memória e Inicialização:
+nomeObjeto = new TipoObjeto();
+```
+
+O construtor é um método especial na classe responsável por configurar o estado inicial do objeto e é chamado sempre que um objeto é criado.
+
+Depois de criado, você pode acessar os membros (atributos e métodos) do objeto usando a notação de ponto.
+
+### 1.8. Blocos inicializadores de instância
+
+É um bloco de código que é executado quando uma instância da classe é criada. Ele é usado para realizar a inicialização de instâncias ou execução de código `antes da execução dos construtores`. Existem dois tipos de blocos inicializadores de instância em Java: o bloco de inicialização de instância e o bloco de inicialização de instância estático:
+
+```java
+public class Exemplo {
+
+    // Bloco de inicialização estático
+    static {
+        System.out.println("Bloco de inicialização estático executado");
+    }
+
+    // Bloco de inicialização de instância
+    {
+        System.out.println("Bloco de inicialização de instância executado");
+    }
+
+    int valor; // A variável de instância
+
+    // Construtor
+    public Exemplo() {
+        valor = 10;
+        System.out.println("Construtor executado");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Início do programa");
+        Exemplo exemplo1 = new Exemplo();
+        Exemplo exemplo2 = new Exemplo();
+        System.out.println("Fim do programa");
+    }
+}
+
+/* Resultado:
+   Bloco de inicialização estático executado
+   Início do programa
+   Bloco de inicialização de instância executado
+   Construtor executado
+   Bloco de inicialização de instância executado
+   Construtor executado
+   Fim do programa
+*/
+```
+
+O bloco de inicialização estático, ele é declarado com a palavra-chave `static` e é executado uma única vez quando a classe é carregada, antes da criação de qualquer instância.
+
+O bloco de inicialização de instância é executado cada vez que uma nova instância da classe é criada, antes do construtor.
+
+> Atributos e blocos inicializadores de instância são executados na ordem em que aparecem no arquivo, só depois o construtor é executado. Portanto, o código abaixo gera erro:
+>
+> ```java
+> {
+>   System.out.println(valor);
+> }
+> int valor = 10;
+> ```
