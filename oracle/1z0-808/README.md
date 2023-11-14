@@ -14,6 +14,7 @@
   - [1.7. Criação de objetos](#17-criação-de-objetos)
   - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-instância)
   - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-referências)
+  - [1.10. Declaração e inicialização de variáveis](#110-declaração-e-inicialização-de-variáveis)
 
 <!-- /TOC -->
 
@@ -213,8 +214,32 @@ Para que um valor inteiro seja interpretado como `long`, é necessário acrescen
 
 Também podemos usar `_` para facilitar a leitura de números grandes **no código**: \
 ![](assets/2023-11-13-20-51-05.png) \
-Não usar no começo, no fim dos valores, e antes ou depois de `.`.
+Não usar no começo, no fim dos valores, e antes ou depois do `.`.
 
 As referências são variáveis que referenciam um objeto. Não guardam valor, mas sim o `endereço` do espaço de memória no qual o valor está.
 
 Somente o tipo referência pode receber `null` e pode possuir métodos e atributos.
+
+### 1.10. Declaração e inicialização de variáveis
+
+**Declarando múltiplas variáveis**
+![](assets/2023-11-13-21-25-58.png)
+
+`Regras para identificadores`:
+
+- Deve começar com **letra**, `$` ou `_`
+- Pode conter **letras**, **números**, `$` ou `_`
+- Não pode ser uma palavra reservada (Java é case-sensitive)
+
+As variáveis locais (localizadas nos métodos) `não são inicializadas`. Gerarão erro caso tente usar antes de atribuir um valor a elas.
+
+As variáveis de instância (atributos) ou classe (estáticas) têm valores padrão quando criadas: \
+![](assets/2023-11-13-21-41-05.png)
+
+As `variáveis de classe` são declaradas usando a palavra-chave `static`. Essas variáveis pertencem à classe, em vez de a uma instância específica da classe. Portanto, elas **são compartilhadas por todas as instâncias da classe**.
+
+Quanto ao escopo das variáveis:
+
+- `Variáveis Locais`: escopo desde a declaração até o fim do bloco
+- `Variáveis de Instância`: da declaração até o objeto ser coletado
+- `Variáveis de Classe`: da declaração até o fim do programa
