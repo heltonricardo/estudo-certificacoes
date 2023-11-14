@@ -4,7 +4,7 @@
 
 <!-- TOC tocDepth:2..3 chapterDepth:2..6 -->
 
-- [1. Blocos de construção do Java](#1-blocos-de-construção-do-java)
+- [1. Blocos de construção](#1-blocos-de-construção)
   - [1.1. Comentários](#11-comentários)
   - [1.2. Estrutura de uma classe](#12-estrutura-de-uma-classe)
   - [1.3. Arquivos e classes](#13-arquivos-e-classes)
@@ -17,10 +17,11 @@
   - [1.10. Declaração e inicialização de variáveis](#110-declaração-e-inicialização-de-variáveis)
   - [1.11. Ordem dos elementos na classe](#111-ordem-dos-elementos-na-classe)
   - [1.12. Destruindo objetos](#112-destruindo-objetos)
+- [2. Operadores e instruções](#2-operadores-e-instruções)
 
 <!-- /TOC -->
 
-## 1. Blocos de construção do Java
+## 1. Blocos de construção
 
 ### 1.1. Comentários
 
@@ -255,3 +256,22 @@ Quanto ao escopo das variáveis:
 O `Garbage Collector` em Java é um mecanismo automático de gerenciamento de memória que remove objetos não referenciados, **liberando espaço na memória**. Ele opera de forma automática, identificando objetos que não têm mais referências no escopo de execução do programa. Embora seja possível chamar `System.gc()` para sugerir a execução do Garbage Collector, a efetiva coleta de objetos não é garantida nesse momento.
 
 O método `finalize()` é chamado pelo Garbage Collector antes de liberar a memória ocupada por um objeto que está prestes a ser coletado. No entanto, sua execução não é garantida pois depende se um objeto é ou não coletado - nem todo objeto é necessariamente coletado.
+
+## 2. Operadores e instruções
+
+### Tipos de operadores
+
+- `Operadores Unários`: Atuam em um único operando. Exemplo: `-x`, `x++`
+
+- `Operadores Binários`: Atuam em dois operandos.
+  Exemplo: `a + b`
+
+- `Operadores Ternários`: Atuam em três operandos.
+  Exemplo: `x > 0 ? "Positivo" : "Negativo"`
+
+### Precedência
+
+![](assets/2023-11-13-22-46-39.png) \
+De cima para baixo: da maior para a menor precedência.
+
+
