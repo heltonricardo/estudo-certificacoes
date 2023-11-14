@@ -13,6 +13,7 @@
   - [1.6. Pacotes](#16-pacotes)
   - [1.7. Criação de objetos](#17-criação-de-objetos)
   - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-instância)
+  - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-referências)
 
 <!-- /TOC -->
 
@@ -195,3 +196,25 @@ O bloco de inicialização de instância é executado cada vez que uma nova inst
 > }
 > int valor = 10;
 > ```
+
+### 1.9. Tipos primitivos x referências
+
+O Java possui 8 tipos primitivos:
+
+![](assets/2023-11-13-20-38-19.png) \
+Para que um valor inteiro seja interpretado como `long`, é necessário acrescentar o `L` no final, caso contrário, será interpretado como `int`. O mesmo acontece para diferenciar `float` e `double`, mas agora usando a letra `f`.
+
+**Bases numéricas**
+![](assets/2023-11-13-20-54-35.png)
+
+- Começa com `0b`: binário
+- Começa com `0`: octal
+- Começa com `0x`: hexadecimal
+
+Também podemos usar `_` para facilitar a leitura de números grandes **no código**: \
+![](assets/2023-11-13-20-51-05.png) \
+Não usar no começo, no fim dos valores, e antes ou depois de `.`.
+
+As referências são variáveis que referenciam um objeto. Não guardam valor, mas sim o `endereço` do espaço de memória no qual o valor está.
+
+Somente o tipo referência pode receber `null` e pode possuir métodos e atributos.
