@@ -16,6 +16,7 @@
   - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-referências)
   - [1.10. Declaração e inicialização de variáveis](#110-declaração-e-inicialização-de-variáveis)
   - [1.11. Ordem dos elementos na classe](#111-ordem-dos-elementos-na-classe)
+  - [1.12. Destruindo objetos](#112-destruindo-objetos)
 
 <!-- /TOC -->
 
@@ -248,3 +249,9 @@ Quanto ao escopo das variáveis:
 ### 1.11. Ordem dos elementos na classe
 
 ![](assets/2023-11-13-22-03-21.png)
+
+### 1.12. Destruindo objetos
+
+O `Garbage Collector` em Java é um mecanismo automático de gerenciamento de memória que remove objetos não referenciados, **liberando espaço na memória**. Ele opera de forma automática, identificando objetos que não têm mais referências no escopo de execução do programa. Embora seja possível chamar `System.gc()` para sugerir a execução do Garbage Collector, a efetiva coleta de objetos não é garantida nesse momento.
+
+O método `finalize()` é chamado pelo Garbage Collector antes de liberar a memória ocupada por um objeto que está prestes a ser coletado. No entanto, sua execução não é garantida pois depende se um objeto é ou não coletado - nem todo objeto é necessariamente coletado.
