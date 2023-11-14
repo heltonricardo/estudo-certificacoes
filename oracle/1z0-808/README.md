@@ -15,6 +15,7 @@
   - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-instância)
   - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-referências)
   - [1.10. Declaração e inicialização de variáveis](#110-declaração-e-inicialização-de-variáveis)
+  - [1.11. Ordem dos elementos na classe](#111-ordem-dos-elementos-na-classe)
 
 <!-- /TOC -->
 
@@ -53,7 +54,7 @@ public class Animal {
 
 Quando uma classe é declarada como pública em Java, `o nome do arquivo que a contém deve ser obrigatoriamente o mesmo nome da classe pública`.
 
-Se a classe não é declarada como pública, ou seja, pertence ao "pacote" (**package**) padrão, então o nome do arquivo não precisa ser o mesmo que o nome da classe. No entanto, é uma boa prática manter a correspondência entre o nome da classe e o nome do arquivo mesmo para classes não públicas, para tornar o código mais organizado e legível.
+Se a classe não é declarada como pública, ou seja, seu modificador de acesso é **package** (padrão), então o nome do arquivo não precisa ser o mesmo que o nome da classe. No entanto, é uma boa prática manter a correspondência entre o nome da classe e o nome do arquivo mesmo para classes não públicas, para tornar o código mais organizado e legível.
 
 ### 1.4. Método main
 
@@ -243,3 +244,7 @@ Quanto ao escopo das variáveis:
 - `Variáveis Locais`: escopo desde a declaração até o fim do bloco
 - `Variáveis de Instância`: da declaração até o objeto ser coletado
 - `Variáveis de Classe`: da declaração até o fim do programa
+
+### 1.11. Ordem dos elementos na classe
+
+![](assets/2023-11-13-22-03-21.png)
