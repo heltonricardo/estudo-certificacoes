@@ -30,6 +30,7 @@
   - [2.10. Operador instanceof](#210-operador-instanceof)
   - [2.11. Promoção numérica](#211-promoção-numérica)
   - [2.12. Comandos de decisão](#212-comandos-de-decisão)
+  - [2.13. Switch](#213-switch)
 
 <!-- /TOC -->
 
@@ -377,4 +378,27 @@ Já o operador ternário é uma forma concisa de expressar uma estrutura condici
 ```java
 int numero = 7;
 String resultado = (numero % 2 == 0) ? "Par" : "Ímpar";
+```
+
+### 2.13. Switch
+
+É uma estrutura de controle usada para `direcionar a execução do código com base no valor de uma expressão`. Cada caso no bloco switch representa um valor possível da expressão, e o código correspondente é executado quando um caso coincide:
+
+```java
+int numeroDia = 5;
+String diaSemana;
+
+switch (numeroDia) {
+    case 1:
+        diaSemana = "Domingo";
+        break;
+    case 2:
+        diaSemana = "Segunda-feira";
+        break;
+    case 3:
+        diaSemana = "Terça-feira";
+        break;
+    default:
+        diaSemana = "Outro dia";
+}
 ```
