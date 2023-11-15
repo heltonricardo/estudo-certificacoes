@@ -43,6 +43,9 @@
   - [3.1. String](#31-string)
     - [3.1.1. Concatenação](#311-concatenação)
     - [3.1.2. Métodos importantes](#312-métodos-importantes)
+  - [3.2. StringBuilder](#32-stringbuilder)
+    - [3.2.1. Métodos importantes](#321-métodos-importantes)
+    - [3.2.2. StringBuilder x StringBuffer](#322-stringbuilder-x-stringbuffer)
 
 <!-- /TOC -->
 
@@ -513,7 +516,7 @@ for (int i = 0; i < 3; i++) {
 
 ### 3.1. String
 
-Sequência de caracteres que pode ser criada de duas formas:
+Sequência **imutável** de caracteres que pode ser criada de duas formas:
 
 ```java
 String nome1 = "Nome";
@@ -529,9 +532,20 @@ int numero1 = 5;
 int numero2 = 10;
 String resultado = numero1 + numero2 + " é o resultado.";
 
-System.out.println(resultado);
-// "15 é o resultado"
+System.out.println(resultado); // "15 é o resultado"
 ```
+
+Note que, mesmo sendo imutável, é possível concatenar uma string com outros caracteres:
+
+```java
+String nome = "Meu";
+
+nome += " Nome";
+
+System.out.println(nome); // "Meu nome"
+```
+
+Porém, internamente ainda existe um lugar na memória apenas com o conteúdo `"Meu"`. O conteúdo impresso na tela é resultado da criação de outra string com valor concatenado, e a variável `nome` apenas mudou o endereço referenciado. Assim, podemos observar a imutabilidade.
 
 #### 3.1.2. Métodos importantes
 
@@ -548,3 +562,34 @@ System.out.println(resultado);
 - `contains`: Verifica se a string contém uma determinada sequência de caracteres;
 - `replace`: Substitui caracteres ou sequências de caracteres por outros;
 - `trim`: Remove espaços em branco do início e do final da string.
+
+### 3.2. StringBuilder
+
+Diferente de `String`, a **StringBuilder** é mutável. Logo, é ideal para casos em que é necessário fazer concatenações e mudanças em uma string, pois essas mudanças não ocasionam a criação de valores intermediários em memória.
+
+```java
+StringBuilder sb = new StringBuilder("Olá, ");
+sb.append("mundo!");
+System.out.println(sb);  // Saída: Olá, mundo!
+```
+
+#### 3.2.1. Métodos importantes
+
+Para StringBuilder **podemos usar os [métodos da classe String](#312-métodos-importantes)**, e outros métodos específicos:
+
+- `append`: Adiciona dados ao final do StringBuilder.
+- `insert`: Insere dados em uma posição específica.
+- `delete`: Remove uma sequência de caracteres.
+- `deleteCharAt`: Remove o caractere na posição especificada.
+- `reverse`: Inverte a sequência de caracteres.
+- `toString`: Converte o StringBuilder para uma string.
+
+#### 3.2.2. StringBuilder x StringBuffer
+
+A classe `StringBuffer` possui os mesmos métodos de `StringBuilder`. A principal diferença entre elas é a sincronização.
+
+`StringBuffer` é sincronizado e, portanto, seguro para operações concorrentes, mas pode ser menos eficiente em cenários onde a concorrência não é um problema.
+
+`StringBuilder` não é sincronizado, tornando-o mais eficiente em operações não concorrentes.
+
+Por exemplo, em um aplicativo onde várias **threads** estão manipulando e modificando uma string compartilhada, é crucial **garantir que as operações sejam sincronizadas para evitar problemas de concorrência e inconsistências nos resultados**. Nesses casos, usar `StringBuffer` (que é **thread-safe** devido à sincronização) é mais apropriado para garantir a consistência dos dados compartilhados entre as **threads**.
