@@ -2,7 +2,7 @@
 
 <img src="assets/badge.png" alt="1Z0-808 - Oracle Certified Associate, Java SE 8 Programmer" width="200"/>
 
-<!-- TOC tocDepth:2..3 chapterDepth:2..6 -->
+<!-- TOC tocDepth:2..4 chapterDepth:2..4 -->
 
 - [1. Blocos de construção](#1-blocos-de-construção)
   - [1.1. Comentários](#11-comentários)
@@ -29,8 +29,15 @@
   - [2.9. Operadores Condicionais (ternários)](#29-operadores-condicionais-ternários)
   - [2.10. Operador instanceof](#210-operador-instanceof)
   - [2.11. Promoção numérica](#211-promoção-numérica)
-  - [2.12. Comandos de decisão](#212-comandos-de-decisão)
-  - [2.13. Switch](#213-switch)
+  - [2.12. Estruturas de decisão](#212-estruturas-de-decisão)
+    - [2.12.1. If-else](#2121-if-else)
+    - [2.12.2. Ternário](#2122-ternário)
+    - [2.12.3. Switch](#2123-switch)
+  - [2.13. Estruturas de repetição](#213-estruturas-de-repetição)
+    - [2.13.1. While](#2131-while)
+    - [2.13.2. Do-while](#2132-do-while)
+    - [2.13.3. For](#2133-for)
+    - [2.13.4. Foreach](#2134-foreach)
 
 <!-- /TOC -->
 
@@ -359,7 +366,9 @@ Quando operações são realizadas entre tipos numéricos menores e um tipo num�
 > x *= y; // Funciona pois esse tipo de operação tem cast automático
 > ```
 
-### 2.12. Comandos de decisão
+### 2.12. Estruturas de decisão
+
+#### 2.12.1. If-else
 
 O bloco `if-else` é uma estrutura de controle de fluxo que permite a execução condicional de código. Se a condição especificada no `if` é verdadeira, o bloco de código dentro do `if` é executado; caso contrário, o bloco dentro do `else` é executado. Por exemplo, considerando a variável idade:
 
@@ -373,6 +382,8 @@ if (idade >= 18) {
 }
 ```
 
+#### 2.12.2. Ternário
+
 Já o operador ternário é uma forma concisa de expressar uma estrutura condicional em uma única linha. Ele avalia uma condição e retorna um valor com base nessa condição. Por exemplo, ao verificar se um número é par ou ímpar:
 
 ```java
@@ -380,7 +391,7 @@ int numero = 7;
 String resultado = (numero % 2 == 0) ? "Par" : "Ímpar";
 ```
 
-### 2.13. Switch
+#### 2.12.3. Switch
 
 É uma estrutura de controle usada para `direcionar a execução do código com base no valor de uma expressão`. Cada caso no bloco switch representa um valor possível da expressão, e o código correspondente é executado quando um caso coincide:
 
@@ -400,5 +411,65 @@ switch (numeroDia) {
         break;
     default:
         diaSemana = "Outro dia";
+}
+```
+
+### 2.13. Estruturas de repetição
+
+#### 2.13.1. While
+
+O loop while é uma estrutura de controle de fluxo que `executa repetidamente um bloco de código enquanto uma condição é verdadeira`. Por exemplo, para imprimir os números de 1 a 5:
+
+```java
+int contador = 1;
+
+while (contador <= 5) {
+    System.out.println(contador);
+    contador++;
+}
+```
+
+#### 2.13.2. Do-while
+
+O loop do-while é uma estrutura semelhante ao while, mas `garante que o bloco de código seja executado pelo menos uma vez`, pois a condição é verificada após a execução do bloco. Por exemplo, para imprimir os números de 1 a 5:
+
+```java
+int contador = 1;
+
+do {
+    System.out.println(contador);
+    contador++;
+} while (contador <= 5);
+```
+
+#### 2.13.3. For
+
+O loop for é uma estrutura de controle de fluxo que simplifica a iteração sobre uma sequência de elementos. É composto por uma `inicialização, condição de continuação e expressão de iteração`. Por exemplo, para imprimir os números de 1 a 5:
+
+```java
+for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}
+```
+
+> `for ( ; ; ) {}` gera um loop infinito, pois os componentes do `for` são opcionais.
+
+> É possível ter mais de uma inicialização e iteração. Basta separar por vírgula:
+>
+> ```java
+> for (int i = 0, j = 10; i < 5 && j > 5; i++, j--) {
+>     System.out.println("i: " + i + ", j: " + j);
+> }
+> ```
+
+#### 2.13.4. Foreach
+
+O loop foreach (também conhecido como **enhanced for loop**) é usado para iterar sobre elementos em uma coleção ou array. Ele simplifica o processo de iteração, `eliminando a necessidade de controlar índices manualmente`. Por exemplo, para percorrer os elementos de um array:
+
+```java
+int[] numeros = {1, 2, 3, 4, 5};
+
+for (int numero : numeros) {
+    System.out.println(numero);
 }
 ```
