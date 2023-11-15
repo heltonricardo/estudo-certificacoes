@@ -47,6 +47,11 @@
     - [3.2.1. Métodos importantes](#321-métodos-importantes)
     - [3.2.2. StringBuilder x StringBuffer](#322-stringbuilder-x-stringbuffer)
   - [3.3. Comparação de objetos](#33-comparação-de-objetos)
+  - [3.4. Array](#34-array)
+    - [3.4.1. Ordenação](#341-ordenação)
+    - [3.4.2. Busca](#342-busca)
+    - [3.4.3. Varargs](#343-varargs)
+    - [3.4.4. Multidimensionais](#344-multidimensionais)
 
 <!-- /TOC -->
 
@@ -623,3 +628,95 @@ public class ComparacaoDeObjetos {
     }
 }
 ```
+
+### 3.4. Array
+
+Arrays em são estruturas de `tamanho fixo`, armazenando elementos de um `único tipo`.
+
+Arrays de primitivos são inicializados com valores padrão (`0` para números, `false` para booleanos).
+
+A forma de declarar arrays permite criar e inicializar com valores imediatamente. Quando mais de uma variável é criada na mesma linha, os colchetes podem ser colocados tanto com o tipo quanto com o nome da variável. Exemplos:
+
+```java
+// Declarando e inicializando um array de inteiros
+int[] numeros = {1, 2, 3, 4, 5};
+
+// Criando dois arrays de inteiros na mesma linha
+int[] array1, array2;
+
+// Criando um inteiro e um array de inteiro
+int array3, array4[];
+```
+
+#### 3.4.1. Ordenação
+
+A ordenação de arrays em Java é simplificada pela classe Arrays do pacote `java.util`.
+
+```java
+import java.util.Arrays;
+
+int[] numeros = {5, 2, 8, 1, 3};
+Arrays.sort(numeros);
+System.out.println(Arrays.toString(numeros));
+```
+
+> É importante observar que, quando se trabalha com números representados como strings, a ordenação é `lexicográfica` e não leva em consideração os valores numéricos. Por exemplo, para strings `"2", "5" e "10", `, a ordenação lexicográfica resultará em `"10", "2" e "5"`, não refletindo a ordem numérica.
+
+#### 3.4.2. Busca
+
+A busca binária em um array, realizada pelo método binarySearch da classe Arrays, retorna o índice do elemento encontrado ou um índice negativo caso o elemento não seja encontrado.
+
+Esse método assume que o array está ordenado. Se o array não estiver ordenado, o resultado pode ser imprevisível.
+
+```java
+int[] numeros = {8, 2, 5, 1, 6};
+
+Arrays.sort(numeros); // {1, 2, 5, 6, 8}
+
+int indice = Arrays.binarySearch(numeros, 4); // -3
+```
+
+O valor retornado, `-3`, representa:
+
+- Por ser negativo, o elemento não foi encontrado;
+- `-(-3) - 1` = `3 - 1` = `2`, indica onde o elemento deve ser inserido para manter a ordem.
+
+#### 3.4.3. Varargs
+
+A passagem de arrays via `varargs` (**argumentos de comprimento variável**) permite que você passe um número variável de elementos como argumentos para um método.
+
+Para usar `varargs` com arrays, basta adicionar reticências após o tipo do array no parâmetro do método. O parâmetro `varargs` deve ser o último na lista de parâmetros do método.
+
+```java
+static void imprimirNumeros(int... nums) {
+    for (int num : nums) {
+        System.out.print(num + " ");
+    }
+}
+
+public static void main(String[] args) {
+    int[] numeros = {1, 2, 3, 4, 5};
+    imprimirNumeros(numeros);
+}
+```
+
+#### 3.4.4. Multidimensionais
+
+São matrizes que contêm outras matrizes. A declaração de arrays multidimensionais pode ser feita de diferentes formas, como:
+
+- `int[][] matriz = new int[x][];`
+- `int matriz[][] = new int[y][];`
+- `int[] matriz[] = new int[z][];`
+
+Apesar de os tamanhos das últimas dimensões ser opcional, o tamanho da primeira dimensão sempre deve ser definido na declaração de arrays multidimensionais.
+
+```java
+int[][] matrizVariavel = new int[2][];
+
+matrizVariavel[0] = new int[5];
+matrizVariavel[1] = new int[8];
+```
+
+> Para interpretar, podemos dizer que foi criada uma matriz de duas linhas e colunas variáveis.
+>
+> A primeira linha possui 5 colunas e a segunda linha possui 8 colunas.
