@@ -39,6 +39,10 @@
     - [2.13.3. For](#2133-for)
     - [2.13.4. Foreach](#2134-foreach)
     - [2.13.5. Break, continue e label](#2135-break-continue-e-label)
+- [3. Core API](#3-core-api)
+  - [3.1. String](#31-string)
+    - [3.1.1. Concatenação](#311-concatenação)
+    - [3.1.2. Métodos importantes](#312-métodos-importantes)
 
 <!-- /TOC -->
 
@@ -504,3 +508,43 @@ for (int i = 0; i < 3; i++) {
 ```
 
 > O `break` também pode ser usado com labels para especificar de qual loop ou switch deve sair.
+
+## 3. Core API
+
+### 3.1. String
+
+Sequência de caracteres que pode ser criada de duas formas:
+
+```java
+String nome1 = "Nome";
+String nome2 = new String("Nome");
+```
+
+#### 3.1.1. Concatenação
+
+A concatenação de strings com o operador `+` segue a regra da **esquerda para a direita**. Por exemplo, ao concatenar inteiros e strings:
+
+```java
+int numero1 = 5;
+int numero2 = 10;
+String resultado = numero1 + numero2 + " é o resultado.";
+
+System.out.println(resultado);
+// "15 é o resultado"
+```
+
+#### 3.1.2. Métodos importantes
+
+- `length`: Retorna o número de caracteres na string;
+- `charAt`: Retorna o caractere na posição especificada;
+- `indexOf`: Retorna a posição do primeiro caractere especificado;
+- `substring`: Retorna uma substring com base nos índices fornecidos;
+- `toLowerCase`: Converte a string para minúsculas;
+- `toUpperCase`: Converte a string para maiúsculas;
+- `equals`: Verifica se duas strings são iguais;
+- `equalsIgnoreCase`: Verifica se duas strings são iguais, ignorando maiúsculas e minúsculas;
+- `startsWith`: Verifica se a string começa com um determinado prefixo;
+- `endsWith`: Verifica se a string termina com um determinado sufixo;
+- `contains`: Verifica se a string contém uma determinada sequência de caracteres;
+- `replace`: Substitui caracteres ou sequências de caracteres por outros;
+- `trim`: Remove espaços em branco do início e do final da string.
