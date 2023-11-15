@@ -18,6 +18,17 @@
   - [1.11. Ordem dos elementos na classe](#111-ordem-dos-elementos-na-classe)
   - [1.12. Destruindo objetos](#112-destruindo-objetos)
 - [2. Operadores e instruções](#2-operadores-e-instruções)
+  - [2.1. Tipos de operadores](#21-tipos-de-operadores)
+  - [2.2. Precedência](#22-precedência)
+  - [2.3. Operadores Aritméticos](#23-operadores-aritméticos)
+  - [2.4. Operadores Relacionais](#24-operadores-relacionais)
+  - [2.5. Operadores Lógicos](#25-operadores-lógicos)
+  - [2.6. Operadores de Atribuição](#26-operadores-de-atribuição)
+  - [2.7. Operadores de Incremento/Decremento](#27-operadores-de-incrementodecremento)
+  - [2.8. Operadores Bitwise](#28-operadores-bitwise)
+  - [2.9. Operadores Condicionais (ternários)](#29-operadores-condicionais-ternários)
+  - [2.10. Operador instanceof](#210-operador-instanceof)
+  - [2.11. Promoção numérica](#211-promoção-numérica)
 
 <!-- /TOC -->
 
@@ -120,7 +131,7 @@ Um pacote (`package`) é um mecanismo de organização de classes e interfaces e
 
 Se uma classe não tem uma declaração de pacote no início do arquivo, ela pertence ao pacote padrão. Classes no pacote padrão podem ser usadas diretamente sem importações, desde que estejam no mesmo pacote que as classes que as estão referenciando.
 
-Também é possível usar wildcards (\*) para importar todas as classes de um pacote: `import outropacote.*;`. Pode-se usar wildcard somente no nome do pacote mais externo e não em subpacotes ou classes individuais dentro desse pacote. Além disso, é permitido apenas um wildcard por declaração de importação.
+Também é possível usar wildcards () para importar todas as classes de um pacote: `import outropacote._;`. Pode-se usar wildcard somente no nome do pacote mais externo e não em subpacotes ou classes individuais dentro desse pacote. Além disso, é permitido apenas um wildcard por declaração de importação.
 
 > Usar wildcard pode resultar em ambiguidade no código. Isso ocorre quando dois ou mais pacotes contêm classes ou interfaces com nomes idênticos ou conflitantes. Nesse cenário, o compilador pode não saber qual classe específica deve ser usada em um contexto particular, resultando em um erro de ambiguidade.
 >
@@ -259,7 +270,7 @@ O método `finalize()` é chamado pelo Garbage Collector antes de liberar a mem�
 
 ## 2. Operadores e instruções
 
-### Tipos de operadores
+### 2.1. Tipos de operadores
 
 - `Operadores Unários`: Atuam em um único operando. Exemplo: `-x`, `x++`
 
@@ -269,9 +280,79 @@ O método `finalize()` é chamado pelo Garbage Collector antes de liberar a mem�
 - `Operadores Ternários`: Atuam em três operandos.
   Exemplo: `x > 0 ? "Positivo" : "Negativo"`
 
-### Precedência
+### 2.2. Precedência
 
 ![](assets/2023-11-13-22-46-39.png) \
 De cima para baixo: da maior para a menor precedência.
 
+### 2.3. Operadores Aritméticos
 
+- Adição: `+`
+- Subtração: `-`
+- Multiplicação: `*`
+- Divisão: `/`
+- Módulo: `%`
+
+### 2.4. Operadores Relacionais
+
+- Igual a: `==`
+- Diferente de: `!=`
+- Maior que: `>`
+- Menor que: `<`
+- Maior ou igual a: `>=`
+- Menor ou igual a: `<=`
+
+### 2.5. Operadores Lógicos
+
+- E lógico: `&&`
+- OU lógico: `||`
+- NÃO lógico: `!`
+
+### 2.6. Operadores de Atribuição
+
+- Atribuição: `=`
+- Adição e atribuição: `+=`
+- Subtração e atribuição: `-=`
+- Multiplicação e atribuição: `*=`
+- Divisão e atribuição: `/=`
+- Módulo e atribuição: `%=`
+
+### 2.7. Operadores de Incremento/Decremento
+
+- Incremento: `++`
+- Decremento: `--`
+
+### 2.8. Operadores Bitwise
+
+- E bitwise: `&`
+- OU bitwise: `|`
+- OU exclusivo bitwise: `^`
+- Complemento bitwise: `~`
+- Deslocamento à esquerda: `<<`
+- Deslocamento à direita com sinal: `>>`
+- Deslocamento à direita sem sinal: `>>>`
+
+> Quando usamos os operadores bitwise entre **expressões**, ambas são sempre avaliadas, independentemente do valor da primeira expressão.
+
+### 2.9. Operadores Condicionais (ternários)
+
+- Operador ternário: `? `
+
+### 2.10. Operador instanceof
+
+- instanceof: `instanceof`
+
+### 2.11. Promoção numérica
+
+Quando operações são realizadas entre tipos numéricos menores e um tipo numérico maior, `o tipo menor é promovido ao tipo maior automaticamente` antes da operação ser realizada. Isso garante a precisão dos cálculos e evita a perda de dados.
+
+> Ao tentarmos atribuir tipos maiores para menores implicitamente, geramos um erro:
+>
+> ```java
+> int x;
+> long y;
+>
+> x = x * y; // Erro pois o resultado é long
+>
+> x *= y; // Funciona pois esse tipo de operação tem cast automático
+> ```
