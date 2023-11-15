@@ -29,6 +29,7 @@
   - [2.9. Operadores Condicionais (ternários)](#29-operadores-condicionais-ternários)
   - [2.10. Operador instanceof](#210-operador-instanceof)
   - [2.11. Promoção numérica](#211-promoção-numérica)
+  - [2.12. Comandos de decisão](#212-comandos-de-decisão)
 
 <!-- /TOC -->
 
@@ -356,3 +357,24 @@ Quando operações são realizadas entre tipos numéricos menores e um tipo num�
 >
 > x *= y; // Funciona pois esse tipo de operação tem cast automático
 > ```
+
+### 2.12. Comandos de decisão
+
+O bloco `if-else` é uma estrutura de controle de fluxo que permite a execução condicional de código. Se a condição especificada no `if` é verdadeira, o bloco de código dentro do `if` é executado; caso contrário, o bloco dentro do `else` é executado. Por exemplo, considerando a variável idade:
+
+```java
+int idade = 20;
+
+if (idade >= 18) {
+    System.out.println("Maior de idade");
+} else {
+    System.out.println("Menor de idade");
+}
+```
+
+Já o operador ternário é uma forma concisa de expressar uma estrutura condicional em uma única linha. Ele avalia uma condição e retorna um valor com base nessa condição. Por exemplo, ao verificar se um número é par ou ímpar:
+
+```java
+int numero = 7;
+String resultado = (numero % 2 == 0) ? "Par" : "Ímpar";
+```
