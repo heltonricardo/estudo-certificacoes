@@ -46,6 +46,7 @@
   - [3.2. StringBuilder](#32-stringbuilder)
     - [3.2.1. Métodos importantes](#321-métodos-importantes)
     - [3.2.2. StringBuilder x StringBuffer](#322-stringbuilder-x-stringbuffer)
+  - [3.3. Comparação de objetos](#33-comparação-de-objetos)
 
 <!-- /TOC -->
 
@@ -593,3 +594,32 @@ A classe `StringBuffer` possui os mesmos métodos de `StringBuilder`. A principa
 `StringBuilder` não é sincronizado, tornando-o mais eficiente em operações não concorrentes.
 
 Por exemplo, em um aplicativo onde várias **threads** estão manipulando e modificando uma string compartilhada, é crucial **garantir que as operações sejam sincronizadas para evitar problemas de concorrência e inconsistências nos resultados**. Nesses casos, usar `StringBuffer` (que é **thread-safe** devido à sincronização) é mais apropriado para garantir a consistência dos dados compartilhados entre as **threads**.
+
+### 3.3. Comparação de objetos
+
+O operador `==` em Java compara referências de objetos, não os valores.
+
+No entanto, para objetos String criados sem o uso do operador new, o Java usa um **pool de strings** interno, o que significa que strings idênticas compartilham a mesma referência na memória, tornando a comparação com `==` válida para verificar igualdade de valor.
+
+No entanto, para garantir a comparação de conteúdo, é preferível usar o método `equals()`, que compara os valores das strings, não apenas as referências.
+
+```java
+public class ComparacaoDeObjetos {
+
+    public static void main(String[] args) {
+        // Criando strings usando o pool de strings
+        String str1 = "Hello";
+        String str2 = "Hello";
+        // Criando string no HEAP
+        String str3 = new String("Hello");
+
+        // Usando == para comparar referências
+        System.out.println(str1 == str2);  // true (mesma referência no pool)
+        System.out.println(str1 == str3);  // false (referências diferentes)
+
+        // Usando equals para comparar valores
+        System.out.println(str1.equals(str2));  // true (mesmo valor)
+        System.out.println(str1.equals(str3));  // true (mesmo valor, embora referências sejam diferentes)
+    }
+}
+```
