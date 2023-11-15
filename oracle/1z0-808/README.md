@@ -20,13 +20,13 @@
 - [2. Operadores e instruções](#2-operadores-e-instruções)
   - [2.1. Tipos de operadores](#21-tipos-de-operadores)
   - [2.2. Precedência](#22-precedência)
-  - [2.3. Operadores Aritméticos](#23-operadores-aritméticos)
-  - [2.4. Operadores Relacionais](#24-operadores-relacionais)
-  - [2.5. Operadores Lógicos](#25-operadores-lógicos)
-  - [2.6. Operadores de Atribuição](#26-operadores-de-atribuição)
-  - [2.7. Operadores de Incremento/Decremento](#27-operadores-de-incrementodecremento)
-  - [2.8. Operadores Bitwise](#28-operadores-bitwise)
-  - [2.9. Operadores Condicionais (ternários)](#29-operadores-condicionais-ternários)
+  - [2.3. Operadores aritméticos](#23-operadores-aritméticos)
+  - [2.4. Operadores relacionais](#24-operadores-relacionais)
+  - [2.5. Operadores lógicos](#25-operadores-lógicos)
+  - [2.6. Operadores de atribuição](#26-operadores-de-atribuição)
+  - [2.7. Operadores de incremento e decremento](#27-operadores-de-incremento-e-decremento)
+  - [2.8. Operadores bitwise](#28-operadores-bitwise)
+  - [2.9. Operadores condicionais (ternários)](#29-operadores-condicionais-ternários)
   - [2.10. Operador instanceof](#210-operador-instanceof)
   - [2.11. Promoção numérica](#211-promoção-numérica)
   - [2.12. Estruturas de decisão](#212-estruturas-de-decisão)
@@ -302,7 +302,7 @@ O método `finalize()` é chamado pelo Garbage Collector antes de liberar a mem�
 ![](assets/2023-11-13-22-46-39.png) \
 De cima para baixo: da maior para a menor precedência.
 
-### 2.3. Operadores Aritméticos
+### 2.3. Operadores aritméticos
 
 - Adição: `+`
 - Subtração: `-`
@@ -310,7 +310,7 @@ De cima para baixo: da maior para a menor precedência.
 - Divisão: `/`
 - Módulo: `%`
 
-### 2.4. Operadores Relacionais
+### 2.4. Operadores relacionais
 
 - Igual a: `==`
 - Diferente de: `!=`
@@ -319,13 +319,13 @@ De cima para baixo: da maior para a menor precedência.
 - Maior ou igual a: `>=`
 - Menor ou igual a: `<=`
 
-### 2.5. Operadores Lógicos
+### 2.5. Operadores lógicos
 
 - E lógico: `&&`
 - OU lógico: `||`
 - NÃO lógico: `!`
 
-### 2.6. Operadores de Atribuição
+### 2.6. Operadores de atribuição
 
 - Atribuição: `=`
 - Adição e atribuição: `+=`
@@ -334,12 +334,12 @@ De cima para baixo: da maior para a menor precedência.
 - Divisão e atribuição: `/=`
 - Módulo e atribuição: `%=`
 
-### 2.7. Operadores de Incremento/Decremento
+### 2.7. Operadores de incremento e decremento
 
 - Incremento: `++`
 - Decremento: `--`
 
-### 2.8. Operadores Bitwise
+### 2.8. Operadores bitwise
 
 - E bitwise: `&`
 - OU bitwise: `|`
@@ -351,7 +351,7 @@ De cima para baixo: da maior para a menor precedência.
 
 > Quando usamos os operadores bitwise entre **expressões**, ambas são sempre avaliadas, independentemente do valor da primeira expressão.
 
-### 2.9. Operadores Condicionais (ternários)
+### 2.9. Operadores condicionais (ternários)
 
 - Operador ternário: `? `
 
