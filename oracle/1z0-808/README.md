@@ -38,6 +38,7 @@
     - [2.13.2. Do-while](#2132-do-while)
     - [2.13.3. For](#2133-for)
     - [2.13.4. Foreach](#2134-foreach)
+    - [2.13.5. Break, continue e label](#2135-break-continue-e-label)
 
 <!-- /TOC -->
 
@@ -473,3 +474,33 @@ for (int numero : numeros) {
     System.out.println(numero);
 }
 ```
+
+#### 2.13.5. Break, continue e label
+
+A palavra-chave `break` é usada para **interromper a execução** de **loops ou switch statements**. Por exemplo, para sair de um loop for quando i atinge 3:
+
+```java
+for (int i = 0; i < 5; i++) {
+    if (i == 3) {
+        break; // Sai do loop quando i é 3
+    }
+    System.out.println(i);
+}
+```
+
+A palavra-chave `continue` é usada para **pular a iteração** atual de um loop e continuar com a próxima. Com labels, pode ser direcionado para qual loop deve pular. Exemplo, pulando a iteração quando i é 3:
+
+```java
+outerLoop:
+for (int i = 0; i < 3; i++) {
+    innerLoop:
+    for (int j = 0; j < 3; j++) {
+        if (i == 1 && j == 1) {
+            continue outerLoop; // Pula a iteração quando i é 1 e j é 1
+        }
+        System.out.println(i + " " + j);
+    }
+}
+```
+
+> O `break` também pode ser usado com labels para especificar de qual loop ou switch deve sair.
