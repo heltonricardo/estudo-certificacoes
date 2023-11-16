@@ -64,6 +64,8 @@
   - [4.1. Design de método](#41-design-de-método)
   - [4.2. Modificadores de acesso](#42-modificadores-de-acesso)
   - [4.3. Membros estáticos e instâncias](#43-membros-estáticos-e-instâncias)
+  - [4.4. Constantes](#44-constantes)
+  - [4.5. Importação estática](#45-importação-estática)
 
 <!-- /TOC -->
 
@@ -243,8 +245,8 @@ O bloco de inicialização de instância é executado cada vez que uma nova inst
 > ```java
 > {
 >   System.out.println(valor);
+>   int valor = 10;
 > }
-> int valor = 10;
 > ```
 
 ### 1.9. Tipos primitivos x referências
@@ -1038,6 +1040,57 @@ public class ExemploStatic {
 
         // Chamando método de instância usando a instância
         obj.metodoDeInstancia();
+    }
+}
+```
+
+### 4.4. Constantes
+
+As constantes são definidas usando a palavra-chave `final`, indicando que seu valor não pode ser alterado após a atribuição inicial. No entanto, quando aplicada a uma lista, por exemplo, a imutabilidade se refere à incapacidade de atribuir uma nova referência à lista, mas os elementos individuais ainda podem ser modificados.
+
+Além disso, uma constante pode ser declarada como `static final` e inicializada dentro de um bloco de inicialização `static`, garantindo que seja atribuída apenas uma vez, durante a inicialização da classe.
+
+```java
+public class ExemploConstantes {
+    // Constante usando final
+    public final int CONSTANTE_SIMPLES = 10;
+
+    // Lista constante (não totalmente imutável)
+    public final List<String> LISTA_CONSTANTE = new ArrayList<>(Arrays.asList("A", "B", "C"));
+
+    // Constante estática usando final e inicializada em bloco estático
+    public static final int CONSTANTE_ESTATICA;
+
+    static {
+        CONSTANTE_ESTATICA = 20;
+    }
+
+    public static void main(String[] args) {
+        ExemploConstantes exemplo = new ExemploConstantes();
+
+        // Tentativa de atribuir novo valor a uma constante resultaria em erro de compilação
+        // exemplo.CONSTANTE_SIMPLES = 5;
+
+        // Embora a lista seja constante, elementos individuais podem ser modificados
+        exemplo.LISTA_CONSTANTE.set(0, "X");
+
+        // Tentativa de atribuir novo valor à constante estática resultaria em erro de compilação
+        // exemplo.CONSTANTE_ESTATICA = 30;
+    }
+}
+```
+
+### 4.5. Importação estática
+
+Permite que `membros estáticos` de uma classe sejam referenciados diretamente sem usar o nome da classe. Um exemplo comum é o método `asList` da classe `Arrays`, que pode ser importado estaticamente para simplificar o código. No entanto, é importante observar que os membros importados estaticamente devem ser estáticos e não podem ter o mesmo nome para evitar conflitos.
+
+```java
+import static java.util.Arrays.asList; // Importação estática
+
+public class ExemploImportacaoEstatica {
+    public static void main(String[] args) {
+        // Uso do método asList após importação estática
+        List<String> lista = asList("A", "B", "C");
     }
 }
 ```
