@@ -70,6 +70,7 @@
   - [4.7. Sobrecarga](#47-sobrecarga)
   - [4.8. Construtores](#48-construtores)
   - [4.9. Ordem de inicialização](#49-ordem-de-inicialização)
+  - [4.10. Encapsulamento](#410-encapsulamento)
 
 <!-- /TOC -->
 
@@ -1238,4 +1239,38 @@ Método main
 Bloco de Inicialização
 Inicializando Atributo de Instância
 Construtor
+```
+
+### 4.10. Encapsulamento
+
+`Prática de ocultar os detalhes internos de uma classe e permitir o acesso controlado aos seus membros`. Métodos **acessores (getters)** e **modificadores (setters)** são frequentemente utilizados para obter e definir os valores dos campos privados de uma classe, promovendo assim a segurança e a consistência no acesso aos dados.
+
+> Para **getters de booleanos** geralmente usamos o prefixo `is` para melhorar a legibilidade do código.
+
+```java
+public class Exemplo {
+    private int valor; // Campo privado
+
+    // Método acessor (getter)
+    public int getValor() {
+        return valor;
+    }
+
+    // Método modificador (setter)
+    public void setValor(int novoValor) {
+        if (novoValor > 0) {
+            this.valor = novoValor;
+        }
+    }
+
+    public static void main(String[] args) {
+        Exemplo exemplo = new Exemplo();
+
+        // Usando o setter
+        exemplo.setValor(42);
+
+        // Usando o getter
+        System.out.println("Valor: " + exemplo.getValor());
+    }
+}
 ```
