@@ -56,6 +56,10 @@
   - [3.6. ArrayList](#36-arraylist)
     - [3.6.1. Métodos importantes](#361-métodos-importantes)
     - [3.6.2. Conversão e ordenação](#362-conversão-e-ordenação)
+  - [3.7. Date e time](#37-date-e-time)
+    - [3.7.1. Métodos importantes](#371-métodos-importantes)
+    - [3.7.2. Period](#372-period)
+    - [3.7.3. Formatação](#373-formatação)
 
 <!-- /TOC -->
 
@@ -820,3 +824,112 @@ public class ConversaoOrdenacao {
 ```
 
 > A expressão `new String[0]` é utilizada ao converter uma lista para um array para garantir um comportamento consistente, mesmo quando a lista está vazia, assegurando um array do tipo correto, independentemente do tamanho da lista.
+
+### 3.7. Date e time
+
+As classes `LocalDate`, `LocalTime` e `LocalDateTime` fazem parte do pacote `java.time` e representam respectivamente `datas`, `horas` e `data e hora` combinadas sem considerar a zona de tempo.
+
+O método `now` é usado para obter a data ou hora atual, enquanto o método `of` permite criar instâncias específicas dessas classes.
+
+**`Não é possível criar instâncias usando new`**, pois essas classes possuem construtores privados.
+
+O uso do **enum** `Month` é comum para representar meses, oferecendo uma abordagem mais segura e legível.
+
+```java
+import java.time.*;
+
+public class ExemploDateTime {
+    public static void main(String[] args) {
+        // Obtendo a data atual
+        LocalDate dataAtual = LocalDate.now();
+
+        // Criando uma data específica
+        LocalDate dataEspecifica = LocalDate.of(2000, Month.JANUARY, 1);
+
+        // Obtendo a hora atual
+        LocalTime horaAtual = LocalTime.now();
+
+        // Criando uma data e hora específicas
+        LocalDateTime dataHoraEspecifica = LocalDateTime.of(2023, Month.FEBRUARY, 28, 14, 30);
+        System.out.println("Data e hora específicas: " + dataHoraEspecifica);
+    }
+}
+```
+
+#### 3.7.1. Métodos importantes
+
+- `plusDays(long days)`: Adiciona um número especificado de dias.
+- `plusMonths(long months)`: Adiciona um número especificado de meses.
+- `plusYears(long years)`: Adiciona um número especificado de anos.
+- `plusHours(long hours)`: Adiciona um número especificado de horas.
+- `plusMinutes(long minutes)`: Adiciona um número especificado de minutos.
+- `plusSeconds(long seconds)`: Adiciona um número especificado de segundos.
+- `plusWeeks(long weeks)`: Adiciona um número especificado de semanas.
+- `minusDays(long days)`: Subtrai um número especificado de dias.
+- `minusMonths(long months)`: Subtrai um número especificado de meses.
+- `minusYears(long years)`: Subtrai um número especificado de anos.
+- `minusHours(long hours)`: Subtrai um número especificado de horas.
+- `minusMinutes(long minutes)`: Subtrai um número especificado de minutos.
+- `minusSeconds(long seconds)`: Subtrai um número especificado de segundos.
+- `minusWeeks(long weeks)`: Subtrai um número especificado de semanas.
+
+#### 3.7.2. Period
+
+`Period` é uma classe do pacote `java.time` que representa um **período de tempo**, como a diferença entre duas datas. Além de calcular diferenças entre datas, é possível criar instâncias de `Period` para representar um período fixo, independente de datas específicas.
+
+```java
+import java.time.LocalDate;
+import java.time.Period;
+
+public class ExemploPeriod {
+    public static void main(String[] args) {
+        // Criando um período de uma semana
+        Period umaSemana = Period.ofWeeks(1);
+
+        // Adicionando uma semana a uma data específica
+        LocalDate dataAtual = LocalDate.of(2022, 1, 1);
+        LocalDate dataFutura = dataAtual.plus(umaSemana);
+
+        System.out.println("Data atual: " + dataAtual);
+        System.out.println("Data futura após uma semana: " + dataFutura);
+
+        // Calculando o período entre duas datas
+        LocalDate dataInicial = LocalDate.of(2022, 1, 1);
+        LocalDate dataFinal = LocalDate.of(2023, 1, 1);
+        Period periodoEntreDatas = Period.between(dataInicial, dataFinal);
+
+        System.out.println("Diferença em anos: " + periodoEntreDatas.getYears());
+        System.out.println("Diferença em meses: " + periodoEntreDatas.getMonths());
+        System.out.println("Diferença em dias: " + periodoEntreDatas.getDays());
+    }
+}
+```
+
+#### 3.7.3. Formatação
+
+Para formatar datas e horas, você pode usar métodos como `getYear`, `getMonth` etc., juntamente com a classe `DateTimeFormatter`.
+
+O `DateTimeFormatter` fornece padrões predefinidos, como `DateTimeFormatter.ISO_DATE`, ou você pode criar seu próprio formato personalizado usando `ofPattern`.
+
+```java
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ExemploFormatarDatetime {
+    public static void main(String[] args) {
+        // Criando uma instância de LocalDateTime
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+
+        // Formatando usando padrão ISO_DATE
+        String formatoPadrao = dataHoraAtual.format(DateTimeFormatter.ISO_DATE);
+        System.out.println("Formato Padrão ISO_DATE: " + formatoPadrao);
+
+        // Criando um formatador personalizado
+        DateTimeFormatter meuFormatador = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formatoPersonalizado = dataHoraAtual.format(meuFormatador);
+        System.out.println("Formato Personalizado: " + formatoPersonalizado);
+    }
+}
+```
+
+> Os padrões de formatação de datas e horas são definidos pela classe `DateTimeFormatter`. Para encontrar a documentação oficial que lista os padrões disponíveis, você pode consultar a [documentação online da Oracle](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/format/DateTimeFormatter.html).
