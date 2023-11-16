@@ -67,6 +67,7 @@
   - [4.4. Constantes](#44-constantes)
   - [4.5. Importação estática](#45-importação-estática)
   - [4.6. Parâmetro e retorno](#46-parâmetro-e-retorno)
+  - [4.7. Sobrecarga](#47-sobrecarga)
 
 <!-- /TOC -->
 
@@ -1101,3 +1102,46 @@ public class ExemploImportacaoEstatica {
 A passagem de parâmetros para métodos funciona de maneira que `o valor real do parâmetro` (primitivo ou referência) `é copiado para o método`. No caso de tipos primitivos, é uma cópia direta do valor.Para objetos, a cópia é da referência, não do objeto real. Isso significa que, se o método modifica o valor de um parâmetro primitivo, isso não afeta a variável original.
 
 No entanto, para objetos, as alterações nos atributos do objeto refletirão fora do método. O retorno de métodos segue a mesma lógica, onde é retornado uma cópia do valor, seja primitivo ou referência.
+
+### 4.7. Sobrecarga
+
+A sobrecarga de método permite que você tenha `métodos com o mesmo nome` em uma classe, desde que eles tenham `assinaturas diferentes`.
+
+Durante a chamada de um método sobrecarregado, o **compilador procura o método que melhor corresponde aos argumentos fornecidos**.
+
+A ordem de tentativa de chamada segue essa ordem:
+
+1. `Match Exato`: O compilador tenta encontrar um método com a assinatura exata que corresponda aos argumentos fornecidos.
+1. `Tipos Maiores`: Se nenhum método com uma correspondência exata for encontrado, o compilador procura métodos onde os argumentos podem ser promovidos para tipos maiores. Por exemplo, se você passar um int, ele tentará encontrar um método que aceite um long se não houver um método que aceite diretamente um int.
+1. `Autoboxing`: Se ainda não houver correspondência, o compilador procura métodos que envolvam autoboxing. Isso significa que, se você passar um tipo primitivo, o compilador procurará um método que aceite o tipo primitivo ou sua versão de classe wrapper.
+1. `Varargs`: Se nenhuma correspondência exata, correspondência com tipos maiores ou autoboxing for encontrada, o compilador tentará encontrar um método com varargs (número variável de argumentos).
+
+```java
+public class ExemploSobrecarga {
+    public static void main(String[] args) {
+        ExemploSobrecarga exemplo = new ExemploSobrecarga();
+
+        // Chamadas para um método sobrecarregado com uma, duas e três strings
+        exemplo.metodoSobrecarregado("A");           // 1
+        exemplo.metodoSobrecarregado("B", "C");      // 2
+        exemplo.metodoSobrecarregado("D", "E", "F"); // 4
+    }
+
+    // Métodos sobrecarregados
+    public void metodoSobrecarregado(String s) {
+        System.out.println(1);
+    }
+
+    public void metodoSobrecarregado(String s1, String s2) {
+        System.out.println(2);
+    }
+
+    public void metodoSobrecarregado(Object obj) {
+        System.out.println(3);
+    }
+
+    public void metodoSobrecarregado(String... strings) {
+        System.out.println(4);
+    }
+}
+```
