@@ -66,6 +66,7 @@
   - [4.3. Membros estáticos e instâncias](#43-membros-estáticos-e-instâncias)
   - [4.4. Constantes](#44-constantes)
   - [4.5. Importação estática](#45-importação-estática)
+  - [4.6. Parâmetro e retorno](#46-parâmetro-e-retorno)
 
 <!-- /TOC -->
 
@@ -960,7 +961,7 @@ O design de métodos envolve vários elementos:
 
 - **`Corpo`**: Contém a lógica do método, definido por chaves `{}`.
 
-> O nome do método, tipo de retorno, e lista de parâmetros formam o que chamamos de **`assinatura do método`**.
+> O nome do método e sua lista de parâmetros formam o que chamamos de **`assinatura do método`**.
 
 ![](assets/2023-11-16-13-40-15.png)
 
@@ -1094,3 +1095,9 @@ public class ExemploImportacaoEstatica {
     }
 }
 ```
+
+### 4.6. Parâmetro e retorno
+
+A passagem de parâmetros para métodos funciona de maneira que `o valor real do parâmetro` (primitivo ou referência) `é copiado para o método`. No caso de tipos primitivos, é uma cópia direta do valor.Para objetos, a cópia é da referência, não do objeto real. Isso significa que, se o método modifica o valor de um parâmetro primitivo, isso não afeta a variável original.
+
+No entanto, para objetos, as alterações nos atributos do objeto refletirão fora do método. O retorno de métodos segue a mesma lógica, onde é retornado uma cópia do valor, seja primitivo ou referência.
