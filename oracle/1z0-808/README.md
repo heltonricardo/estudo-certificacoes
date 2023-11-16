@@ -68,6 +68,7 @@
   - [4.5. Importação estática](#45-importação-estática)
   - [4.6. Parâmetro e retorno](#46-parâmetro-e-retorno)
   - [4.7. Sobrecarga](#47-sobrecarga)
+  - [4.8. Construtores](#48-construtores)
 
 <!-- /TOC -->
 
@@ -1142,6 +1143,35 @@ public class ExemploSobrecarga {
 
     public void metodoSobrecarregado(String... strings) {
         System.out.println(4);
+    }
+}
+```
+
+### 4.8. Construtores
+
+Construtores são métodos especiais com o **mesmo nome da classe**, utilizados para inicializar objetos. Eles podem ser **sobrecarregados**, permitindo diferentes formas de inicialização.
+
+Um `construtor vazio é criado implicitamente` se nenhum for definido, mas ao definir um, esse construtor padrão é substituído.
+
+Construtores podem chamar outros construtores usando `this(...)`. Além disso, podem ser utilizados para inicializar campos final, desde que isso seja feito no próprio construtor ou dentro de um bloco de inicialização.
+
+```java
+public class Exemplo {
+    private int valor;
+
+    // Construtor padrão
+    public Exemplo() {
+        this.valor = 0;
+    }
+
+    // Construtor com parâmetro
+    public Exemplo(int novoValor) {
+        this.valor = novoValor;
+    }
+
+    // Construtor chamando outro construtor
+    public Exemplo(String str) {
+        this(Integer.parseInt(str));
     }
 }
 ```
