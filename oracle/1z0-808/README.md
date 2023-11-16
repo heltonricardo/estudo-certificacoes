@@ -69,6 +69,7 @@
   - [4.6. Parâmetro e retorno](#46-parâmetro-e-retorno)
   - [4.7. Sobrecarga](#47-sobrecarga)
   - [4.8. Construtores](#48-construtores)
+  - [4.9. Ordem de inicialização](#49-ordem-de-inicialização)
 
 <!-- /TOC -->
 
@@ -1174,4 +1175,67 @@ public class Exemplo {
         this(Integer.parseInt(str));
     }
 }
+```
+
+### 4.9. Ordem de inicialização
+
+A ordem de inicialização em Java segue um padrão específico:
+
+1. `Superclasse`: Se a classe possui uma superclasse, a inicialização dessa superclasse ocorre primeiro.
+1. `Declaração e inicializadores static`: A execução de blocos de inicialização estáticos e a inicialização de atributos estáticos ocorrem na ordem em que são encontrados no código.
+1. `Declaração e inicializadores de instância`: A declaração dos atributos e a execução de blocos de inicialização de instância ocorrem na ordem em que são encontrados no código.
+1. `Construtor`: Finalmente, o construtor da classe é executado.
+
+```java
+public class Exemplo extends Superclasse {
+    // Bloco de inicialização estática
+    static {
+        System.out.println("Bloco Estático");
+    }
+
+    // Atributo estático
+    private static int atributoEstatico = inicializarAtributoEstatico();
+
+    // Bloco de inicialização de instância
+    {
+        System.out.println("Bloco de Inicialização");
+    }
+
+    // Atributo de instância
+    private int atributoInstancia = inicializarAtributoInstancia();
+
+    // Construtor
+    public Exemplo() {
+        System.out.println("Construtor");
+    }
+
+    // Método auxiliar para inicializar atributo estático
+    private static int inicializarAtributoEstatico() {
+        System.out.println("Inicializando Atributo Estático");
+        return 42;
+    }
+
+    // Método auxiliar para inicializar atributo de instância
+    private int inicializarAtributoInstancia() {
+        System.out.println("Inicializando Atributo de Instância");
+        return 99;
+    }
+
+    // Método main
+    public static void main(String[] args) {
+        System.out.println("Método main");
+        new Exemplo();
+    }
+}
+```
+
+Ordem resultante:
+
+```
+Bloco Estático
+Inicializando Atributo Estático
+Método main
+Bloco de Inicialização
+Inicializando Atributo de Instância
+Construtor
 ```
