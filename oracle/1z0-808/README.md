@@ -71,6 +71,7 @@
   - [4.8. Construtores](#48-construtores)
   - [4.9. Ordem de inicialização](#49-ordem-de-inicialização)
   - [4.10. Encapsulamento](#410-encapsulamento)
+  - [4.11. Lambda](#411-lambda)
 
 <!-- /TOC -->
 
@@ -1271,6 +1272,29 @@ public class Exemplo {
 
         // Usando o getter
         System.out.println("Valor: " + exemplo.getValor());
+    }
+}
+```
+
+### 4.11. Lambda
+
+Lambda expressions são uma forma concisa de expressar funcionalidades. Elas permitem escrever código mais limpo e legível. Em uma expressão lambda, você pode omitir o tipo do parâmetro se o compilador puder inferir, e também pode não precisar de parênteses se houver apenas um parâmetro. Se o corpo da lambda tiver apenas uma instrução, não é necessário usar chaves.
+
+```java
+// Exemplo com lambda
+interface Operacao {
+    int calcular(int x, int y);
+}
+
+public class ExemploLambda {
+    public static void main(String[] args) {
+        // Uso da lambda sem tipo e sem parênteses
+        Operacao soma = (a, b) -> a + b;
+        Operacao subtracao = (a, b) -> a - b;
+
+        // Chamada das operações
+        System.out.println("Soma: " + soma.calcular(5, 3)); // Saída: 8
+        System.out.println("Subtração: " + subtracao.calcular(5, 3)); // Saída: 2
     }
 }
 ```
