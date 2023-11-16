@@ -52,6 +52,8 @@
     - [3.4.2. Busca](#342-busca)
     - [3.4.3. Varargs](#343-varargs)
     - [3.4.4. Multidimensionais](#344-multidimensionais)
+  - [3.5. ArrayList](#35-arraylist)
+    - [3.5.1. Métodos importantes](#351-métodos-importantes)
 
 <!-- /TOC -->
 
@@ -720,3 +722,50 @@ matrizVariavel[1] = new int[8];
 > Para interpretar, podemos dizer que foi criada uma matriz de duas linhas e colunas variáveis.
 >
 > A primeira linha possui 5 colunas e a segunda linha possui 8 colunas.
+
+### 3.5. ArrayList
+
+`ArrayList` uma implementação da interface `List` que oferece um **array dinâmico redimensionável**.
+
+Pode ser criado de três maneiras: usando o construtor padrão (vazio), especificando a capacidade inicial através do construtor com um argumento de capacidade, ou inicializando-o com elementos de outra coleção.
+
+O uso de generics permite a tipagem segura, mas ao instanciar um ArrayList, o tipo genérico só é necessário durante a declaração; durante a inicialização, o operador diamante <> pode ser usado.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExemploArrayList {
+    public static void main(String[] args) {
+        // Criando um ArrayList vazio
+        List<String> lista1 = new ArrayList<>();
+
+        // Criando um ArrayList com capacidade inicial
+        List<Integer> lista2 = new ArrayList<>(10);
+
+        // Criando um ArrayList com elementos de outra coleção
+        List<Double> lista3 = new ArrayList<>(List.of(1.1, 2.2, 3.3));
+
+        // Adicionando elementos dinamicamente
+        lista1.add("Java");
+        lista2.add(42);
+        lista3.add(4.4);
+
+        // Exibindo os elementos
+        System.out.println("Lista 1: " + lista1);
+        System.out.println("Lista 2: " + lista2);
+        System.out.println("Lista 3: " + lista3);
+    }
+}
+```
+
+#### 3.5.1. Métodos importantes
+
+- `add(elemento)` | `add(índice, elemento)`: Adiciona um elemento ao final da lista. Também aceita, como segundo elemento, o índice para o novo elemento.
+- `remove(elemento)` | `remove(índice)`: Remove a primeira ocorrência do elemento especificado ou do elemento no índice especificado.
+- `set(índice, elemento)`: Substitui o elemento no índice especificado pelo novo elemento.
+- `isEmpty()`: Retorna **true** se a lista estiver vazia.
+- `size()`: Retorna o número de elementos na lista.
+- `clear()`: Remove todos os elementos da lista.
+- `contains(elemento)`: Retorna **true** se a lista contiver o elemento especificado.
+- `equals(outraLista)`: Compara se a lista é igual a outra lista, verificando se têm os mesmos elementos na mesma ordem.
