@@ -60,6 +60,9 @@
     - [3.7.1. Métodos importantes](#371-métodos-importantes)
     - [3.7.2. Period](#372-period)
     - [3.7.3. Formatação](#373-formatação)
+- [4. Métodos e encapsulamento](#4-métodos-e-encapsulamento)
+  - [4.1. Design de método](#41-design-de-método)
+  - [4.2. Modificadores de acesso](#42-modificadores-de-acesso)
 
 <!-- /TOC -->
 
@@ -933,3 +936,64 @@ public class ExemploFormatarDatetime {
 ```
 
 > Os padrões de formatação de datas e horas são definidos pela classe `DateTimeFormatter`. Para encontrar a documentação oficial que lista os padrões disponíveis, você pode consultar a [documentação online da Oracle](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/format/DateTimeFormatter.html).
+
+## 4. Métodos e encapsulamento
+
+### 4.1. Design de método
+
+O design de métodos envolve vários elementos:
+
+- **`Modificador de Acesso`**: Define a visibilidade do método (`public`, `private`, `protected`, ou `default/package-private`).
+
+- **`Especificadores`**: Como `static`, `final`, ou `abstract`, que modificam o comportamento do método.
+
+- **`Tipo de Retorno`**: Indica o tipo de dado que o método retorna, colocado **imediatamente antes** do nome do método.
+
+- **`Nome`**: Deve começar com uma **letra**, cifrão (`$`) ou sublinhado (`_`).
+
+- **`Parâmetros`**: Lista de variáveis separadas por vírgula, dentro dos parênteses.
+
+- **`Exceções`**: Indicadas após a lista de parâmetros, caso o método possa lançar exceções.
+
+- **`Corpo`**: Contém a lógica do método, definido por chaves `{}`.
+
+> O nome do método, tipo de retorno, e lista de parâmetros formam o que chamamos de **`assinatura do método`**.
+
+![](assets/2023-11-16-13-40-15.png)
+
+Exemplos:
+
+```java
+public class ExemploMetodo {
+    // Modificador de Acesso: public
+    // Especificador:         static
+    // Tipo de Retorno:       int
+    // Nome:                  somar
+    // Parâmetros:            (int a, int b)
+    // Corpo:                 { return a + b; }
+    public static int somar(int a, int b) {
+        return a + b;
+    }
+
+    // Modificador de Acesso: private
+    // Tipo de Retorno:       void
+    // Nome:                  exibirMensagem
+    // Parâmetros:            (String mensagem)
+    // Corpo:                 { System.out.println(mensagem); }
+    private void exibirMensagem(String mensagem) {
+        System.out.println(mensagem);
+    }
+}
+```
+
+### 4.2. Modificadores de acesso
+
+Os modificadores de acesso determinam a visibilidade de classes, métodos e variáveis em relação a outras classes. Existem quatro modificadores de acesso principais:
+
+- `public`: O membro (classe, método, variável) é acessível de qualquer lugar. Por exemplo, um método declarado como `public` pode ser chamado de qualquer outra classe.
+
+- `private`: O membro é acessível apenas dentro da própria classe. Isso significa que outros objetos ou classes não podem acessar diretamente membros privados.
+
+- `protected`: O membro é acessível dentro da própria classe, subclasses (mesmo que estejam em pacotes diferentes) e para outras classes do mesmo pacote.
+
+- `default (ou package-private)`: Se um membro não tem um modificador de acesso (não é `public`, `private` ou `protected`), ele é acessível apenas dentro do mesmo pacote. Este é o nível padrão se nenhum modificador de acesso for especificado.
