@@ -55,6 +55,7 @@
   - [3.5. Wrappers](#35-wrappers)
   - [3.6. ArrayList](#36-arraylist)
     - [3.6.1. Métodos importantes](#361-métodos-importantes)
+    - [3.6.2. Conversão e ordenação](#362-conversão-e-ordenação)
 
 <!-- /TOC -->
 
@@ -782,3 +783,40 @@ public class ExemploArrayList {
 - `clear()`: Remove todos os elementos da lista.
 - `contains(elemento)`: Retorna **true** se a lista contiver o elemento especificado.
 - `equals(outraLista)`: Compara se a lista é igual a outra lista, verificando se têm os mesmos elementos na mesma ordem.
+
+#### 3.6.2. Conversão e ordenação
+
+A conversão entre arrays e listas pode ser feita usando o método `toArray` para converter uma lista para um array, e o método `asList` para converter um array para uma lista.
+
+> `asList` cria uma lista de tamanho fixo que aponta para o mesmo endereço de memória do array original.
+
+Além disso, a ordenação de uma lista pode ser realizada usando `Collections.sort`.
+
+```java
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class ConversaoOrdenacao {
+    public static void main(String[] args) {
+        // Conversão de array para lista
+        String[] array = {"c", "a", "b"};
+        List<String> lista = Arrays.asList(array);
+
+        // Modificando a lista modifica o array original
+        lista.set(0, "x");
+        System.out.println("Array após modificar a lista: " + Arrays.toString(array));
+        // [x, a, b]
+
+        // Conversão de lista para array
+        String[] novoArray = lista.toArray(new String[0]);
+
+        // Ordenação da lista
+        Collections.sort(lista);
+        System.out.println("Lista ordenada: " + lista);
+        // [a, b, x]
+    }
+}
+```
+
+> A expressão `new String[0]` é utilizada ao converter uma lista para um array para garantir um comportamento consistente, mesmo quando a lista está vazia, assegurando um array do tipo correto, independentemente do tamanho da lista.
