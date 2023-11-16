@@ -52,8 +52,9 @@
     - [3.4.2. Busca](#342-busca)
     - [3.4.3. Varargs](#343-varargs)
     - [3.4.4. Multidimensionais](#344-multidimensionais)
-  - [3.5. ArrayList](#35-arraylist)
-    - [3.5.1. Métodos importantes](#351-métodos-importantes)
+  - [3.5. Wrappers](#35-wrappers)
+  - [3.6. ArrayList](#36-arraylist)
+    - [3.6.1. Métodos importantes](#361-métodos-importantes)
 
 <!-- /TOC -->
 
@@ -723,7 +724,19 @@ matrizVariavel[1] = new int[8];
 >
 > A primeira linha possui 5 colunas e a segunda linha possui 8 colunas.
 
-### 3.5. ArrayList
+### 3.5. Wrappers
+
+São classes que `encapsulam tipos primitivos`, permitindo que sejam tratados como objetos.
+
+Métodos como `parseX` convertem strings para tipos primitivos (por exemplo, `Integer.parseInt("123")`), enquanto `valueOf` retorna objetos wrappers (por exemplo, `Integer.valueOf(123)`). O tipo `Char` não possui esses métodos.
+
+O `autoboxing` converte automaticamente tipos primitivos em wrappers (por exemplo, `int` para `Integer`), e o `autounboxing` faz o inverso (por exemplo, `Integer` para `int`).
+
+> É importante notar que wrappers podem aceitar valores nulos, ao contrário de tipos primitivos.
+
+![](assets/2023-11-15-22-18-43.png)
+
+### 3.6. ArrayList
 
 `ArrayList` uma implementação da interface `List` que oferece um **array dinâmico redimensionável**.
 
@@ -759,7 +772,7 @@ public class ExemploArrayList {
 }
 ```
 
-#### 3.5.1. Métodos importantes
+#### 3.6.1. Métodos importantes
 
 - `add(elemento)` | `add(índice, elemento)`: Adiciona um elemento ao final da lista. Também aceita, como segundo elemento, o índice para o novo elemento.
 - `remove(elemento)` | `remove(índice)`: Remove a primeira ocorrência do elemento especificado ou do elemento no índice especificado.
