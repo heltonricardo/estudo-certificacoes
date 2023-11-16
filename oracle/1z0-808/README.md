@@ -63,6 +63,7 @@
 - [4. Métodos e encapsulamento](#4-métodos-e-encapsulamento)
   - [4.1. Design de método](#41-design-de-método)
   - [4.2. Modificadores de acesso](#42-modificadores-de-acesso)
+  - [4.3. Membros estáticos e instâncias](#43-membros-estáticos-e-instâncias)
 
 <!-- /TOC -->
 
@@ -997,3 +998,46 @@ Os modificadores de acesso determinam a visibilidade de classes, métodos e vari
 - `protected`: O membro é acessível dentro da própria classe, subclasses (mesmo que estejam em pacotes diferentes) e para outras classes do mesmo pacote.
 
 - `default (ou package-private)`: Se um membro não tem um modificador de acesso (não é `public`, `private` ou `protected`), ele é acessível apenas dentro do mesmo pacote. Este é o nível padrão se nenhum modificador de acesso for especificado.
+
+### 4.3. Membros estáticos e instâncias
+
+Membros de instância são associados a objetos específicos e podem chamar tanto métodos estáticos quanto de instância. Eles são acessados usando uma instância da classe.
+
+Membros estáticos pertencem à classe, não a instâncias individuais. São declarados com a palavra-chave `static`, são acessados usando o nome da classe e só podem chamar outros métodos estáticos diretamente.
+
+```java
+public class ExemploStatic {
+    // Membro estático
+    public static int variavelEstatica = 10;
+
+    // Membro de instância
+    public int variavelDeInstancia = 20;
+
+    // Método estático
+    public static void metodoEstatico() {
+        System.out.println("Método estático");
+    }
+
+    // Método de instância
+    public void metodoDeInstancia() {
+        System.out.println("Método de instância");
+    }
+
+    public static void main(String[] args) {
+        // Acessando membro estático diretamente
+        System.out.println(ExemploStatic.variavelEstatica);
+
+        // Criando instância da classe
+        ExemploStatic obj = new ExemploStatic();
+
+        // Acessando membro de instância usando a instância
+        System.out.println(obj.variavelDeInstancia);
+
+        // Chamando método estático diretamente
+        ExemploStatic.metodoEstatico();
+
+        // Chamando método de instância usando a instância
+        obj.metodoDeInstancia();
+    }
+}
+```
