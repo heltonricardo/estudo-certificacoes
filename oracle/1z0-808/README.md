@@ -75,6 +75,7 @@
 - [5. Design de Classes com Herança e Polimorfismo](#5-design-de-classes-com-herança-e-polimorfismo)
   - [5.1. Introdução a herança](#51-introdução-a-herança)
   - [5.2. Uso do super](#52-uso-do-super)
+  - [5.3. Sobreescrita](#53-sobreescrita)
 
 <!-- /TOC -->
 
@@ -1409,4 +1410,36 @@ public class Main {
     }
 }
 
+```
+
+### 5.3. Sobreescrita
+
+Na sobreescrita de métodos, a anotação `@Override` é utilizada para indicar explicitamente que um método na **subclasse** está sobrescrevendo um método da **superclasse**. Ambos os métodos devem ter a mesma assinatura, incluindo o tipo de retorno.
+
+Além disso, a visibilidade do método na **subclasse** deve ser igual ou mais acessível que na **superclasse**. Não é permitido lançar exceções mais abrangentes na **subclasse** do que na **superclasse**.
+
+> Caso a assinatura não seja a mesma, ocorre `sobrecarga` de método e não **sobreescrita**.
+
+```java
+class Animal {
+    void fazerBarulho() {
+        System.out.println("Animal fazendo barulho...");
+    }
+}
+
+class Cachorro extends Animal {
+    @Override
+    void fazerBarulho() {
+        System.out.println("Cachorro latindo...");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Cachorro meuCachorro = new Cachorro();
+        meuCachorro.fazerBarulho(); 
+        // Resultado:
+        // Cachorro latindo...
+    }
+}
 ```
