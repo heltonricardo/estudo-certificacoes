@@ -74,6 +74,7 @@
   - [4.11. Lambda](#411-lambda)
 - [5. Design de Classes com Herança e Polimorfismo](#5-design-de-classes-com-herança-e-polimorfismo)
   - [5.1. Introdução a herança](#51-introdução-a-herança)
+  - [5.2. Uso do super](#52-uso-do-super)
 
 <!-- /TOC -->
 
@@ -1333,4 +1334,79 @@ public class ExemploHeranca {
         meuCachorro.correr();   // Saída: Cachorro correndo
     }
 }
+```
+
+### 5.2. Uso do super
+
+O `super()` em é usado para chamar o construtor da classe pai (**superclasse**). Ele deve ser o primeiro comando em um construtor de uma classe filha (**subclasse**).
+
+Se o construtor da **superclasse** requer argumentos, a **subclasse** deve implementar um construtor correspondente e fornecer os valores necessários. Isso garante que a inicialização da parte da **superclasse** seja feita corretamente.
+
+Além disso, é possível usar `this()` para chamar outro construtor da mesma classe, permitindo diferentes formas de inicialização.
+
+> Se não houver uma chamada explícita para `super(...)` na primeira linha do construtor da **subclasse**, o compilador insere implicitamente uma chamada para o construtor padrão da **superclasse**. Isso ocorre apenas se a **superclasse** tiver um construtor sem argumentos.
+
+```java
+// Superclasse
+class Animal {
+    String tipo;
+
+    // Construtor com argumento
+    Animal(String tipo) {
+        this.tipo = tipo;
+    }
+}
+
+// Subclasse
+class Cachorro extends Animal {
+    String raca;
+
+    // Construtor que chama o construtor da superclasse usando super()
+    Cachorro(String tipo, String raca) {
+        super(tipo);  // Chama o construtor da superclasse
+        this.raca = raca;
+    }
+}
+
+public class ExemploSuper {
+    public static void main(String[] args) {
+        // Criando objeto da subclasse
+        Cachorro meuCachorro = new Cachorro("Mamífero", "Labrador");
+
+        // Acesso aos atributos
+        System.out.println("Tipo: " + meuCachorro.tipo); // Saída: Tipo: Mamífero
+        System.out.println("Raça: " + meuCachorro.raca); // Saída: Raça: Labrador
+    }
+}
+```
+
+Além do uso de `super()` em construtores, a palavra-chave `super` também pode ser usada como uma referência à **superclasse** fora do contexto de construtores.
+
+Quando você está dentro de uma **subclasse**, pode usar `super` para acessar membros (métodos ou campos) da **superclasse**, especialmente quando há uma sobrescrita de métodos na **subclasse** e você deseja chamar a implementação da **superclasse**.
+
+```java
+class Animal {
+    void fazerBarulho() {
+        System.out.println("Animal fazendo barulho...");
+    }
+}
+
+class Cachorro extends Animal {
+    void latir() {
+        System.out.println("Cachorro latindo...");
+    }
+
+    void interacao() {
+        super.fazerBarulho();  // Chamando o método da classe base (Animal)
+        latir();               // Chamando o método da classe atual (Cachorro)
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Cachorro meuCachorro = new Cachorro();
+        meuCachorro.interacao();
+    }
+}
+
 ```
