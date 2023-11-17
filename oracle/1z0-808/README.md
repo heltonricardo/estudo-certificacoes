@@ -79,6 +79,7 @@
   - [5.4. Hiding](#54-hiding)
   - [5.5. Final](#55-final)
   - [5.6. Classes abstratas](#56-classes-abstratas)
+  - [5.7. Interface](#57-interface)
 
 <!-- /TOC -->
 
@@ -1495,3 +1496,50 @@ public class Exemplo {
     }
 }
 ```
+
+### 5.7. Interface
+
+São utilizadas para definir um conjunto de métodos abstratos e constantes que outras classes podem implementar. Em uma interface, os `métodos são automaticamente públicos e abstratos`, e as constantes são públicas, estáticas e finais.
+
+Uma classe pode implementar várias interfaces, proporcionando uma forma de alcançar a "múltipla herança" em Java.
+
+```java
+// Interface com método abstrato
+interface ExemploInterface {
+    void metodoAbstrato();
+
+    // Constante na interface
+    int CONSTANTE = 42;
+}
+
+// Implementação da interface em uma classe
+class MinhaClasse implements ExemploInterface {
+    // Implementação do método abstrato
+    public void metodoAbstrato() {
+        System.out.println("Implementação do método abstrato.");
+    }
+}
+
+public class Exemplo {
+    public static void main(String[] args) {
+        // Instância da classe que implementa a interface
+        MinhaClasse minhaInstancia = new MinhaClasse();
+
+        // Chamada do método implementado
+        minhaInstancia.metodoAbstrato();
+
+        // Acesso à constante da interface
+        System.out.println("Valor da constante: " + ExemploInterface.CONSTANTE);
+    }
+}
+```
+
+Além disso, **uma interface pode `estender` uma ou mais interfaces**, proporcionando uma forma de **herança múltipla** para interfaces. Quando uma interface estende outra, ela herda todos os métodos abstratos e constantes da interface pai. Isso permite criar hierarquias de interfaces, onde uma interface mais específica pode herdar de interfaces mais genéricas.
+
+Uma interface pode ser composta por atributos constantes, métodos padrão (com implementação) e métodos estáticos:
+
+- `Atributo (Constante)`: Por natureza é `public static final`, é uma constante que deve ser inicializada na declaração.
+
+- `Método Default`: Declarado com `default`, fornece uma implementação padrão na interface. Não pode ser `final`, `static` ou `abstract`, e pode ser sobreescrito pelas classes que implementam a interface.
+
+- `Métodos Estáticos`: São sempre `public` e não são herdados pelas classes que implementam a interface. São chamados diretamente na interface.
