@@ -72,6 +72,8 @@
   - [4.9. Ordem de inicialização](#49-ordem-de-inicialização)
   - [4.10. Encapsulamento](#410-encapsulamento)
   - [4.11. Lambda](#411-lambda)
+- [5. Design de Classes com Herança e Polimorfismo](#5-design-de-classes-com-herança-e-polimorfismo)
+  - [5.1. Introdução a herança](#51-introdução-a-herança)
 
 <!-- /TOC -->
 
@@ -1295,6 +1297,40 @@ public class ExemploLambda {
         // Chamada das operações
         System.out.println("Soma: " + soma.calcular(5, 3)); // Saída: 8
         System.out.println("Subtração: " + subtracao.calcular(5, 3)); // Saída: 2
+    }
+}
+```
+
+## 5. Design de Classes com Herança e Polimorfismo
+
+### 5.1. Introdução a herança
+
+A herança permite que uma classe (**subclasse**) `herde características e comportamentos` de outra classe (**superclasse**). A palavra-chave `extends` é usada para estabelecer essa relação.
+
+A **superclasse** fornece os atributos e métodos que a **subclasse** pode usar ou sobrescrever. Uma classe pode herdar de apenas uma classe (não há herança múltipla), mas pode implementar várias interfaces.
+
+Toda classe em Java, direta ou indiretamente, herda da classe `Object`. Ao criar um objeto, as classes na hierarquia são acionadas de cima para baixo, permitindo inicializações e execuções de construtores em cascata.
+
+```java
+// Superclasse
+class Animal {
+    void fazerSom() {
+        System.out.println("Barulho genérico de animal");
+    }
+}
+
+// Subclasse que herda de Animal
+class Cachorro extends Animal {
+    void correr() {
+        System.out.println("Cachorro correndo");
+    }
+}
+
+public class ExemploHeranca {
+    public static void main(String[] args) {
+        Cachorro meuCachorro = new Cachorro();
+        meuCachorro.fazerSom(); // Saída: Barulho genérico de animal
+        meuCachorro.correr();   // Saída: Cachorro correndo
     }
 }
 ```
