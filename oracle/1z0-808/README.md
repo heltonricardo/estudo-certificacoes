@@ -76,6 +76,8 @@
   - [5.1. Introdução a herança](#51-introdução-a-herança)
   - [5.2. Uso do super](#52-uso-do-super)
   - [5.3. Sobreescrita](#53-sobreescrita)
+  - [5.4. Hiding](#54-hiding)
+  - [5.5. Final](#55-final)
 
 <!-- /TOC -->
 
@@ -1414,7 +1416,7 @@ public class Main {
 
 ### 5.3. Sobreescrita
 
-Na sobreescrita de métodos, a anotação `@Override` é utilizada para indicar explicitamente que um método na **subclasse** está sobrescrevendo um método da **superclasse**. Ambos os métodos devem ter a mesma assinatura, incluindo o tipo de retorno.
+Na sobreescrita de métodos, a anotação `@Override` é utilizada para indicar explicitamente que um método na **subclasse** está sobrescrevendo um método da **superclasse**. Ambos os métodos devem ter a mesma assinatura. O tipo de retorno pode ser `covariante`, o que significa que pode ser um subtipo do tipo de retorno do método na **superclasse**.
 
 Além disso, a visibilidade do método na **subclasse** deve ser igual ou mais acessível que na **superclasse**. Não é permitido lançar exceções mais abrangentes na **subclasse** do que na **superclasse**.
 
@@ -1437,9 +1439,21 @@ class Cachorro extends Animal {
 public class Main {
     public static void main(String[] args) {
         Cachorro meuCachorro = new Cachorro();
-        meuCachorro.fazerBarulho(); 
+        meuCachorro.fazerBarulho();
         // Resultado:
         // Cachorro latindo...
     }
 }
 ```
+
+### 5.4. Hiding
+
+Hiding refere-se à prática de uma **subclasse** ter um membro (campo ou método) com o mesmo nome que um membro na **superclasse**. Quando isso ocorre, o membro da **subclasse** "oculta" o membro da **superclasse** para a **subclasse**.
+
+### 5.5. Final
+
+A palavra-chave `final` pode ser usada em classes e métodos.
+
+Ao aplicar `final` a uma classe, você impede que outras classes estendam (herdem) dela. Isso é útil quando você deseja que a classe seja uma implementação final e não projetada para extensão.
+
+Quando aplicado a um método, o `final` impede a sobreescrita (overriding) desse método nas **subclasses**, garantindo que a implementação na **superclasse** seja a final.
