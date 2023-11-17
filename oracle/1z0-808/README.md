@@ -78,6 +78,7 @@
   - [5.3. Sobreescrita](#53-sobreescrita)
   - [5.4. Hiding](#54-hiding)
   - [5.5. Final](#55-final)
+  - [5.6. Classes abstratas](#56-classes-abstratas)
 
 <!-- /TOC -->
 
@@ -1457,3 +1458,40 @@ A palavra-chave `final` pode ser usada em classes e métodos.
 Ao aplicar `final` a uma classe, você impede que outras classes estendam (herdem) dela. Isso é útil quando você deseja que a classe seja uma implementação final e não projetada para extensão.
 
 Quando aplicado a um método, o `final` impede a sobreescrita (overriding) desse método nas **subclasses**, garantindo que a implementação na **superclasse** seja a final.
+
+### 5.6. Classes abstratas
+
+São utilizadas para fornecer uma base para outras classes, mas `não deseja que a própria classe abstrata seja instanciada`. Elas **podem ter métodos concretos** (com implementação) **ou abstratos** (sem implementação).
+
+Se uma classe contém pelo menos um método abstrato, ela deve ser marcada como abstrata. As subclasses que herdam de uma classe abstrata devem implementar todos os métodos abstratos ou também serem declaradas como abstratas.
+
+```java
+// Classe abstrata com método concreto
+abstract class ClasseAbstrata {
+    void metodoConcreto() {
+        System.out.println("Isso é um método concreto na classe abstrata.");
+    }
+
+    // Método abstrato
+    abstract void metodoAbstrato();
+}
+
+// Subclasse que estende a classe abstrata
+class SubClasse extends ClasseAbstrata {
+    // Implementação do método abstrato
+    void metodoAbstrato() {
+        System.out.println("Isso é uma implementação do método abstrato na subclasse.");
+    }
+}
+
+public class Exemplo {
+    public static void main(String[] args) {
+        SubClasse exemplo = new SubClasse();
+        exemplo.metodoConcreto();
+        exemplo.metodoAbstrato();
+
+        // ERRO: não é possível implementar classe abstrata:
+        // ClasseAbstrata classeAbstrata = new ClasseAbstrata();
+    }
+}
+```
