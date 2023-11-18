@@ -80,6 +80,7 @@
   - [5.5. Final](#55-final)
   - [5.6. Classes abstratas](#56-classes-abstratas)
   - [5.7. Interface](#57-interface)
+  - [5.8. Polimorfismo](#58-polimorfismo)
 
 <!-- /TOC -->
 
@@ -1543,3 +1544,49 @@ Uma interface pode ser composta por atributos constantes, métodos padrão (com 
 - `Método Default`: Declarado com `default`, fornece uma implementação padrão na interface. Não pode ser `final`, `static` ou `abstract`, e pode ser sobreescrito pelas classes que implementam a interface.
 
 - `Métodos Estáticos`: São sempre `public` e não são herdados pelas classes que implementam a interface. São chamados diretamente na interface.
+
+### 5.8. Polimorfismo
+
+O polimorfismo permite que `objetos de classes diferentes sejam tratados de maneira uniforme por meio de uma referência mais genérica`. Isso significa que você pode atribuir um objeto de uma classe mais específica a uma referência de uma classe mais geral. Isso é frequentemente alcançado através de interfaces e herança, permitindo maior flexibilidade e reutilização de código.
+
+```java
+interface Animal {
+    void fazerSom();
+}
+
+class Cachorro implements Animal {
+    @Override
+    public void fazerSom() {
+        System.out.println("Au au!");
+    }
+
+    public void abanarRabo() {
+        System.out.println("Cachorro abanando o rabo.");
+    }
+}
+
+class Gato implements Animal {
+    @Override
+    public void fazerSom() {
+        System.out.println("Miau!");
+    }
+
+    public void afiarGarras() {
+        System.out.println("Gato afiando as garras.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal1 = new Cachorro();
+        Animal animal2 = new Gato();
+
+        animal1.fazerSom(); // Saída: Au au!
+        animal2.fazerSom(); // Saída: Miau!
+
+        // Erros de compilação, pois a referência é Animal:
+        // animal1.abanarRabo();
+        // animal2.acharGarras();
+    }
+}
+```
