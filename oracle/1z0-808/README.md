@@ -86,6 +86,9 @@
 - [6. Exceções](#6-exceções)
   - [6.1. Tratamento](#61-tratamento)
   - [6.2. Hierarquia](#62-hierarquia)
+  - [6.3. Exceções unchecked cobradas](#63-exceções-unchecked-cobradas)
+  - [6.4. Exceções checked cobradas](#64-exceções-checked-cobradas)
+  - [6.5. Erros cobrados](#65-erros-cobrados)
 
 <!-- /TOC -->
 
@@ -1720,3 +1723,35 @@ public class ExemploTryCatchFinally {
 ### 6.2. Hierarquia
 
 É importante organizar as exceções de forma que as `classes mais específicas venham antes das mais genéricas`. Caso contrário, o compilador gerará um erro, pois exceções mais genéricas englobarão as mais específicas, tornando-as **inalcançáveis**. Portanto, a ordem deve começar com exceções mais específicas e progredir para exceções mais genéricas.
+
+### 6.3. Exceções unchecked cobradas
+
+As `RuntimeException`'s cobradas no exame são:
+
+`ArithmeticException`: Lançada quando ocorre uma operação aritmética inválida, como divisão por zero.
+
+`ArrayIndexOutOfBoundsException`: Gerada ao tentar acessar um índice inválido em um array, seja por exceder os limites do array ou acessar um índice negativo.
+
+`ClassCastException`: Ocorre quando uma tentativa de casting entre tipos incompatíveis é feita, especialmente em operações com tipos de objetos e interfaces.
+
+`IllegalArgumentException`: Lançada quando um método recebe um argumento inválido, como um valor que não está dentro do domínio esperado.
+
+`NullPointerException`: Gerada ao tentar acessar um objeto que possui valor null.
+
+`NumberFormatException`: Lançada quando uma operação de conversão de string para um número é realizada, mas a string não contém um formato numérico válido.
+
+### 6.4. Exceções checked cobradas
+
+As `Exception`'s cobradas no exame são:
+
+- `FileNotFoundException`: Esta exceção é lançada quando uma aplicação tenta abrir um arquivo para leitura ou gravação, mas o arquivo especificado não pode ser encontrado no sistema de arquivos.
+
+- `IOException`: Essa é uma exceção mais genérica para operações de entrada e saída e serve como uma classe base para várias outras exceções relacionadas a I/O. Pode ser lançada em várias situações, como falhas na leitura ou gravação de dados, interrupções de E/S, entre outros problemas.
+
+### 6.5. Erros cobrados
+
+Os `Error`'s cobradas no exame são:
+
+- `ExceptionInInitializerError`: Ocorre quando uma exceção é lançada durante a execução de um inicializador de classe estático (static).
+- `StackOverflowError`: Acontece quando a pilha de chamadas de métodos atinge um limite, geralmente por chamadas recursivas infinitas.
+- `NoClassDefFoundError`: Ocorre quando a JVM não consegue encontrar a definição de uma classe durante a execução, mesmo que estivesse disponível durante a compilação.
