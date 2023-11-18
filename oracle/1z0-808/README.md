@@ -83,6 +83,7 @@
   - [5.8. Polimorfismo](#58-polimorfismo)
   - [5.9. Métodos virtuais](#59-métodos-virtuais)
   - [5.10. Parâmetros polimórficos](#510-parâmetros-polimórficos)
+- [6. Exceções](#6-exceções)
 
 <!-- /TOC -->
 
@@ -1629,6 +1630,50 @@ public class ExemploPolimorfismo {
         // Chamando o método com diferentes tipos de listas
         imprimirElementos(listaStrings);
         imprimirElementos(listaNumeros);
+    }
+}
+```
+
+## 6. Exceções
+
+Exceções representam `situações excepcionais` que podem ocorrer durante a execução de um programa. A hierarquia de exceções em Java pode ser resumida em:
+
+![](assets/2023-11-18-14-32-47.png)
+
+A classe `Throwable` é dividida em duas categorias principais: `Exception` (situações recuperáveis) e `Error` (situações não recuperáveis).
+
+A classe `Exception` possui subclasses, sendo algumas `RuntimeExceptions` (**exceções não verificadas**) e outras `Exceptions` (**exceções verificadas**).
+
+**Exceções do tipo `RuntimeException` não precisam ser tratadas obrigatoriamente**, enquanto **exceções do tipo `Exception` (ou suas subclasses) devem ser tratadas ou declaradas no método que as lança.**
+
+![](assets/2023-11-18-14-42-46.png)
+
+A palavra-chave `throws` é usada na declaração do método que lança a exceção. Obrigatória quando é do tipo `Exception` e opcional quando é do tipo `RuntimeException`.
+
+A palavra-chave `throw` é usada para lançar a exceção propriamente dita.
+
+```java
+public class ExemploExcecoes {
+    // Exemplo de método que lança uma exceção verificada
+    static void exemploExcecao() throws Exception {
+        throw new Exception("Isso é uma exceção verificada.");
+    }
+
+    // Exemplo de método que lança uma exceção não verificada
+    static void exemploRuntimeException() /* throws RuntimeException <- opcional */ {
+        throw new RuntimeException("Isso é uma RuntimeException.");
+    }
+
+    public static void main(String[] args) {
+        try {
+            // Chamada de método que lança exceção verificada
+            exemploExcecao();
+        } catch (Exception e) {
+            System.out.println("Exceção capturada: " + e.getMessage());
+        }
+
+        // Chamada de método que lança exceção não verificada
+        exemploRuntimeException();
     }
 }
 ```
