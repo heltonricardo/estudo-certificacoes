@@ -81,6 +81,8 @@
   - [5.6. Classes abstratas](#56-classes-abstratas)
   - [5.7. Interface](#57-interface)
   - [5.8. Polimorfismo](#58-polimorfismo)
+  - [5.9. Métodos virtuais](#59-métodos-virtuais)
+  - [5.10. Parâmetros polimórficos](#510-parâmetros-polimórficos)
 
 <!-- /TOC -->
 
@@ -1587,6 +1589,46 @@ public class Main {
         // Erros de compilação, pois a referência é Animal:
         // animal1.abanarRabo();
         // animal2.acharGarras();
+    }
+}
+```
+
+### 5.9. Métodos virtuais
+
+São aqueles que `podem ser sobreescritos em subclasses`, fornecendo uma implementação específica para a classe derivada. Todos os métodos, exceto os declarados como `private`, `final` ou `static`, são virtualmente herdados pelas subclasses.
+
+Métodos `private` não são herdados, métodos `final` não podem ser sobreescritos, e métodos `static` são associados à classe, não às instâncias, e, portanto, não são sobreescritos, mas sim escondidos (hiding) quando redefinidos em subclasses.
+
+### 5.10. Parâmetros polimórficos
+
+Refere-se à capacidade de uma função ou método aceitar parâmetros de tipos mais genéricos, permitindo a passagem de argumentos que são `subclasses ou implementações específicas desses tipos mais genéricos`. Isso promove flexibilidade e reutilização de código.
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+
+public class ExemploPolimorfismo {
+    // Método que aceita uma lista polimórfica como parâmetro
+    static void imprimirElementos(List<?> lista) {
+        for (Object elemento : lista) {
+            System.out.println(elemento);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> listaStrings = new ArrayList<>();
+        listaStrings.add("Java");
+        listaStrings.add("é");
+        listaStrings.add("poderoso!");
+
+        List<Integer> listaNumeros = new ArrayList<>();
+        listaNumeros.add(42);
+        listaNumeros.add(13);
+        listaNumeros.add(99);
+
+        // Chamando o método com diferentes tipos de listas
+        imprimirElementos(listaStrings);
+        imprimirElementos(listaNumeros);
     }
 }
 ```
