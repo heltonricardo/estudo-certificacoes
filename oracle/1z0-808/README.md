@@ -85,6 +85,7 @@
   - [5.10. Parâmetros polimórficos](#510-parâmetros-polimórficos)
 - [6. Exceções](#6-exceções)
   - [6.1. Tratamento](#61-tratamento)
+  - [6.2. Hierarquia](#62-hierarquia)
 
 <!-- /TOC -->
 
@@ -1715,3 +1716,7 @@ public class ExemploTryCatchFinally {
  * Bloco finally sempre é executado.
  */
 ```
+
+### 6.2. Hierarquia
+
+É importante organizar as exceções de forma que as `classes mais específicas venham antes das mais genéricas`. Caso contrário, o compilador gerará um erro, pois exceções mais genéricas englobarão as mais específicas, tornando-as **inalcançáveis**. Portanto, a ordem deve começar com exceções mais específicas e progredir para exceções mais genéricas.
