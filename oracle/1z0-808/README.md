@@ -84,6 +84,7 @@
   - [5.9. Métodos virtuais](#59-métodos-virtuais)
   - [5.10. Parâmetros polimórficos](#510-parâmetros-polimórficos)
 - [6. Exceções](#6-exceções)
+  - [6.1. Tratamento](#61-tratamento)
 
 <!-- /TOC -->
 
@@ -1676,4 +1677,41 @@ public class ExemploExcecoes {
         exemploRuntimeException();
     }
 }
+```
+
+### 6.1. Tratamento
+
+Para tratarmos as exceções, usamos os blocos `try-catch`, `try-finally` ou `try-catch-finally`.
+
+- O bloco `try` em é utilizado para envolver um trecho de código onde podem ocorrer exceções.
+- O bloco `catch` é utilizado para capturar e tratar essas exceções.
+- O bloco `finally` é executado sempre, independentemente de ocorrer ou não uma exceção.
+
+Pode haver **múltiplos blocos `catch`**. Nesse caso, o tratamento ocorre no primeiro bloco cujo tipo de exceção corresponda ao lançado. Se não houver correspondência, a exceção é propagada para os blocos seguintes ou para o bloco `finally`.
+
+```java
+public class ExemploTryCatchFinally {
+    static int dividir(int numerador, int denominador) {
+        return numerador / denominador;
+    }
+
+    public static void main(String[] args) {
+        try {
+            int resultado = dividir(10, 0);
+            System.out.println("Resultado: " + resultado);
+        } catch (ArithmeticException e) {
+            System.out.println("Erro aritmético: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exceção genérica: " + e.getMessage());
+        } finally {
+            System.out.println("Bloco finally sempre é executado.");
+        }
+    }
+}
+
+/*
+ * Resultado:
+ * Erro aritmético: / by zero
+ * Bloco finally sempre é executado.
+ */
 ```
