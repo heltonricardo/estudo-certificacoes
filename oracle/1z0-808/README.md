@@ -2,38 +2,38 @@
 
 <img src="assets/badge.png" alt="1Z0-808 - Oracle Certified Associate, Java SE 8 Programmer" width="200"/>
 
-<!-- TOC tocDepth:2..4 chapterDepth:2..4 -->
+<!-- TOC -->
 
-- [1. Blocos de construção](#1-blocos-de-construção)
-  - [1.1. Comentários](#11-comentários)
+- [1. Blocos de construção](#1-blocos-de-constru%C3%A7%C3%A3o)
+  - [1.1. Comentários](#11-coment%C3%A1rios)
   - [1.2. Estrutura de uma classe](#12-estrutura-de-uma-classe)
   - [1.3. Arquivos e classes](#13-arquivos-e-classes)
-  - [1.4. Método main](#14-método-main)
-  - [1.5. Compilação e execução](#15-compilação-e-execução)
+  - [1.4. Método main](#14-m%C3%A9todo-main)
+  - [1.5. Compilação e execução](#15-compila%C3%A7%C3%A3o-e-execu%C3%A7%C3%A3o)
   - [1.6. Pacotes](#16-pacotes)
-  - [1.7. Criação de objetos](#17-criação-de-objetos)
-  - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-instância)
-  - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-referências)
-  - [1.10. Declaração e inicialização de variáveis](#110-declaração-e-inicialização-de-variáveis)
+  - [1.7. Criação de objetos](#17-cria%C3%A7%C3%A3o-de-objetos)
+  - [1.8. Blocos inicializadores de instância](#18-blocos-inicializadores-de-inst%C3%A2ncia)
+  - [1.9. Tipos primitivos x referências](#19-tipos-primitivos-x-refer%C3%AAncias)
+  - [1.10. Declaração e inicialização de variáveis](#110-declara%C3%A7%C3%A3o-e-inicializa%C3%A7%C3%A3o-de-vari%C3%A1veis)
   - [1.11. Ordem dos elementos na classe](#111-ordem-dos-elementos-na-classe)
   - [1.12. Destruindo objetos](#112-destruindo-objetos)
-- [2. Operadores e instruções](#2-operadores-e-instruções)
+- [2. Operadores e instruções](#2-operadores-e-instru%C3%A7%C3%B5es)
   - [2.1. Tipos de operadores](#21-tipos-de-operadores)
-  - [2.2. Precedência](#22-precedência)
-  - [2.3. Operadores aritméticos](#23-operadores-aritméticos)
+  - [2.2. Precedência](#22-preced%C3%AAncia)
+  - [2.3. Operadores aritméticos](#23-operadores-aritm%C3%A9ticos)
   - [2.4. Operadores relacionais](#24-operadores-relacionais)
-  - [2.5. Operadores lógicos](#25-operadores-lógicos)
-  - [2.6. Operadores de atribuição](#26-operadores-de-atribuição)
+  - [2.5. Operadores lógicos](#25-operadores-l%C3%B3gicos)
+  - [2.6. Operadores de atribuição](#26-operadores-de-atribui%C3%A7%C3%A3o)
   - [2.7. Operadores de incremento e decremento](#27-operadores-de-incremento-e-decremento)
   - [2.8. Operadores bitwise](#28-operadores-bitwise)
-  - [2.9. Operadores condicionais (ternários)](#29-operadores-condicionais-ternários)
+  - [2.9. Operadores condicionais ternários](#29-operadores-condicionais-tern%C3%A1rios)
   - [2.10. Operador instanceof](#210-operador-instanceof)
-  - [2.11. Promoção numérica](#211-promoção-numérica)
-  - [2.12. Estruturas de decisão](#212-estruturas-de-decisão)
+  - [2.11. Promoção numérica](#211-promo%C3%A7%C3%A3o-num%C3%A9rica)
+  - [2.12. Estruturas de decisão](#212-estruturas-de-decis%C3%A3o)
     - [2.12.1. If-else](#2121-if-else)
-    - [2.12.2. Ternário](#2122-ternário)
+    - [2.12.2. Ternário](#2122-tern%C3%A1rio)
     - [2.12.3. Switch](#2123-switch)
-  - [2.13. Estruturas de repetição](#213-estruturas-de-repetição)
+  - [2.13. Estruturas de repetição](#213-estruturas-de-repeti%C3%A7%C3%A3o)
     - [2.13.1. While](#2131-while)
     - [2.13.2. Do-while](#2132-do-while)
     - [2.13.3. For](#2133-for)
@@ -41,39 +41,39 @@
     - [2.13.5. Break, continue e label](#2135-break-continue-e-label)
 - [3. Core API](#3-core-api)
   - [3.1. String](#31-string)
-    - [3.1.1. Concatenação](#311-concatenação)
-    - [3.1.2. Métodos importantes](#312-métodos-importantes)
+    - [3.1.1. Concatenação](#311-concatena%C3%A7%C3%A3o)
+    - [3.1.2. Métodos importantes](#312-m%C3%A9todos-importantes)
   - [3.2. StringBuilder](#32-stringbuilder)
-    - [3.2.1. Métodos importantes](#321-métodos-importantes)
+    - [3.2.1. Métodos importantes](#321-m%C3%A9todos-importantes)
     - [3.2.2. StringBuilder x StringBuffer](#322-stringbuilder-x-stringbuffer)
-  - [3.3. Comparação de objetos](#33-comparação-de-objetos)
+  - [3.3. Comparação de objetos](#33-compara%C3%A7%C3%A3o-de-objetos)
   - [3.4. Array](#34-array)
-    - [3.4.1. Ordenação](#341-ordenação)
+    - [3.4.1. Ordenação](#341-ordena%C3%A7%C3%A3o)
     - [3.4.2. Busca](#342-busca)
     - [3.4.3. Varargs](#343-varargs)
     - [3.4.4. Multidimensionais](#344-multidimensionais)
   - [3.5. Wrappers](#35-wrappers)
   - [3.6. ArrayList](#36-arraylist)
-    - [3.6.1. Métodos importantes](#361-métodos-importantes)
-    - [3.6.2. Conversão e ordenação](#362-conversão-e-ordenação)
+    - [3.6.1. Métodos importantes](#361-m%C3%A9todos-importantes)
+    - [3.6.2. Conversão e ordenação](#362-convers%C3%A3o-e-ordena%C3%A7%C3%A3o)
   - [3.7. Date e time](#37-date-e-time)
-    - [3.7.1. Métodos importantes](#371-métodos-importantes)
+    - [3.7.1. Métodos importantes](#371-m%C3%A9todos-importantes)
     - [3.7.2. Period](#372-period)
-    - [3.7.3. Formatação](#373-formatação)
-- [4. Métodos e encapsulamento](#4-métodos-e-encapsulamento)
-  - [4.1. Design de método](#41-design-de-método)
+    - [3.7.3. Formatação](#373-formata%C3%A7%C3%A3o)
+- [4. Métodos e encapsulamento](#4-m%C3%A9todos-e-encapsulamento)
+  - [4.1. Design de método](#41-design-de-m%C3%A9todo)
   - [4.2. Modificadores de acesso](#42-modificadores-de-acesso)
-  - [4.3. Membros estáticos e instâncias](#43-membros-estáticos-e-instâncias)
+  - [4.3. Membros estáticos e instâncias](#43-membros-est%C3%A1ticos-e-inst%C3%A2ncias)
   - [4.4. Constantes](#44-constantes)
-  - [4.5. Importação estática](#45-importação-estática)
-  - [4.6. Parâmetro e retorno](#46-parâmetro-e-retorno)
+  - [4.5. Importação estática](#45-importa%C3%A7%C3%A3o-est%C3%A1tica)
+  - [4.6. Parâmetro e retorno](#46-par%C3%A2metro-e-retorno)
   - [4.7. Sobrecarga](#47-sobrecarga)
   - [4.8. Construtores](#48-construtores)
-  - [4.9. Ordem de inicialização](#49-ordem-de-inicialização)
+  - [4.9. Ordem de inicialização](#49-ordem-de-inicializa%C3%A7%C3%A3o)
   - [4.10. Encapsulamento](#410-encapsulamento)
   - [4.11. Lambda](#411-lambda)
-- [5. Design de Classes com Herança e Polimorfismo](#5-design-de-classes-com-herança-e-polimorfismo)
-  - [5.1. Introdução a herança](#51-introdução-a-herança)
+- [5. Design de classes com herança e polimorfismo](#5-design-de-classes-com-heran%C3%A7a-e-polimorfismo)
+  - [5.1. Introdução a herança](#51-introdu%C3%A7%C3%A3o-a-heran%C3%A7a)
   - [5.2. Uso do super](#52-uso-do-super)
   - [5.3. Sobreescrita](#53-sobreescrita)
   - [5.4. Hiding](#54-hiding)
@@ -81,13 +81,13 @@
   - [5.6. Classes abstratas](#56-classes-abstratas)
   - [5.7. Interface](#57-interface)
   - [5.8. Polimorfismo](#58-polimorfismo)
-  - [5.9. Métodos virtuais](#59-métodos-virtuais)
-  - [5.10. Parâmetros polimórficos](#510-parâmetros-polimórficos)
-- [6. Exceções](#6-exceções)
+  - [5.9. Métodos virtuais](#59-m%C3%A9todos-virtuais)
+  - [5.10. Parâmetros polimórficos](#510-par%C3%A2metros-polim%C3%B3rficos)
+- [6. Exceções](#6-exce%C3%A7%C3%B5es)
   - [6.1. Tratamento](#61-tratamento)
   - [6.2. Hierarquia](#62-hierarquia)
-  - [6.3. Exceções unchecked cobradas](#63-exceções-unchecked-cobradas)
-  - [6.4. Exceções checked cobradas](#64-exceções-checked-cobradas)
+  - [6.3. Exceções unchecked cobradas](#63-exce%C3%A7%C3%B5es-unchecked-cobradas)
+  - [6.4. Exceções checked cobradas](#64-exce%C3%A7%C3%B5es-checked-cobradas)
   - [6.5. Erros cobrados](#65-erros-cobrados)
 
 <!-- /TOC -->
@@ -191,7 +191,7 @@ Um pacote (`package`) é um mecanismo de organização de classes e interfaces e
 
 Se uma classe não tem uma declaração de pacote no início do arquivo, ela pertence ao pacote padrão. Classes no pacote padrão podem ser usadas diretamente sem importações, desde que estejam no mesmo pacote que as classes que as estão referenciando.
 
-Também é possível usar wildcards () para importar todas as classes de um pacote: `import outropacote._;`. Pode-se usar wildcard somente no nome do pacote mais externo e não em subpacotes ou classes individuais dentro desse pacote. Além disso, é permitido apenas um wildcard por declaração de importação.
+Também é possível usar wildcards (`*`) para importar todas as classes de um pacote: `import outropacote.*;`. Pode-se usar wildcard somente no nome do pacote mais externo e não em subpacotes ou classes individuais dentro desse pacote. Além disso, é permitido apenas um wildcard por declaração de importação.
 
 > Usar wildcard pode resultar em ambiguidade no código. Isso ocorre quando dois ou mais pacotes contêm classes ou interfaces com nomes idênticos ou conflitantes. Nesse cenário, o compilador pode não saber qual classe específica deve ser usada em um contexto particular, resultando em um erro de ambiguidade.
 >
@@ -201,13 +201,13 @@ O pacote `java.lang` é automaticamente importado, não sendo necessária sua im
 
 ### 1.7. Criação de objetos
 
-Em Java, a criação de objetos envolve o uso da palavra-chave "new" seguida pelo construtor da classe. Os passos básicos para criar um objeto são:
+Em Java, a criação de objetos envolve o uso da palavra-chave `new` seguida pelo construtor da classe. Os passos básicos para criar um objeto são:
 
 ```java
-// Declaração da Variável de Referência:
+// Declaração da variável de referência:
 TipoObjeto nomeObjeto;
 
-// Alocação de Memória e Inicialização:
+// Alocação de memória e inicialização:
 nomeObjeto = new TipoObjeto();
 ```
 
@@ -217,7 +217,7 @@ Depois de criado, você pode acessar os membros (atributos e métodos) do objeto
 
 ### 1.8. Blocos inicializadores de instância
 
-É um bloco de código que é executado quando uma instância da classe é criada. Ele é usado para realizar a inicialização de instâncias ou execução de código `antes da execução dos construtores`. Existem dois tipos de blocos inicializadores de instância em Java: o bloco de inicialização de instância e o bloco de inicialização de instância estático:
+É um bloco de código que é executado quando a classe é carregada ou uma instância da classe é criada. Ele é usado para realizar a inicialização de instâncias ou execução de código `antes da execução dos construtores`. Existem dois tipos de blocos inicializadores de instância em Java: o bloco de inicialização de instância e o bloco de inicialização de instância estático:
 
 ```java
 public class Exemplo {
@@ -259,18 +259,9 @@ public class Exemplo {
 */
 ```
 
-O bloco de inicialização estático, ele é declarado com a palavra-chave `static` e é executado uma única vez quando a classe é carregada, antes da criação de qualquer instância.
+O bloco de inicialização estático é declarado com a palavra-chave `static` e é executado uma única vez quando a classe é carregada, antes da criação de qualquer instância.
 
 O bloco de inicialização de instância é executado cada vez que uma nova instância da classe é criada, antes do construtor.
-
-> Atributos e blocos inicializadores de instância são executados na ordem em que aparecem no arquivo, só depois o construtor é executado. Portanto, o código abaixo gera erro:
->
-> ```java
-> {
->   System.out.println(valor);
->   int valor = 10;
-> }
-> ```
 
 ### 1.9. Tipos primitivos x referências
 
@@ -288,7 +279,7 @@ Para que um valor inteiro seja interpretado como `long`, é necessário acrescen
 
 Também podemos usar `_` para facilitar a leitura de números grandes **no código**: \
 ![](assets/2023-11-13-20-51-05.png) \
-Não usar no começo, no fim dos valores, e antes ou depois do `.`.
+Não usar no começo ou no fim dos valores, e antes ou depois do `.`.
 
 As referências são variáveis que referenciam um objeto. Não guardam valor, mas sim o `endereço` do espaço de memória no qual o valor está.
 
@@ -314,9 +305,9 @@ As `variáveis de classe` são declaradas usando a palavra-chave `static`. Essas
 
 Quanto ao escopo das variáveis:
 
-- `Variáveis Locais`: escopo desde a declaração até o fim do bloco
-- `Variáveis de Instância`: da declaração até o objeto ser coletado
-- `Variáveis de Classe`: da declaração até o fim do programa
+- `Variáveis locais`: escopo desde a declaração até o fim do bloco
+- `Variáveis de instância`: da declaração até o objeto ser coletado
+- `Variáveis de classe`: da declaração até o fim do programa
 
 ### 1.11. Ordem dos elementos na classe
 
@@ -332,12 +323,12 @@ O método `finalize()` é chamado pelo Garbage Collector antes de liberar a mem�
 
 ### 2.1. Tipos de operadores
 
-- `Operadores Unários`: Atuam em um único operando. Exemplo: `-x`, `x++`
+- `Operadores unários`: Atuam em um único operando. Exemplo: `-x`, `x++`
 
-- `Operadores Binários`: Atuam em dois operandos.
+- `Operadores binários`: Atuam em dois operandos.
   Exemplo: `a + b`
 
-- `Operadores Ternários`: Atuam em três operandos.
+- `Operadores ternários`: Atuam em três operandos.
   Exemplo: `x > 0 ? "Positivo" : "Negativo"`
 
 ### 2.2. Precedência
@@ -404,7 +395,7 @@ De cima para baixo: da maior para a menor precedência.
 
 ### 2.11. Promoção numérica
 
-Quando operações são realizadas entre tipos numéricos menores e um tipo numérico maior, `o tipo menor é promovido ao tipo maior automaticamente` antes da operação ser realizada. Isso garante a precisão dos cálculos e evita a perda de dados.
+Quando operações são realizadas entre um tipo numérico menor e um maior, `o tipo menor é promovido ao tipo maior automaticamente` antes da operação ser realizada. Isso garante a precisão dos cálculos e evita a perda de dados.
 
 > Ao tentarmos atribuir tipos maiores para menores implicitamente, geramos um erro:
 >
@@ -414,7 +405,7 @@ Quando operações são realizadas entre tipos numéricos menores e um tipo num�
 >
 > x = x * y; // Erro pois o resultado é long
 >
-> x *= y; // Funciona pois esse tipo de operação tem cast automático
+> x *= y;    // Funciona pois esse tipo de operação tem cast automático
 > ```
 
 ### 2.12. Estruturas de decisão
@@ -527,7 +518,7 @@ for (int numero : numeros) {
 
 #### 2.13.5. Break, continue e label
 
-A palavra-chave `break` é usada para **interromper a execução** de **loops ou switch statements**. Por exemplo, para sair de um loop for quando i atinge 3:
+A palavra-chave `break` é usada para **interromper a execução** de **loops ou switch statements**. Por exemplo, para sair de um loop for quando `i` atinge `3`:
 
 ```java
 for (int i = 0; i < 5; i++) {
@@ -538,7 +529,7 @@ for (int i = 0; i < 5; i++) {
 }
 ```
 
-A palavra-chave `continue` é usada para **pular a iteração** atual de um loop e continuar com a próxima. Com labels, pode ser direcionado para qual loop deve pular. Exemplo, pulando a iteração quando i é 3:
+A palavra-chave `continue` é usada para **pular a iteração** atual de um loop e continuar com a próxima. Com labels, pode ser direcionado para qual loop deve pular. Exemplo: pulando a iteração quando `i` é `3` e usando labels para definir rótulos para as duas estruturas de repetição:
 
 ```java
 outerLoop:
@@ -588,23 +579,23 @@ nome += " Nome";
 System.out.println(nome); // "Meu nome"
 ```
 
-Porém, internamente ainda existe um lugar na memória apenas com o conteúdo `"Meu"`. O conteúdo impresso na tela é resultado da criação de outra string com valor concatenado, e a variável `nome` apenas mudou o endereço referenciado. Assim, podemos observar a imutabilidade.
+Isso funciona porque internamente ainda existe um lugar na memória apenas com o conteúdo `"Meu"`. O conteúdo impresso na tela é resultado da criação de outra string com valor concatenado, e a variável `nome` apenas mudou o endereço referenciado. Assim, podemos observar a imutabilidade.
 
 #### 3.1.2. Métodos importantes
 
-- `length`: Retorna o número de caracteres na string;
-- `charAt`: Retorna o caractere na posição especificada;
-- `indexOf`: Retorna a posição do primeiro caractere especificado;
-- `substring`: Retorna uma substring com base nos índices fornecidos;
-- `toLowerCase`: Converte a string para minúsculas;
-- `toUpperCase`: Converte a string para maiúsculas;
-- `equals`: Verifica se duas strings são iguais;
-- `equalsIgnoreCase`: Verifica se duas strings são iguais, ignorando maiúsculas e minúsculas;
-- `startsWith`: Verifica se a string começa com um determinado prefixo;
-- `endsWith`: Verifica se a string termina com um determinado sufixo;
-- `contains`: Verifica se a string contém uma determinada sequência de caracteres;
-- `replace`: Substitui caracteres ou sequências de caracteres por outros;
-- `trim`: Remove espaços em branco do início e do final da string.
+- `length()`: Retorna o número de caracteres na string;
+- `charAt(int index)`: Retorna o caractere na posição especificada;
+- `indexOf(char ch)`: Retorna a posição do primeiro caractere especificado;
+- `substring(int startIndex, int endIndex)`: Retorna uma substring com base nos índices fornecidos;
+- `toLowerCase()`: Converte a string para minúsculas;
+- `toUpperCase()`: Converte a string para maiúsculas;
+- `equals(String anotherString)`: Verifica se duas strings são iguais;
+- `equalsIgnoreCase(String anotherString)`: Verifica se duas strings são iguais, ignorando maiúsculas e minúsculas;
+- `startsWith(String prefix)`: Verifica se a string começa com um determinado prefixo;
+- `endsWith(String suffix)`: Verifica se a string termina com um determinado sufixo;
+- `contains(CharSequence sequence)`: Verifica se a string contém uma determinada sequência de caracteres;
+- `replace(char oldChar, char newChar)`: Substitui caracteres ou sequências de caracteres por outros;
+- `trim()`: Remove espaços em branco do início e do final da string.
 
 ### 3.2. StringBuilder
 
@@ -620,12 +611,12 @@ System.out.println(sb);  // Saída: Olá, mundo!
 
 Para StringBuilder **podemos usar os [métodos da classe String](#312-métodos-importantes)**, e outros métodos específicos:
 
-- `append`: Adiciona dados ao final do StringBuilder.
-- `insert`: Insere dados em uma posição específica.
-- `delete`: Remove uma sequência de caracteres.
-- `deleteCharAt`: Remove o caractere na posição especificada.
-- `reverse`: Inverte a sequência de caracteres.
-- `toString`: Converte o StringBuilder para uma string.
+- `append(Object obj)`: Adiciona dados ao final do StringBuilder.
+- `insert(int offset, Object obj)`: Insere dados em uma posição específica.
+- `delete(int startIndex, int endIndex)`: Remove uma sequência de caracteres.
+- `deleteCharAt(int index)`: Remove o caractere na posição especificada.
+- `reverse()`: Inverte a sequência de caracteres.
+- `toString()`: Converte o StringBuilder para uma string.
 
 #### 3.2.2. StringBuilder x StringBuffer
 
@@ -641,7 +632,7 @@ Por exemplo, em um aplicativo onde várias **threads** estão manipulando e modi
 
 O operador `==` em Java compara referências de objetos, não os valores.
 
-No entanto, para objetos String criados sem o uso do operador new, o Java usa um **pool de strings** interno, o que significa que strings idênticas compartilham a mesma referência na memória, tornando a comparação com `==` válida para verificar igualdade de valor.
+Porém, para objetos `String` criados sem o uso do operador new, o Java usa um **pool de strings** interno, o que significa que strings idênticas compartilham a mesma referência na memória, tornando a comparação com `==` válida para verificar igualdade de valor.
 
 No entanto, para garantir a comparação de conteúdo, é preferível usar o método `equals()`, que compara os valores das strings, não apenas as referências.
 
@@ -670,16 +661,31 @@ public class ComparacaoDeObjetos {
 
 Arrays em são estruturas de `tamanho fixo`, armazenando elementos de um `único tipo`.
 
+A criação pode ser feita definindo os valores e omitindo o tamanho:
+
+```java
+int array[] = {1, 2, 3, 4, 5};
+```
+
+Ou definindo o tamanho e posteriormente os valores:
+
+```java
+int array[] = new int[5];
+array[0] = 1;
+array[4] = 5;
+```
+
 Arrays de primitivos são inicializados com valores padrão (`0` para números, `false` para booleanos).
 
-A forma de declarar arrays permite criar e inicializar com valores imediatamente. Quando mais de uma variável é criada na mesma linha, os colchetes podem ser colocados tanto com o tipo quanto com o nome da variável. Exemplos:
+A forma de declarar arrays permite criar e inicializar com valores imediatamente. Quando mais de uma variável é criada na mesma linha, os colchetes podem ser colocados tanto com o tipo quanto com o nome da variável.
 
 ```java
 // Declarando e inicializando um array de inteiros
 int[] numeros = {1, 2, 3, 4, 5};
 
-// Criando dois arrays de inteiros na mesma linha
+// Criando dois arrays de inteiros na mesma linha e inicializando um deles
 int[] array1, array2;
+array2 = new int[10];
 
 // Criando um inteiro e um array de inteiro
 int array3, array4[];
@@ -703,7 +709,7 @@ System.out.println(Arrays.toString(numeros));
 
 A busca binária em um array, realizada pelo método binarySearch da classe Arrays, retorna o índice do elemento encontrado ou um índice negativo caso o elemento não seja encontrado.
 
-Esse método assume que o array está ordenado. Se o array não estiver ordenado, o resultado pode ser imprevisível.
+Esse método assume que o array está ordenado. Se o array não estiver ordenado, o resultado é imprevisível.
 
 ```java
 int[] numeros = {8, 2, 5, 1, 6};
@@ -743,7 +749,7 @@ São matrizes que contêm outras matrizes. A declaração de arrays multidimensi
 
 - `int[][] matriz = new int[x][];`
 - `int matriz[][] = new int[y][];`
-- `int[] matriz[] = new int[z][];`
+- `int[] matriz[][] = new int[z][][];`
 
 Apesar de os tamanhos das últimas dimensões ser opcional, o tamanho da primeira dimensão sempre deve ser definido na declaração de arrays multidimensionais.
 
@@ -754,7 +760,7 @@ matrizVariavel[0] = new int[5];
 matrizVariavel[1] = new int[8];
 ```
 
-> Para interpretar, podemos dizer que foi criada uma matriz de duas linhas e colunas variáveis.
+> Para interpretar o exemplo acima, podemos dizer que foi criada uma matriz de duas linhas, com colunas de tamanhos variáveis.
 >
 > A primeira linha possui 5 colunas e a segunda linha possui 8 colunas.
 
@@ -762,7 +768,7 @@ matrizVariavel[1] = new int[8];
 
 São classes que `encapsulam tipos primitivos`, permitindo que sejam tratados como objetos.
 
-Métodos como `parseX` convertem strings para tipos primitivos (por exemplo, `Integer.parseInt("123")`), enquanto `valueOf` retorna objetos wrappers (por exemplo, `Integer.valueOf(123)`). O tipo `Char` não possui esses métodos.
+Métodos como `parseX` convertem strings para tipos primitivos (por exemplo, `Integer.parseInt("123")`), enquanto métodos como `valueOf` retornam objetos wrappers (por exemplo, `Integer.valueOf(123)`). O tipo `Char` não possui esses métodos.
 
 O `autoboxing` converte automaticamente tipos primitivos em wrappers (por exemplo, `int` para `Integer`), e o `autounboxing` faz o inverso (por exemplo, `Integer` para `int`).
 
@@ -776,7 +782,7 @@ O `autoboxing` converte automaticamente tipos primitivos em wrappers (por exempl
 
 Pode ser criado de três maneiras: usando o construtor padrão (vazio), especificando a capacidade inicial através do construtor com um argumento de capacidade, ou inicializando-o com elementos de outra coleção.
 
-O uso de generics permite a tipagem segura, mas ao instanciar um ArrayList, o tipo genérico só é necessário durante a declaração; durante a inicialização, o operador diamante <> pode ser usado.
+O uso de **generics** permite a tipagem segura, mas ao instanciar um `ArrayList`, o tipo genérico só é necessário durante a declaração, pois, durante a inicialização, o operador diamante `<>` pode ser usado. Apenas são permitidos tipos Wrappers nos generics.
 
 ```java
 import java.util.ArrayList;
@@ -808,20 +814,26 @@ public class ExemploArrayList {
 
 #### 3.6.1. Métodos importantes
 
-- `add(elemento)` | `add(índice, elemento)`: Adiciona um elemento ao final da lista. Também aceita, como segundo elemento, o índice para o novo elemento.
-- `remove(elemento)` | `remove(índice)`: Remove a primeira ocorrência do elemento especificado ou do elemento no índice especificado.
-- `set(índice, elemento)`: Substitui o elemento no índice especificado pelo novo elemento.
+- `add(Object elemento) | add(int índice, Object elemento)`: Adiciona um elemento ao final da lista. Também aceita, como segundo elemento, o índice para o novo elemento.
+- `remove(Object elemento) | remove(int índice)`: Remove a primeira ocorrência do elemento especificado ou do elemento no índice especificado.
+- `set(int índice, Object elemento)`: Substitui o elemento no índice especificado pelo novo elemento.
 - `isEmpty()`: Retorna **true** se a lista estiver vazia.
 - `size()`: Retorna o número de elementos na lista.
 - `clear()`: Remove todos os elementos da lista.
-- `contains(elemento)`: Retorna **true** se a lista contiver o elemento especificado.
-- `equals(outraLista)`: Compara se a lista é igual a outra lista, verificando se têm os mesmos elementos na mesma ordem.
+- `contains(Object elemento)`: Retorna **true** se a lista contiver o elemento especificado.
+- `equals(List outraLista)`: Compara se a lista é igual a outra lista, verificando se têm os mesmos elementos na mesma ordem.
 
 #### 3.6.2. Conversão e ordenação
 
 A conversão entre arrays e listas pode ser feita usando o método `toArray` para converter uma lista para um array, e o método `asList` para converter um array para uma lista.
 
-> `asList` cria uma lista de tamanho fixo que aponta para o mesmo endereço de memória do array original.
+> `asList` cria uma lista de tamanho fixo que aponta para o mesmo endereço de memória do array original. Portando o código abaixo lança a exceção `UnsupportedOperationException`:
+>
+> ```java
+> Integer[] array = {1, 2, 3, 4};
+> List<Integer> lista = Arrays.asList(array);
+> lista.add(5);
+> ```
 
 Além disso, a ordenação de uma lista pode ser realizada usando `Collections.sort`.
 
@@ -856,7 +868,7 @@ public class ConversaoOrdenacao {
 
 ### 3.7. Date e time
 
-As classes `LocalDate`, `LocalTime` e `LocalDateTime` fazem parte do pacote `java.time` e representam respectivamente `datas`, `horas` e `data e hora` combinadas sem considerar a zona de tempo.
+As classes `LocalDate`, `LocalTime` e `LocalDateTime` fazem parte do pacote `java.time` e representam respectivamente `data`, `hora` e `data e hora combinadas (sem considerar a zona de tempo)`.
 
 O método `now` é usado para obter a data ou hora atual, enquanto o método `of` permite criar instâncias específicas dessas classes.
 
@@ -887,24 +899,24 @@ public class ExemploDateTime {
 
 #### 3.7.1. Métodos importantes
 
+- `plusSeconds(long seconds)`: Adiciona um número especificado de segundos.
+- `plusMinutes(long minutes)`: Adiciona um número especificado de minutos.
+- `plusHours(long hours)`: Adiciona um número especificado de horas.
 - `plusDays(long days)`: Adiciona um número especificado de dias.
+- `plusWeeks(long weeks)`: Adiciona um número especificado de semanas.
 - `plusMonths(long months)`: Adiciona um número especificado de meses.
 - `plusYears(long years)`: Adiciona um número especificado de anos.
-- `plusHours(long hours)`: Adiciona um número especificado de horas.
-- `plusMinutes(long minutes)`: Adiciona um número especificado de minutos.
-- `plusSeconds(long seconds)`: Adiciona um número especificado de segundos.
-- `plusWeeks(long weeks)`: Adiciona um número especificado de semanas.
+- `minusSeconds(long seconds)`: Subtrai um número especificado de segundos.
+- `minusMinutes(long minutes)`: Subtrai um número especificado de minutos.
+- `minusHours(long hours)`: Subtrai um número especificado de horas.
 - `minusDays(long days)`: Subtrai um número especificado de dias.
+- `minusWeeks(long weeks)`: Subtrai um número especificado de semanas.
 - `minusMonths(long months)`: Subtrai um número especificado de meses.
 - `minusYears(long years)`: Subtrai um número especificado de anos.
-- `minusHours(long hours)`: Subtrai um número especificado de horas.
-- `minusMinutes(long minutes)`: Subtrai um número especificado de minutos.
-- `minusSeconds(long seconds)`: Subtrai um número especificado de segundos.
-- `minusWeeks(long weeks)`: Subtrai um número especificado de semanas.
 
 #### 3.7.2. Period
 
-`Period` é uma classe do pacote `java.time` que representa um **período de tempo**, como a diferença entre duas datas. Além de calcular diferenças entre datas, é possível criar instâncias de `Period` para representar um período fixo, independente de datas específicas.
+`Period` é uma classe do pacote `java.time` que representa um **período de tempo**, como a diferença entre duas datas um período fixo, independente de datas específicas.
 
 ```java
 import java.time.LocalDate;
@@ -969,11 +981,11 @@ public class ExemploFormatarDatetime {
 
 O design de métodos envolve vários elementos:
 
-- **`Modificador de Acesso`**: Define a visibilidade do método (`public`, `private`, `protected`, ou `default/package-private`).
+- **`Modificador de acesso`**: Define a visibilidade do método (`public`, `private`, `protected`, ou `default/package-private`).
 
 - **`Especificadores`**: Como `static`, `final`, ou `abstract`, que modificam o comportamento do método.
 
-- **`Tipo de Retorno`**: Indica o tipo de dado que o método retorna, colocado **imediatamente antes** do nome do método.
+- **`Tipo de retorno`**: Indica o tipo de dado que o método retorna, colocado **imediatamente antes** do nome do método.
 
 - **`Nome`**: Deve começar com uma **letra**, cifrão (`$`) ou sublinhado (`_`).
 
@@ -991,9 +1003,9 @@ Exemplos:
 
 ```java
 public class ExemploMetodo {
-    // Modificador de Acesso: public
+    // Modificador de acesso: public
     // Especificador:         static
-    // Tipo de Retorno:       int
+    // Tipo de retorno:       int
     // Nome:                  somar
     // Parâmetros:            (int a, int b)
     // Corpo:                 { return a + b; }
@@ -1001,8 +1013,8 @@ public class ExemploMetodo {
         return a + b;
     }
 
-    // Modificador de Acesso: private
-    // Tipo de Retorno:       void
+    // Modificador de acesso: private
+    // Tipo de retorno:       void
     // Nome:                  exibirMensagem
     // Parâmetros:            (String mensagem)
     // Corpo:                 { System.out.println(mensagem); }
@@ -1016,7 +1028,7 @@ public class ExemploMetodo {
 
 Os modificadores de acesso determinam a visibilidade de classes, métodos e variáveis em relação a outras classes. Existem quatro modificadores de acesso principais:
 
-- `public`: O membro (classe, método, variável) é acessível de qualquer lugar. Por exemplo, um método declarado como `public` pode ser chamado de qualquer outra classe.
+- `public`: O membro (classe, método, variável) é acessível de qualquer lugar e pode ser chamado de qualquer outra classe.
 
 - `private`: O membro é acessível apenas dentro da própria classe. Isso significa que outros objetos ou classes não podem acessar diretamente membros privados.
 
@@ -1069,7 +1081,7 @@ public class ExemploStatic {
 
 ### 4.4. Constantes
 
-As constantes são definidas usando a palavra-chave `final`, indicando que seu valor não pode ser alterado após a atribuição inicial. No entanto, quando aplicada a uma lista, por exemplo, a imutabilidade se refere à incapacidade de atribuir uma nova referência à lista, mas os elementos individuais ainda podem ser modificados.
+As constantes são definidas usando a palavra-chave `final`, indicando que seu valor não pode ser alterado após a atribuição inicial. No entanto, quando aplicada a uma lista, por exemplo, a imutabilidade se refere à incapacidade de atribuir uma nova **referência** à lista, mas os elementos individuais ainda podem ser modificados.
 
 Além disso, uma constante pode ser declarada como `static final` e inicializada dentro de um bloco de inicialização `static`, garantindo que seja atribuída apenas uma vez, durante a inicialização da classe.
 
@@ -1120,20 +1132,20 @@ public class ExemploImportacaoEstatica {
 
 ### 4.6. Parâmetro e retorno
 
-A passagem de parâmetros para métodos funciona de maneira que `o valor real do parâmetro` (primitivo ou referência) `é copiado para o método`. No caso de tipos primitivos, é uma cópia direta do valor.Para objetos, a cópia é da referência, não do objeto real. Isso significa que, se o método modifica o valor de um parâmetro primitivo, isso não afeta a variável original.
+A passagem de parâmetros para métodos funciona de maneira que `o valor real do parâmetro` (primitivo ou referência) `é copiado para o método`. No caso de tipos primitivos, é uma cópia direta do valor. Para objetos, a cópia é da referência, não do objeto real.
 
-No entanto, para objetos, as alterações nos atributos do objeto refletirão fora do método. O retorno de métodos segue a mesma lógica, onde é retornado uma cópia do valor, seja primitivo ou referência.
+Isso significa que, se o método modifica o valor de um parâmetro primitivo, isso não afeta a variável original. No entanto, para objetos, as alterações nos atributos do objeto refletirão fora do método. O retorno de métodos segue a mesma lógica, onde é retornado uma cópia do valor, seja primitivo ou referência.
 
 ### 4.7. Sobrecarga
 
-A sobrecarga de método permite que você tenha `métodos com o mesmo nome` em uma classe, desde que eles tenham `assinaturas diferentes`.
+A sobrecarga de método permite que você tenha `métodos com o mesmo nome` em uma classe, desde que eles tenham `assinaturas diferentes` (nome e lista de parâmetros).
 
 Durante a chamada de um método sobrecarregado, o **compilador procura o método que melhor corresponde aos argumentos fornecidos**.
 
 A ordem de tentativa de chamada segue essa ordem:
 
-1. `Match Exato`: O compilador tenta encontrar um método com a assinatura exata que corresponda aos argumentos fornecidos.
-1. `Tipos Maiores`: Se nenhum método com uma correspondência exata for encontrado, o compilador procura métodos onde os argumentos podem ser promovidos para tipos maiores. Por exemplo, se você passar um int, ele tentará encontrar um método que aceite um long se não houver um método que aceite diretamente um int.
+1. `Correspondência exata`: O compilador tenta encontrar um método com a assinatura exata que corresponda aos argumentos fornecidos.
+1. `Tipos maiores`: Se nenhum método com uma correspondência exata for encontrado, o compilador procura métodos onde os argumentos podem ser promovidos para tipos maiores. Por exemplo, se você passar um `int`, ele tentará encontrar um método que aceite um `long` se não houver um método que aceite diretamente um `int`.
 1. `Autoboxing`: Se ainda não houver correspondência, o compilador procura métodos que envolvam autoboxing. Isso significa que, se você passar um tipo primitivo, o compilador procurará um método que aceite o tipo primitivo ou sua versão de classe wrapper.
 1. `Varargs`: Se nenhuma correspondência exata, correspondência com tipos maiores ou autoboxing for encontrada, o compilador tentará encontrar um método com varargs (número variável de argumentos).
 
@@ -1173,7 +1185,7 @@ Construtores são métodos especiais com o **mesmo nome da classe**, utilizados 
 
 Um `construtor vazio é criado implicitamente` se nenhum for definido, mas ao definir um, esse construtor padrão é substituído.
 
-Construtores podem chamar outros construtores usando `this(...)`. Além disso, podem ser utilizados para inicializar campos final, desde que isso seja feito no próprio construtor ou dentro de um bloco de inicialização.
+Construtores podem chamar outros construtores da mesma classe usando `this(...)`. Além disso, podem ser utilizados para inicializar atributos.
 
 ```java
 public class Exemplo {
@@ -1295,7 +1307,7 @@ public class Exemplo {
 
 ### 4.11. Lambda
 
-Lambda expressions são uma forma concisa de expressar funcionalidades. Elas permitem escrever código mais limpo e legível. Em uma expressão lambda, você pode omitir o tipo do parâmetro se o compilador puder inferir, e também pode não precisar de parênteses se houver apenas um parâmetro. Se o corpo da lambda tiver apenas uma instrução, não é necessário usar chaves.
+Lambda expressions são uma forma concisa de expressar funcionalidades. Elas permitem escrever código mais limpo e legível. Em uma expressão lambda, você pode omitir o tipo do parâmetro se o compilador puder inferir, e os parênteses, se houver apenas um parâmetro. Se o corpo da lambda tiver apenas uma instrução, não é necessário usar chaves.
 
 ```java
 // Exemplo com lambda
@@ -1316,7 +1328,7 @@ public class ExemploLambda {
 }
 ```
 
-## 5. Design de Classes com Herança e Polimorfismo
+## 5. Design de classes com herança e polimorfismo
 
 ### 5.1. Introdução a herança
 
@@ -1471,7 +1483,7 @@ Quando aplicado a um método, o `final` impede a sobreescrita (overriding) desse
 
 ### 5.6. Classes abstratas
 
-São utilizadas para fornecer uma base para outras classes, mas `não deseja que a própria classe abstrata seja instanciada`. Elas **podem ter métodos concretos** (com implementação) **ou abstratos** (sem implementação).
+São utilizadas para fornecer uma base para outras classes, mas `não deseja que a própria classe abstrata seja instanciada`. Elas **podem ter métodos concretos** (com implementação) **e/ou abstratos** (sem implementação).
 
 Se uma classe contém pelo menos um método abstrato, ela deve ser marcada como abstrata. As subclasses que herdam de uma classe abstrata devem implementar todos os métodos abstratos ou também serem declaradas como abstratas.
 
