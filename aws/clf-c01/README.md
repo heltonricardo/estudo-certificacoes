@@ -1,5 +1,7 @@
 # CLF-C01: AWS Cloud Practitioner
 
+[Voltar para a página principal](../../README.md)
+
 <img src="assets/badge.png" alt="CLF-C01: AWS Cloud Practitioner" width="200"/>
 
 <!-- TOC -->
@@ -484,3 +486,5 @@ O Amazon CloudWatch é um `serviço de monitoramento e observabilidade` que cole
 ## 20. EventBridge
 
 O Amazon EventBridge é um `serviço de integração de eventos` que facilita a construção de arquiteturas orientadas a eventos, permitindo a comunicação e ação entre diferentes serviços e aplicativos.
+
+[Voltar para a página principal](../../README.md)

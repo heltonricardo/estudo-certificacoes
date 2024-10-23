@@ -1,5 +1,7 @@
 # 1Z0-808: Oracle Certified Associate - Java SE 8 Programmer
 
+[Voltar para a página principal](../../README.md)
+
 <img src="assets/badge.png" alt="1Z0-808: Oracle Certified Associate - Java SE 8 Programmer" width="200"/>
 
 <!-- TOC -->
@@ -1767,3 +1769,5 @@ Os `Error`'s cobradas no exame são:
 - `ExceptionInInitializerError`: Ocorre quando uma exceção é lançada durante a execução de um inicializador de classe estático (static).
 - `StackOverflowError`: Acontece quando a pilha de chamadas de métodos atinge um limite, geralmente por chamadas recursivas infinitas.
 - `NoClassDefFoundError`: Ocorre quando a JVM não consegue encontrar a definição de uma classe durante a execução, mesmo que estivesse disponível durante a compilação.
+
+[Voltar para a página principal](../../README.md)

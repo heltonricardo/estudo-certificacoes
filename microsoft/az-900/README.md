@@ -1,5 +1,7 @@
 # AZ-900: Microsoft Azure Fundamentals
 
+[Voltar para a página principal](../../README.md)
+
 <img src="assets/badge.svg" alt="AZ-900: Microsoft Azure Fundamentals" width="200"/>
 
 <hr />
@@ -443,3 +445,5 @@ Página das atualizações mais recentes sobre os produtos e recursos do Azure q
 1. Em desenvolvimento
 2. Preview
 3. Disponível
+
+[Voltar para a página principal](../../README.md)
