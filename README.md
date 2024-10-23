@@ -5,6 +5,7 @@ Repositório dedicado aos estudo para certificações:
 ### AWS
 
 - [CLF-C01 - AWS Cloud Practitioner](/aws/clf-c01/README.md)
+- [DVA-C02 - AWS Certified Developer – Associate](/aws/dva-c02/README.md)
 
 ### Microsoft
 
