@@ -13,6 +13,9 @@
   - [1.4. Assumindo um papel](#14-assumindo-um-papel)
   - [1.5. STS - Security Token Service](#15-sts---security-token-service)
   - [1.6. Access Control Methods](#16-access-control-methods)
+- [2. CLI](#2-cli)
+  - [2.1. Arquivos importantes](#21-arquivos-importantes)
+  - [2.2. Assumindo um papel](#22-assumindo-um-papel)
 
 <!-- /TOC -->
 
@@ -71,4 +74,47 @@ Serviço que fornece credenciais temporárias para aplicações acessarem outras
 
 - Role-Based Access Control (RBAC): Atribui permissões com base nas funções dos usuários dentro de uma organização, facilitando a gestão de acesso em grandes ambientes.
 - Attribute-Based Access Control (ABAC): Oferece uma abordagem mais flexível e dinâmica, utilizando tags e múltiplos atributos (como localização e horário) para tomar decisões de acesso em tempo real.
+
+## 2. CLI
+
+- `aws help`: Apresenta ajuda sobre os serviços disponíveis
+- `aws ec2 help`: Apresenta ajuda sobre os comandos disponíveis para o serviço EC2
+
+---
+
+- `aws configure`: Configura credenciais **default** de acesso AWS
+- `aws configure --profile nome-perfil`: Configura credenciais de acesso AWS no perfil especificado
+
+---
+
+- `aws s3 ls`: Lista todos os buckets S3
+- `aws s3 mb s3://my-bucket`: Cria o bucket **my-bucket**
+- `aws s3 cp arquivo.txt s3://my-bucket`: Faz o upload do **arquivo.txt** para o bucket **my-bucket**
+- `aws s3 ls s3://my-bucket`: Lista os arquivos no bucket **my-bucket**
+- `aws s3 rb s3://my-bucket`: Remove o bucket **my-bucket** (não apaga bucket com conteúdo)
+- `aws s3 rb s3://my-bucket --force`: Remove o bucket **my-bucket** mesmo com conteúdo
+
+---
+
+- `aws ec2 describe-instances`: Mostra detalhes das instâncias EC2
+
+> Sempre que os comandos são executados, o perfil usado é o **default** a menos que especifiquemos um usando: `aws comando --profile nome-perfil`
+
+### 2.1. Arquivos importantes
+
+- `.aws/config`: Contém configurações, como região especificada
+- `.aws/credentials`: Contém os dados da credencial em texto sem criptografia
+
+> No Linux: O diretório `.aws` está onde os arquivos de instalação foram descompactados
+> No Windows: O diretório `.aws` está na pasta `C:\Users\User`
+
+### 2.2. Assumindo um papel
+
+Copiar o código ARN do papel em IAM > Roles > NomeRole (algo como `arn:aws:iam::123/role/nome-role`) e colar usando este template no arquivo `.aws/config`:
+
+```
+[profile nome-role]
+    role_arn = arn:aws:iam::123/role/nome-role
+    source_profile = default
+```
 
