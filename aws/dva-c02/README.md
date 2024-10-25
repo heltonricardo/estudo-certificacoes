@@ -19,7 +19,9 @@
   - [2.3. Assumindo um papel](#23-assumindo-um-papel)
 - [3. VPC, EC2 e ELB](#3-vpc-ec2-e-elb)
   - [3.1. VPC](#31-vpc)
-  - [3.2. Grupos de Segurança e NACLs](#32-grupos-de-seguran%C3%A7a-e-nacls)
+    - [3.1.1. Grupos de Segurança e NACLs](#311-grupos-de-seguran%C3%A7a-e-nacls)
+  - [3.2. EC2](#32-ec2)
+    - [3.2.1. EBS e Instance Stores](#321-ebs-e-instance-stores)
 
 <!-- /TOC -->
 
@@ -157,7 +159,7 @@ Para controlar o tráfego dentro da VPC, há um roteador interno que utiliza uma
 - **Security Group**: Um firewall a nível de instância, que controla o tráfego de entrada e saída para os recursos implantados.
 - **Network ACL (Access Control List)**: Um firewall a nível de subnet, que controla o tráfego para e a partir das subnets na VPC.
 
-### 3.2. Grupos de Segurança e NACLs
+#### 3.1.1. Grupos de Segurança e NACLs
 
 Os Network ACLs (NACLs) e Grupos de Segurança são firewalls usados para proteger o tráfego na VPC:
 
@@ -166,3 +168,33 @@ Os Network ACLs (NACLs) e Grupos de Segurança são firewalls usados para proteg
 - **Grupos de Segurança:** Aplicados no nível da instância, controlam o tráfego permitido para recursos específicos. Um mesmo grupo pode ser usado em instâncias de diferentes subnets.
 
 ![](assets/2024-10-24-16-28-30.png)
+
+### 3.2. EC2
+
+O Amazon EC2 (Elastic Compute Cloud) é um serviço essencial da AWS que oferece servidores virtuais. A AWS gerencia os hosts físicos, enquanto nós gerenciamos as instâncias, que podem executar Windows, Linux ou macOS.
+
+O EC2 é um tipo de IaaS (Infrastructure as a Service), permitindo que você escolha atributos de hardware para cada instância e instale suas aplicações. Cada instância opera dentro de uma VPC (Virtual Private Cloud).
+
+No Amazon EC2, as instâncias operam com três tipos de endereços IP:
+
+- **IP Público:** Acessível pela Internet, mas é dinâmico e pode mudar se a instância for parada e iniciada novamente.
+
+- **IP Privado:** Usado para comunicação interna entre instâncias na mesma VPC. Para que uma instância com IP privado acesse a Internet, é necessária a configuração de um NAT (Network Address Translation), que permite a tradução do IP privado para um IP público.
+
+- **IP Elástico:** Um IP público estático que você pode associar a uma instância. Ao contrário do IP público dinâmico, o IP elástico não é perdido quando a instância é desligada, garantindo que você mantenha o mesmo endereço IP mesmo após reinicializações.
+
+![](assets/2024-10-24-21-21-08.png)
+
+#### 3.2.1. EBS e Instance Stores
+
+O EBS (Elastic Block Store) oferece volumes de armazenamento para instâncias EC2. Esses volumes são um sistema de armazenamento em bloco, diferente do armazenamento em arquivo, e existem dentro de uma Zona de Disponibilidade (AZ).
+
+![](assets/2024-10-24-21-45-10.png)
+
+As instâncias EC2 também possuem instance store volumes, que são fisicamente conectados aos hosts EC2. Esses volumes oferecem alta performance, mas os dados não são persistidos após o desligamento da instância.
+
+![](assets/2024-10-24-21-50-29.png)
+
+Os backups do EBS são chamados de snapshots, que são armazenados no S3 (um serviço da AWS na mesma região) e não na AZ. Os snapshots são incrementais, ou seja, só fazem backup das alterações desde o último snapshot. A partir de um snapshot, você pode criar um novo volume EBS ou uma Amazon Machine Image (AMI), que permite lançar instâncias pré-configuradas rapidamente.
+
+![](assets/2024-10-24-21-59-24.png)
