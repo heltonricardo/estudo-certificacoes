@@ -22,6 +22,9 @@
     - [3.1.1. Grupos de Segurança e NACLs](#311-grupos-de-seguran%C3%A7a-e-nacls)
   - [3.2. EC2](#32-ec2)
     - [3.2.1. EBS e Instance Stores](#321-ebs-e-instance-stores)
+    - [3.2.2. EFS](#322-efs)
+      - [3.2.2.1. Classes de armazenamento](#3221-classes-de-armazenamento)
+      - [3.2.2.2. Desempenho](#3222-desempenho)
 
 <!-- /TOC -->
 
@@ -150,14 +153,14 @@ Para controlar o tráfego dentro da VPC, há um roteador interno que utiliza uma
 
 **Conexões e Componentes Adicionais**
 
-- **Peering Connection**: Uma conexão direta entre duas VPCs, permitindo que elas se comuniquem como se estivessem na mesma rede.
-- **NAT Instance**: Uma instância que habilita o acesso à Internet para instâncias EC2 em subnets privadas, gerenciada por você.
-- **NAT Gateway**: Similar à NAT Instance, porém gerenciada pela AWS, fornecendo acesso à Internet para instâncias em subnets privadas de forma mais escalável.
-- **Virtual Private Gateway**: O lado da VPC que faz parte de uma conexão de VPN, usada para conectar a rede local do cliente à VPC da AWS.
-- **Customer Gateway**: O lado do cliente de uma conexão de VPN, representando o dispositivo de borda que se conecta à VPC.
-- **AWS Direct Connect**: Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
-- **Security Group**: Um firewall a nível de instância, que controla o tráfego de entrada e saída para os recursos implantados.
-- **Network ACL (Access Control List)**: Um firewall a nível de subnet, que controla o tráfego para e a partir das subnets na VPC.
+- **Peering Connection:** Uma conexão direta entre duas VPCs, permitindo que elas se comuniquem como se estivessem na mesma rede.
+- **NAT Instance:** Uma instância que habilita o acesso à Internet para instâncias EC2 em subnets privadas, gerenciada por você.
+- **NAT Gateway:** Similar à NAT Instance, porém gerenciada pela AWS, fornecendo acesso à Internet para instâncias em subnets privadas de forma mais escalável.
+- **Virtual Private Gateway:** O lado da VPC que faz parte de uma conexão de VPN, usada para conectar a rede local do cliente à VPC da AWS.
+- **Customer Gateway:** O lado do cliente de uma conexão de VPN, representando o dispositivo de borda que se conecta à VPC.
+- **AWS Direct Connect:** Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
+- **Security Group:** Um firewall a nível de instância, que controla o tráfego de entrada e saída para os recursos implantados.
+- **Network ACL (Access Control List):** Um firewall a nível de subnet, que controla o tráfego para e a partir das subnets na VPC.
 
 #### 3.1.1. Grupos de Segurança e NACLs
 
@@ -198,3 +201,34 @@ As instâncias EC2 também possuem instance store volumes, que são fisicamente 
 Os backups do EBS são chamados de snapshots, que são armazenados no S3 (um serviço da AWS na mesma região) e não na AZ. Os snapshots são incrementais, ou seja, só fazem backup das alterações desde o último snapshot. A partir de um snapshot, você pode criar um novo volume EBS ou uma Amazon Machine Image (AMI), que permite lançar instâncias pré-configuradas rapidamente.
 
 ![](assets/2024-10-24-21-59-24.png)
+
+#### 3.2.2. EFS
+
+O EFS (Elastic File System) é um sistema de arquivos compartilhado que permite que múltiplas instâncias EC2 se conectem a ele, mesmo em diferentes Zonas de Disponibilidade (AZs). As instâncias se conectam a um ponto de montagem na AZ, utilizando o protocolo NFS (Network File System), que é compatível apenas com Linux.
+
+![](assets/2024-10-24-22-31-00.png)
+
+Para sistemas de arquivos regionais, as operações de gravação são duravelmente armazenadas em várias AZs, e aplicações clientes NFS podem usar bloqueios de arquivo NFS v4 para garantir consistência durante leituras e gravações.
+
+##### 3.2.2.1. Classes de armazenamento
+
+- **EFS Standard:** Usando SSDs para baixa latência.
+- **EFS Infrequent Access (IA):** Uma opção econômica para dados menos acessados.
+- **EFS Archive:** A opção mais barata para dados arquivados.
+
+> Todas as classes oferecem 99,999999999% de durabilidade.
+
+É possível replicar um sistema de arquivos em outra região para recuperação de desastres, com RPO/RTO em minutos. Vários pontos de montagem podem ser criados na réplica, mas apenas como somente leitura. Também é viável conectar computadores on-premises a esses sistemas, desde que utilizem o EFS.
+
+![](assets/2024-10-24-22-38-17.png)
+
+O EFS integra-se com o AWS Backup para backups automáticos do sistema de arquivos.
+
+##### 3.2.2.2. Desempenho
+
+Em termos de desempenho, existem duas opções:
+
+- **Provisioned Throughput:** Permite especificar um nível de throughput independente do tamanho do sistema de arquivos.
+- **Bursting Throughput:** O throughput escala com a quantidade de armazenamento, permitindo picos de desempenho conforme necessário.
+
+> Throughput: quantidade de dados que pode ser processada ou transferida em um determinado período de tempo.
