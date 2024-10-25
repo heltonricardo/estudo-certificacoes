@@ -25,6 +25,7 @@
     - [3.2.2. EFS](#322-efs)
       - [3.2.2.1. Classes de armazenamento](#3221-classes-de-armazenamento)
       - [3.2.2.2. Desempenho](#3222-desempenho)
+    - [3.2.3. Metadata e User Data](#323-metadata-e-user-data)
 
 <!-- /TOC -->
 
@@ -232,3 +233,13 @@ Em termos de desempenho, existem duas opções:
 - **Bursting Throughput:** O throughput escala com a quantidade de armazenamento, permitindo picos de desempenho conforme necessário.
 
 > Throughput: quantidade de dados que pode ser processada ou transferida em um determinado período de tempo.
+
+#### 3.2.3. Metadata e User Data
+
+- **EC2 Metadata**: Informações sobre a instância EC2, como ID, IP etc.
+  - **IMDSv1**: Método antigo e menos seguro.
+  - **IMDSv2**: Requer uso de token para maior segurança.
+- **User Data**: Script executado automaticamente na primeira inicialização da instância.
+  - Deve ser codificado em **base64** (feito automaticamente no console e AWS CLI).
+  - Limite de **16 KB** em formato bruto (antes de ser codificado).
+  - Executado apenas **uma vez**, no primeiro boot.
