@@ -29,6 +29,7 @@
     - [3.2.4. Metadata e User Data](#324-metadata-e-user-data)
     - [3.2.5. Access Keys e IAM Roles](#325-access-keys-e-iam-roles)
     - [3.2.6. Auto Scaling](#326-auto-scaling)
+      - [3.2.6.1. ASG: Auto Scaling Groups](#3261-asg-auto-scaling-groups)
     - [3.2.7. ECB: Elastic Load Balancing](#327-ecb-elastic-load-balancing)
 
 <!-- /TOC -->
@@ -261,6 +262,10 @@ EC2 Auto Scaling ajusta automaticamente a quantidade de instâncias, substituind
 ![](assets/2024-10-28-14-44-13.png)
 
 O escalonamento é horizontal (scale-out), proporcionando elasticidade e escalabilidade, aumentando a capacidade quando necessário e reduzindo quando possível. Possui health checks para EC2 e ELB, além de um período de espera (grace period) antes de iniciar operações. Existem quatro modos de escalonamento: manual, dinâmico (sob demanda), preditivo (usando ML) e agendado.
+
+##### 3.2.6.1. ASG: Auto Scaling Groups
+
+Auto Scaling Groups permitem a criação e gerenciamento automáticos de grupos de instâncias EC2, ajustando a capacidade de acordo com a demanda. Com ASG, é possível configurar políticas de escalabilidade para aumentar ou reduzir o número de instâncias, promovendo alta disponibilidade e otimização de custos. ASG monitora o estado das instâncias com health checks e, se necessário, substitui instâncias com falhas automaticamente. Ele suporta escalonamento manual, dinâmico, preditivo e agendado, atendendo tanto a picos de uso quanto a demandas mais previsíveis.
 
 #### 3.2.7. ECB: Elastic Load Balancing
 
