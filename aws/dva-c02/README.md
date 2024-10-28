@@ -31,6 +31,8 @@
     - [3.2.6. Auto Scaling](#326-auto-scaling)
       - [3.2.6.1. ASG: Auto Scaling Groups](#3261-asg-auto-scaling-groups)
     - [3.2.7. ECB: Elastic Load Balancing](#327-ecb-elastic-load-balancing)
+- [4. Amazon S3 e CloudFront](#4-amazon-s3-e-cloudfront)
+  - [4.1. S3: Simple Storage Service](#41-s3-simple-storage-service)
 
 <!-- /TOC -->
 
@@ -281,3 +283,24 @@ Amazon ELB (Elastic Load Balancing) oferece alta disponibilidade e tolerância a
 - **Gateway Load Balancer (GLB):** Ideal para implantar, escalar e gerenciar appliances de terceiros (como firewalls e sistemas de detecção de intrusão) em redes VPC. Combina roteamento com um modelo de encaminhamento que facilita a implementação de soluções de segurança em larga escala.
 
 ![](assets/2024-10-28-15-18-56.png)
+
+## 4. Amazon S3 e CloudFront
+
+### 4.1. S3: Simple Storage Service
+
+O Amazon S3 é um serviço de armazenamento de objetos, onde cada bucket funciona como um contêiner para guardar arquivos de qualquer tipo, com capacidade para milhões de objetos. Com ótimo custo-benefício, ele permite gerenciar objetos por meio de métodos HTTP como GET, POST e DELETE e pode ser acessado globalmente pela internet via HTTPS.
+
+Formas de acessar um objeto (key) em um bucket: \
+![](assets/2024-10-28-16-17-31.png)
+
+> Cada objeto no S3 possui uma key (nome), ID de versão, conteúdo (valor), metadados e informações de controle de acesso.
+
+Como o S3 está fora de redes privadas (VPCs) da AWS, conexões de instâncias EC2 ao S3 geralmente requerem acesso à internet por meio de um Internet Gateway. Para evitar isso, é possível configurar um S3 Gateway Endpoint, que permite o acesso ao S3 diretamente através de endereços privados, mantendo as conexões dentro da rede da AWS.
+
+![](assets/2024-10-28-16-31-09.png)
+
+> File storage x Object storage
+>
+> File storage organiza dados em diretórios hierárquicos e é montado no sistema operacional, aparecendo como uma unidade de disco (exemplo: EFS no AWS). A conexão é persistente, permitindo acesso imediato aos arquivos.
+>
+> Object storage armazena dados em buckets, sem hierarquia real (flat namespace). Nomes com pontos ou prefixos podem simular diretórios, mas não formam uma estrutura de pastas. O acesso é feito via API REST, e não é possível montar o storage como uma unidade de disco.
