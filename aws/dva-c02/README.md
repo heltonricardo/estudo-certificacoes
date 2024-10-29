@@ -44,6 +44,7 @@
     - [4.1.6. MFA: Multi-Factor Authentication](#416-mfa-multi-factor-authentication)
     - [4.1.7. Criptografia](#417-criptografia)
     - [4.1.8. Registro de Acesso ao Servidor](#418-registro-de-acesso-ao-servidor)
+    - [4.1.9. CORS: Cross-Origin Resource Sharing](#419-cors-cross-origin-resource-sharing)
 
 <!-- /TOC -->
 
@@ -386,3 +387,11 @@ Todos os buckets no Amazon S3 vêm com criptografia ativada por padrão. Objetos
 #### 4.1.8. Registro de Acesso ao Servidor
 
 Permite registrar eventos detalhados de acesso aos buckets, incluindo informações como solicitante, nome do bucket, horário da solicitação etc. Esse registro está desativado por padrão e só gera custos de armazenamento do espaço usado pelos logs. Para ativar, é necessário configurar um bucket separado como destino dos logs.
+
+#### 4.1.9. CORS: Cross-Origin Resource Sharing
+
+Permite que um bucket S3 aceite solicitações de diferentes origens, essencial para cenários onde um site ou aplicativo precisa acessar recursos de outro domínio. A configuração de CORS é feita no bucket que está sendo acessado, e não na origem da solicitação.
+
+> Uma "origem" é definida por DNS, protocolo e porta.
+
+![](assets/2024-10-29-20-32-48.png)
