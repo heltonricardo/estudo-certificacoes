@@ -33,6 +33,8 @@
     - [3.2.7. ECB: Elastic Load Balancing](#327-ecb-elastic-load-balancing)
 - [4. Amazon S3 e CloudFront](#4-amazon-s3-e-cloudfront)
   - [4.1. S3: Simple Storage Service](#41-s3-simple-storage-service)
+    - [4.1.1. Classes de Armazenamento](#411-classes-de-armazenamento)
+    - [4.1.2. Políticas de IAM, Buckets e ACLs](#412-pol%C3%ADticas-de-iam-buckets-e-acls)
 
 <!-- /TOC -->
 
@@ -301,6 +303,22 @@ Como o S3 está fora de redes privadas (VPCs) da AWS, conexões de instâncias E
 
 > File storage x Object storage
 >
-> File storage organiza dados em diretórios hierárquicos e é montado no sistema operacional, aparecendo como uma unidade de disco (exemplo: EFS no AWS). A conexão é persistente, permitindo acesso imediato aos arquivos.
+> File storage organiza dados em diretórios hierárquicos e é montado no sistema operacional, aparecendo como uma unidade de disco. A conexão é persistente, permitindo acesso imediato aos arquivos.
 >
 > Object storage armazena dados em buckets, sem hierarquia real (flat namespace). Nomes com pontos ou prefixos podem simular diretórios, mas não formam uma estrutura de pastas. O acesso é feito via API REST, e não é possível montar o storage como uma unidade de disco.
+
+#### 4.1.1. Classes de Armazenamento
+
+As classes de armazenamento S3 definem o preço e o método de armazenamento dos dados. A durabilidade, que protege contra perda e corrupção, é de 99.999999999% (11 9s) para todos os dados no S3. A disponibilidade, expressa como uma porcentagem do tempo em que os dados estão acessíveis durante o ano, varia por classe (ex.: 99,99%).
+
+- **S3 Standard**: Armazenamento de alta durabilidade para acesso frequente.
+- **S3 Intelligent Tiering**: Move dados automaticamente entre camadas conforme o uso.
+- **S3 Standard-IA**: Para dados acessados ocasionalmente, com custo menor.
+- **S3 One Zone-IA**: Similar ao Standard-IA, mas em uma única zona, mais barato.
+- **S3 Glacier Instant Retrieval**: Armazenamento de arquivamento com recuperação imediata.
+- **S3 Glacier Flexible Retrieval**: Arquivamento com recuperação em horas, custo mais baixo.
+- **S3 Glacier Deep Archive**: Armazenamento de longo prazo, recuperação em dias, custo mais baixo.
+
+![](assets/2024-10-28-16-52-33.png)
+
+#### 4.1.2. Políticas de IAM, Buckets e ACLs
