@@ -34,7 +34,10 @@
 - [4. Amazon S3 e CloudFront](#4-amazon-s3-e-cloudfront)
   - [4.1. S3: Simple Storage Service](#41-s3-simple-storage-service)
     - [4.1.1. Classes de Armazenamento](#411-classes-de-armazenamento)
-    - [4.1.2. Políticas de IAM, Buckets e ACLs](#412-pol%C3%ADticas-de-iam-buckets-e-acls)
+    - [4.1.2. Controles de acesso](#412-controles-de-acesso)
+      - [4.1.2.1. IAM Policies](#4121-iam-policies)
+      - [4.1.2.2. Bucket Policies](#4122-bucket-policies)
+      - [4.1.2.3. ACLs: Access Control Lists](#4123-acls-access-control-lists)
 
 <!-- /TOC -->
 
@@ -321,4 +324,18 @@ As classes de armazenamento S3 definem o preço e o método de armazenamento dos
 
 ![](assets/2024-10-28-16-52-33.png)
 
-#### 4.1.2. Políticas de IAM, Buckets e ACLs
+#### 4.1.2. Controles de acesso
+
+Existem diversas formas de controlar o acesso ao bucket e aos objetos contidos nele.
+
+##### 4.1.2.1. IAM Policies
+
+As **IAM Policies** são políticas baseadas em identidade que controlam permissões para usuários, grupos ou funções no AWS. Elas especificam quais ações são permitidas ou negadas em recursos específicos da AWS, definindo claramente o nível de acesso.
+
+##### 4.1.2.2. Bucket Policies
+
+As **Bucket Policies** são políticas baseadas em recurso, aplicáveis exclusivamente a buckets do Amazon S3. Elas utilizam a linguagem de políticas de acesso da AWS para definir permissões diretamente no bucket, controlando quem pode acessar e quais ações podem ser realizadas nos objetos do bucket, independentemente das permissões IAM individuais.
+
+##### 4.1.2.3. ACLs: Access Control Lists
+
+As **ACLs (Access Control Lists)** são um mecanismo de controle de acesso legado, anterior ao IAM. Elas podem ser aplicadas diretamente a um bucket ou objeto, mas possuem opções limitadas para definir permissões e usuários (grantees). A AWS geralmente recomenda o uso de políticas de bucket ou IAM em vez de ACLs, pois elas oferecem maior flexibilidade e controle sobre as permissões.
