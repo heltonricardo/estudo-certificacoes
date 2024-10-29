@@ -43,6 +43,7 @@
     - [4.1.5. Lifecycle Rules](#415-lifecycle-rules)
     - [4.1.6. MFA: Multi-Factor Authentication](#416-mfa-multi-factor-authentication)
     - [4.1.7. Criptografia](#417-criptografia)
+    - [4.1.8. Registro de Acesso ao Servidor](#418-registro-de-acesso-ao-servidor)
 
 <!-- /TOC -->
 
@@ -381,3 +382,7 @@ Todos os buckets no Amazon S3 vêm com criptografia ativada por padrão. Objetos
 - **Client-Side Encryption**: A criptografia é feita do lado do cliente, com o objeto já criptografado antes de ser enviado ao S3. O cliente gerencia a chave, que pode ser do KMS, mas a descriptografia não ocorre no servidor.
 
 > Objetos não criptografados podem ser criptografados posteriormente com o **Amazon S3 Batch Operations**, a **CopyObject API** ou o comando `copy-object` da AWS CLI.
+
+#### 4.1.8. Registro de Acesso ao Servidor
+
+Permite registrar eventos detalhados de acesso aos buckets, incluindo informações como solicitante, nome do bucket, horário da solicitação etc. Esse registro está desativado por padrão e só gera custos de armazenamento do espaço usado pelos logs. Para ativar, é necessário configurar um bucket separado como destino dos logs.
