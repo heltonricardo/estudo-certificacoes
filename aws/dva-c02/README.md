@@ -42,6 +42,7 @@
     - [4.1.4. Replication](#414-replication)
     - [4.1.5. Lifecycle Rules](#415-lifecycle-rules)
     - [4.1.6. MFA: Multi-Factor Authentication](#416-mfa-multi-factor-authentication)
+    - [4.1.7. Criptografia](#417-criptografia)
 
 <!-- /TOC -->
 
@@ -365,3 +366,18 @@ Gerenciamento do ciclo de vida define ações automáticas para objetos:
 #### 4.1.6. MFA: Multi-Factor Authentication
 
 O MFA Delete adiciona uma camada extra de segurança ao exigir um segundo fator de autenticação, além da senha, normalmente um código gerado por um dispositivo físico. Ele é usado por proprietários de buckets para ações críticas, como mudar o estado de versionamento de um bucket ou excluir permanentemente uma versão de um objeto. Para usar o MFA Delete, é necessário incluir o cabeçalho x-amz-mfa nas requisições.
+
+#### 4.1.7. Criptografia
+
+Todos os buckets no Amazon S3 vêm com criptografia ativada por padrão. Objetos novos são automaticamente criptografados sem custo adicional ou impacto na performance, usando **SSE-S3**, na qual a criptografia e descriptografia são gerenciadas diretamente pelo S3 com chaves da AWS.
+
+**Tipos de Criptografia no S3**:
+
+- **SSE-S3**: Criptografia feita no lado do servidor com chaves gerenciadas pela AWS. Os objetos são protegidos via TLS no upload e armazenados criptografados; ao fazer download, a descriptografia é automática.
+- **SSE-KMS**: Criptografia feita com o AWS Key Management Service (KMS), permitindo o uso de chaves gerenciadas pela AWS ou personalizadas pelo cliente. A criptografia e descriptografia acontecem no S3.
+
+- **SSE-C**: O cliente fornece e gerencia suas próprias chaves para criptografia no servidor. A chave é temporária e passada junto com o upload; a AWS a usa para criptografar e descriptografar o objeto, mas não a armazena.
+
+- **Client-Side Encryption**: A criptografia é feita do lado do cliente, com o objeto já criptografado antes de ser enviado ao S3. O cliente gerencia a chave, que pode ser do KMS, mas a descriptografia não ocorre no servidor.
+
+> Objetos não criptografados podem ser criptografados posteriormente com o **Amazon S3 Batch Operations**, a **CopyObject API** ou o comando `copy-object` da AWS CLI.
