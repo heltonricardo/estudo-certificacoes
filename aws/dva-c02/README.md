@@ -38,6 +38,10 @@
       - [4.1.2.1. IAM Policies](#4121-iam-policies)
       - [4.1.2.2. Bucket Policies](#4122-bucket-policies)
       - [4.1.2.3. ACLs: Access Control Lists](#4123-acls-access-control-lists)
+    - [4.1.3. Versioning](#413-versioning)
+    - [4.1.4. Replication](#414-replication)
+    - [4.1.5. Lifecycle Rules](#415-lifecycle-rules)
+    - [4.1.6. MFA: Multi-Factor Authentication](#416-mfa-multi-factor-authentication)
 
 <!-- /TOC -->
 
@@ -339,3 +343,25 @@ As **Bucket Policies** são políticas baseadas em recurso, aplicáveis exclusiv
 ##### 4.1.2.3. ACLs: Access Control Lists
 
 As **ACLs (Access Control Lists)** são um mecanismo de controle de acesso legado, anterior ao IAM. Elas podem ser aplicadas diretamente a um bucket ou objeto, mas possuem opções limitadas para definir permissões e usuários (grantees). A AWS geralmente recomenda o uso de políticas de bucket ou IAM em vez de ACLs, pois elas oferecem maior flexibilidade e controle sobre as permissões.
+
+#### 4.1.3. Versioning
+
+O versionamento permite manter múltiplas versões de um objeto no mesmo bucket, preservando cada variante. Com versionamento habilitado, é possível recuperar objetos excluídos ou sobrescritos acidentalmente.
+
+#### 4.1.4. Replication
+
+A replicação permite copiar buckets entre regiões ou dentro da mesma região, e até mesmo entre contas diferentes. Para usar a replicação, o versionamento deve estar ativado nos buckets de origem e destino.
+
+#### 4.1.5. Lifecycle Rules
+
+Gerenciamento do ciclo de vida define ações automáticas para objetos:
+
+- Transição: Move objetos para outra classe de armazenamento após um período.
+- Expiração: Define quando os objetos expiram e são automaticamente excluídos pelo S3.
+
+**Possíveis transições:** \
+![](assets/2024-10-28-22-29-39.png)
+
+#### 4.1.6. MFA: Multi-Factor Authentication
+
+O MFA Delete adiciona uma camada extra de segurança ao exigir um segundo fator de autenticação, além da senha, normalmente um código gerado por um dispositivo físico. Ele é usado por proprietários de buckets para ações críticas, como mudar o estado de versionamento de um bucket ou excluir permanentemente uma versão de um objeto. Para usar o MFA Delete, é necessário incluir o cabeçalho x-amz-mfa nas requisições.
