@@ -49,6 +49,7 @@
     - [4.2.1. Signed URLs](#421-signed-urls)
     - [4.2.2. Signed Cookies](#422-signed-cookies)
     - [4.2.3. OAC: Origin Access Control](#423-oac-origin-access-control)
+    - [4.2.4. Route 53 DNS](#424-route-53-dns)
 
 <!-- /TOC -->
 
@@ -418,8 +419,12 @@ Além disso, é possível restringir o acesso por endereço IP, garantindo que a
 
 Alternativa às Signed URLs, permitindo controle de acesso sem a necessidade de alterar as URLs dos arquivos. Elas são úteis quando você deseja fornecer acesso a múltiplos arquivos restritos ao mesmo tempo.
 
-
 #### 4.2.3. OAC: Origin Access Control
 
 É um mecanismo de controle de acesso que permite ao Amazon CloudFront acessar conteúdo protegido em um bucket do S3 de maneira segura. A AWS recomenda o uso do OAC em vez do OAI (Origin Access Identity), pois oferece uma configuração mais simplificada e flexível.
 
+#### 4.2.4. Route 53 DNS
+
+Serviço de DNS altamente escalável e confiável que oferece uma variedade de recursos inteligentes. Ele permite o registro de domínios e fornece funcionalidades avançadas de gerenciamento de tráfego.
+
+Entre os recursos principais estão os **health checks**, que monitoram a saúde dos recursos e garantem que o tráfego seja direcionado apenas para endpoints disponíveis. O **Traffic Flow** permite criar políticas de roteamento complexas, otimizando a distribuição do tráfego com base em critérios como localização geográfica, latência e desempenho.
