@@ -56,6 +56,7 @@
       - [5.1.1.1. Funções Intrínsecas](#5111-fun%C3%A7%C3%B5es-intr%C3%ADnsecas)
       - [5.1.1.2. Seções](#5112-se%C3%A7%C3%B5es)
   - [5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk](#52-paas-platform-as-a-service-com-aws-elastic-beanstalk)
+    - [5.2.1. Configurações avançadas e SSL/TLS](#521-configura%C3%A7%C3%B5es-avan%C3%A7adas-e-ssltls)
 
 <!-- /TOC -->
 
@@ -537,3 +538,9 @@ Dentro do Beanstalk existem dois tipos principais de componentes: **Web Servers*
 > **Workers** são aplicações especializadas que executam tarefas de processamento em segundo plano, ouvindo mensagens em uma fila do Amazon SQS. Eles são ideais para lidar com tarefas de longa duração, permitindo que as aplicações web permaneçam responsivas enquanto processam trabalhos intensivos de forma assíncrona.
 >
 > ![](assets/2024-10-29-23-03-37.png)
+
+#### 5.2.1. Configurações avançadas e SSL/TLS
+
+O AWS Elastic Beanstalk permite personalizar seu ambiente usando arquivos de configuração localizados em um diretório chamado `.ebextensions` dentro do código-fonte da aplicação. Esses arquivos têm a extensão `.config` e são escritos em formato YAML ou JSON.
+
+Ele também permite a configuração de certificados SSL/TLS para o Elastic Load Balancer do ambiente, garantindo conexões seguras entre os clientes e o load balancer.
