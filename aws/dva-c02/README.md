@@ -50,6 +50,8 @@
     - [4.2.2. Signed Cookies](#422-signed-cookies)
     - [4.2.3. OAC: Origin Access Control](#423-oac-origin-access-control)
     - [4.2.4. Route 53 DNS](#424-route-53-dns)
+- [5. IaC e PaaS](#5-iac-e-paas)
+  - [5.1. IaC: Infrastructure as Code com CloudFormation](#51-iac-infrastructure-as-code-com-cloudformation)
 
 <!-- /TOC -->
 
@@ -428,3 +430,18 @@ Alternativa às Signed URLs, permitindo controle de acesso sem a necessidade de 
 Serviço de DNS altamente escalável e confiável que oferece uma variedade de recursos inteligentes. Ele permite o registro de domínios e fornece funcionalidades avançadas de gerenciamento de tráfego.
 
 Entre os recursos principais estão os **health checks**, que monitoram a saúde dos recursos e garantem que o tráfego seja direcionado apenas para endpoints disponíveis. O **Traffic Flow** permite criar políticas de roteamento complexas, otimizando a distribuição do tráfego com base em critérios como localização geográfica, latência e desempenho.
+
+## 5. IaC e PaaS
+
+### 5. IaC: Infrastructure as Code com CloudFormation
+
+**IaC** com o **AWS CloudFormation** permite implementar a infraestrutura usando código, proporcionando uma maneira eficiente e padronizada de gerenciar recursos da AWS. Com CloudFormation, podemos definir a estrutura da infraestrutura em arquivos de texto no formato **JSON** ou **YAML**, que são então usados para criar e gerenciar os recursos de forma consistente e reutilizável.
+
+![](assets/2024-10-29-22-04-33.png)
+
+Principais componentes do CloudFormation:
+
+- **Templates**: Arquivos JSON ou YAML que contêm as instruções para construir o ambiente da AWS.
+- **Stacks**: A implementação completa do ambiente descrito por um template, gerenciada como uma única unidade para criação, atualização ou exclusão de recursos.
+- **StackSets**: Expande a funcionalidade dos stacks permitindo a criação, atualização ou exclusão de stacks em várias contas e regiões com uma única operação.
+- **Change Sets**: Um resumo das mudanças propostas em um stack, permitindo visualizar como essas alterações afetarão os recursos existentes antes de sua implementação.
