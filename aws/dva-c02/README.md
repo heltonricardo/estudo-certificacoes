@@ -45,6 +45,7 @@
     - [4.1.7. Criptografia](#417-criptografia)
     - [4.1.8. Registro de Acesso ao Servidor](#418-registro-de-acesso-ao-servidor)
     - [4.1.9. CORS: Cross-Origin Resource Sharing](#419-cors-cross-origin-resource-sharing)
+  - [4.2. CloudFront](#42-cloudfront)
 
 <!-- /TOC -->
 
@@ -395,3 +396,11 @@ Permite que um bucket S3 aceite solicitações de diferentes origens, essencial 
 > Uma "origem" é definida por DNS, protocolo e porta.
 
 ![](assets/2024-10-29-20-32-48.png)
+
+### 4.2. CloudFront
+
+**Amazon CloudFront** é uma rede de distribuição de conteúdo (CDN) que melhora a performance de acesso a objetos e arquivos em todo o mundo, reduzindo a latência ao aproximar o conteúdo dos usuários. As **origens do CloudFront** são os locais de onde o conteúdo é servido, normalmente dentro de uma região da AWS. As **edge locations** são os pontos de presença da CloudFront, distribuídos globalmente, onde o conteúdo é armazenado em cache para acesso rápido.
+
+![](assets/2024-10-29-21-14-56.png)
+
+Quando o conteúdo não está disponível em uma edge location ou já expirou no cache, ele é buscado na origem através da rede da AWS, evitando o tráfego pela internet pública. No CloudFront, você cria distribuições, recebe um endpoint e especifica uma ou mais origens, como S3 ou EC2.
