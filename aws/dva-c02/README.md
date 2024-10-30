@@ -46,6 +46,9 @@
     - [4.1.8. Registro de Acesso ao Servidor](#418-registro-de-acesso-ao-servidor)
     - [4.1.9. CORS: Cross-Origin Resource Sharing](#419-cors-cross-origin-resource-sharing)
   - [4.2. CloudFront](#42-cloudfront)
+    - [4.2.1. Signed URLs](#421-signed-urls)
+    - [4.2.2. Signed Cookies](#422-signed-cookies)
+    - [4.2.3. OAC: Origin Access Control](#423-oac-origin-access-control)
 
 <!-- /TOC -->
 
@@ -404,3 +407,19 @@ Permite que um bucket S3 aceite solicitações de diferentes origens, essencial 
 ![](assets/2024-10-29-21-14-56.png)
 
 Quando o conteúdo não está disponível em uma edge location ou já expirou no cache, ele é buscado na origem através da rede da AWS, evitando o tráfego pela internet pública. No CloudFront, você cria distribuições, recebe um endpoint e especifica uma ou mais origens, como S3 ou EC2.
+
+#### 4.2.1. Signed URLs
+
+Oferecem um controle mais granular sobre o acesso ao conteúdo. Com essas URLs, é possível disponibilizar objetos que, de outra forma, não seriam acessíveis publicamente. Podem ter um tempo de expiração definido, limitando o período em que o acesso é permitido.
+
+Além disso, é possível restringir o acesso por endereço IP, garantindo que apenas usuários de determinados locais possam acessar o conteúdo. Elas são especialmente úteis para arquivos individuais ou quando se trabalha com clientes que não suportam cookies
+
+#### 4.2.2. Signed Cookies
+
+Alternativa às Signed URLs, permitindo controle de acesso sem a necessidade de alterar as URLs dos arquivos. Elas são úteis quando você deseja fornecer acesso a múltiplos arquivos restritos ao mesmo tempo.
+
+
+#### 4.2.3. OAC: Origin Access Control
+
+É um mecanismo de controle de acesso que permite ao Amazon CloudFront acessar conteúdo protegido em um bucket do S3 de maneira segura. A AWS recomenda o uso do OAC em vez do OAI (Origin Access Identity), pois oferece uma configuração mais simplificada e flexível.
+
