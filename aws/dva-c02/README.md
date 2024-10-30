@@ -55,6 +55,7 @@
     - [5.1.1. CloudFormation Template](#511-cloudformation-template)
       - [5.1.1.1. Funções Intrínsecas](#5111-fun%C3%A7%C3%B5es-intr%C3%ADnsecas)
       - [5.1.1.2. Seções](#5112-se%C3%A7%C3%B5es)
+  - [5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk](#52-paas-platform-as-a-service-com-aws-elastic-beanstalk)
 
 <!-- /TOC -->
 
@@ -512,3 +513,27 @@ Outputs:
     Description: ID da Instância EC2
     Value: !Ref MyEC2Instance
 ```
+
+### 5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk
+
+O **Elastic Beanstalk** é uma solução de PaaS que facilita o gerenciamento de aplicações na nuvem. Ele dá acesso ao sistema operacional e suporta diversas linguagens e ambientes. Utiliza serviços fundamentais da AWS, como EC2, ECS, Auto Scaling e Elastic Load Balancing, garantindo alta disponibilidade e desempenho.
+
+Também oferece uma interface de usuário (UI) para monitorar e gerenciar a saúde das aplicações, além de atualizações gerenciadas da plataforma, que garantem que você esteja sempre usando as versões mais recentes do software e correções de segurança.
+
+**Estruturas do Elastic Beanstalk**
+
+- **Aplicações**: Contêm ambientes, configurações de ambiente e versões de aplicação. É possível ter várias versões de uma aplicação armazenadas dentro dela.
+
+- **Versão da Aplicação**: Refere-se a um código implantável específico, que normalmente aponta para um bucket do Amazon S3 contendo o código.
+
+- **Ambientes**: São versões de aplicação implantadas em recursos da AWS, configurados e provisionados pelo Elastic Beanstalk. O ambiente abrange todos os recursos criados, não se limitando apenas à instância EC2 com o código carregado.
+
+![](assets/2024-10-29-22-59-37.png)
+
+Dentro do Beanstalk existem dois tipos principais de componentes: **Web Servers** e **Workers**.
+
+> **Web Servers** são aplicações padrão que escutam e processam requisições HTTP, geralmente na porta 80, permitindo que os usuários acessem o conteúdo de forma rápida e eficiente.
+>
+> **Workers** são aplicações especializadas que executam tarefas de processamento em segundo plano, ouvindo mensagens em uma fila do Amazon SQS. Eles são ideais para lidar com tarefas de longa duração, permitindo que as aplicações web permaneçam responsivas enquanto processam trabalhos intensivos de forma assíncrona.
+>
+> ![](assets/2024-10-29-23-03-37.png)
