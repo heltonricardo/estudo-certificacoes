@@ -59,6 +59,8 @@
     - [5.2.1. Configurações avançadas e SSL/TLS](#521-configura%C3%A7%C3%B5es-avan%C3%A7adas-e-ssltls)
 - [6. Lambda e SAM](#6-lambda-e-sam)
   - [6.1. Arquitetura Orientada a Eventos e Serverless Services](#61-arquitetura-orientada-a-eventos-e-serverless-services)
+  - [6.2. AWS Lambda](#62-aws-lambda)
+    - [6.2.1. Modos de execução](#621-modos-de-execu%C3%A7%C3%A3o)
 
 <!-- /TOC -->
 
@@ -564,3 +566,13 @@ Ele também permite a configuração de certificados SSL/TLS para o Elastic Load
 > 2. A função Lambda processa o arquivo e o transfere para outro bucket S3. Simultaneamente, ela pode enviar uma mensagem para uma fila SQS, onde outras funções Lambda podem monitorar e identificar novos itens a serem processados.
 >
 > 3. A fila SQS pode acionar automaticamente outra função Lambda que, ao detectar um novo evento, grava os dados em uma tabela DynamoDB e envia uma notificação por e-mail via SNS.
+
+### 6.2. AWS Lambda
+
+AWS Lambda é um serviço serverless que permite executar código em resposta a eventos. O desenvolvedor cria o código e define os acionadores, que podem ser outros serviços, como CLI, API, SDKs ou triggers de eventos. Também suporta execução agendada e possui um limite de duração de 15 minutos; para execuções mais longas, considere EC2. O serviço gerencia automaticamente o escalonamento e o balanceamento, podendo instanciar várias execuções simultâneas. O modelo de pagamento é baseado apenas no tempo de execução, o que o torna uma opção econômica.
+
+#### 6.2.1. Modos de execução
+
+- **Síncrono**: Aguarda a função processar e retornar uma resposta. O tratamento de erros ocorre no lado do cliente, com técnicas como retries e backoff exponencial.
+- **Assíncrono**: O evento é enfileirado, retornando a resposta imediatamente. Tenta até 3 vezes.
+- **Event Source Mapping**: Realiza o polling da origem e processa registros em ordem (exceto SQS standard).
