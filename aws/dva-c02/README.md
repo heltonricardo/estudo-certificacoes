@@ -63,6 +63,10 @@
     - [6.2.1. Modos de execução](#621-modos-de-execu%C3%A7%C3%A3o)
     - [6.2.2. Versões](#622-vers%C3%B5es)
     - [6.2.3. Aliases](#623-aliases)
+    - [6.2.4. Deploy de pacotes](#624-deploy-de-pacotes)
+    - [6.2.5. Layers](#625-layers)
+    - [6.2.6. Variáveis de Ambiente](#626-vari%C3%A1veis-de-ambiente)
+    - [6.2.7. Limites](#627-limites)
 
 <!-- /TOC -->
 
@@ -596,3 +600,25 @@ São **ponteiros** que permitem referenciar versões específicas de uma funçã
 Possibilitam a configuração de implantações do tipo **blue/green**, permitindo dividir o tráfego entre duas versões diferentes. Isso permite que você teste novas funcionalidades com um número limitado de usuários antes de um lançamento completo.
 
 > O alias não pode apontar para a versão **$LATEST**. Você deve ter uma versão previamente publicada.
+
+#### 6.2.4. Deploy de pacotes
+
+É o processo de enviar o código da função e suas dependências para execução na plataforma. Existem duas opções principais para empacotar e implantar funções:
+
+- **Imagens de contêiner** incluem o sistema operacional base, o runtime, extensões do Lambda e o código da aplicação com suas dependências. Elas são carregadas no Amazon Elastic Container Registry (ECR) e, em seguida, implantadas na função Lambda. Essa abordagem oferece flexibilidade, permitindo usar qualquer linguagem ou biblioteca que funcione em um contêiner.
+
+- **Arquivos .zip** contêm o código da aplicação e suas dependências, podendo ser enviados do seu computador ou diretamente do Amazon S3. Há limites de tamanho: 50 MB para arquivos compactados, 250 MB quando descompactados e 3 MB ao usar o editor do console. Para criar uma função Lambda usando um pacote .zip, é necessário armazenar o arquivo no S3 na mesma região onde o CloudFormation está sendo executado.
+
+#### 6.2.5. Layers
+
+Permitem que você adicione código e conteúdos à sua função Lambda sem incluir essas dependências diretamente no pacote de implantação. Uma camada é um arquivo ZIP que pode conter bibliotecas, um runtime personalizado ou outras dependências.
+
+Uma função Lambda pode usar até cinco camadas simultaneamente, que são extraídas para o diretório `/opt` no ambiente de execução. Para adicionar camadas à sua função, você pode usar o comando `update-function-configuration`.
+
+#### 6.2.6. Variáveis de Ambiente
+
+Permitem que você passe configurações e parâmetros para suas funções sem precisar modificar o código. Elas são úteis para gerenciar dados sensíveis, como credenciais, URLs de APIs e configurações específicas do ambiente (por exemplo, desenvolvimento ou produção). As variáveis são acessíveis dentro da função durante a execução, permitindo que você ajuste o comportamento da aplicação dinamicamente. Podem ser criptografadas usando o AWS Key Management Service (KMS).
+
+#### 6.2.7. Limites
+
+![](assets/2024-10-30-23-16-13.png)
