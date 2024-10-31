@@ -67,6 +67,7 @@
     - [6.2.5. Layers](#625-layers)
     - [6.2.6. Variáveis de Ambiente](#626-vari%C3%A1veis-de-ambiente)
     - [6.2.7. Limites](#627-limites)
+    - [6.2.8. Destinations e DLQ: Dead-Letter Queues](#628-destinations-e-dlq-dead-letter-queues)
 
 <!-- /TOC -->
 
@@ -622,3 +623,9 @@ Permitem que você passe configurações e parâmetros para suas funções sem p
 #### 6.2.7. Limites
 
 ![](assets/2024-10-30-23-16-13.png)
+
+#### 6.2.8. Destinations e DLQ: Dead-Letter Queues
+
+Permitem gerenciar o fluxo de eventos e o tratamento de falhas durante invocações assíncronas. Quando uma função Lambda é invocada, você pode enviar registros de execução para um destino específico, como uma fila SQS, um tópico SNS, outra função Lambda ou um barramento de eventos do EventBridge. Isso proporciona uma forma de monitorar e registrar o sucesso ou a falha da invocação para tomar ações apropriadas com base nos resultados.
+
+Os registros de execução são enviados em formato JSON e incluem informações como versão, timestamp e contexto da requisição. Para casos em que eventos não possam ser processados, as **DLQs** armazenam essas ocorrências, possibilitando que você as analise posteriormente. É possível configurar o número de tentativas de reprocessamento antes que um evento seja enviado para a **DLQ**.
