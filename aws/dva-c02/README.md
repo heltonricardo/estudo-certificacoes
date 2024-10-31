@@ -71,6 +71,7 @@
     - [6.2.9. Reserved e Provisioned Concurrency](#629-reserved-e-provisioned-concurrency)
     - [6.2.10. Monitoramento, Logging, e Tracing](#6210-monitoramento-logging-e-tracing)
     - [6.2.11. Usando com VPC e ALB](#6211-usando-com-vpc-e-alb)
+    - [6.2.12. Signer](#6212-signer)
 
 <!-- /TOC -->
 
@@ -660,3 +661,7 @@ Conectar uma função Lambda a uma VPC privada implica em perda de acesso direto
 Além disso, o **Application Load Balancer (ALB)** permite que funções Lambda sejam alvos diretos. Com isso, é possível registrar uma função Lambda como target e configurar regras no listener do ALB para redirecionar as requisições ao grupo-alvo da função, otimizando o roteamento e a distribuição de tráfego para a Lambda.
 
 ![](assets/2024-10-30-23-59-32.png)
+
+#### 6.2.12. Signer
+
+Serviço de assinatura de código totalmente gerenciado que garante a integridade e a confiabilidade do código executado nas funções Lambda. Com ele, o código é validado por meio de uma assinatura digital, o que impede a execução de código não confiável. O Signer permite a criação de pacotes assinados digitalmente para implantação, e políticas do IAM podem ser configuradas para exigir que as funções Lambda só sejam criadas se tiverem a assinatura ativada. Em caso de mudanças na equipe, é possível revogar todas as versões do perfil de assinatura, garantindo que o código antigo não possa ser executado.
