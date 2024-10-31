@@ -68,6 +68,7 @@
     - [6.2.6. Variáveis de Ambiente](#626-vari%C3%A1veis-de-ambiente)
     - [6.2.7. Limites](#627-limites)
     - [6.2.8. Destinations e DLQ: Dead-Letter Queues](#628-destinations-e-dlq-dead-letter-queues)
+    - [6.2.9. Reserved e Provisioned Concurrency](#629-reserved-e-provisioned-concurrency)
 
 <!-- /TOC -->
 
@@ -602,6 +603,8 @@ Possibilitam a configuração de implantações do tipo **blue/green**, permitin
 
 > O alias não pode apontar para a versão **$LATEST**. Você deve ter uma versão previamente publicada.
 
+![](assets/2024-10-30-23-29-30.png)
+
 #### 6.2.4. Deploy de pacotes
 
 É o processo de enviar o código da função e suas dependências para execução na plataforma. Existem duas opções principais para empacotar e implantar funções:
@@ -629,3 +632,13 @@ Permitem que você passe configurações e parâmetros para suas funções sem p
 Permitem gerenciar o fluxo de eventos e o tratamento de falhas durante invocações assíncronas. Quando uma função Lambda é invocada, você pode enviar registros de execução para um destino específico, como uma fila SQS, um tópico SNS, outra função Lambda ou um barramento de eventos do EventBridge. Isso proporciona uma forma de monitorar e registrar o sucesso ou a falha da invocação para tomar ações apropriadas com base nos resultados.
 
 Os registros de execução são enviados em formato JSON e incluem informações como versão, timestamp e contexto da requisição. Para casos em que eventos não possam ser processados, as **DLQs** armazenam essas ocorrências, possibilitando que você as analise posteriormente. É possível configurar o número de tentativas de reprocessamento antes que um evento seja enviado para a **DLQ**.
+
+#### Reserved e Provisioned Concurrency
+
+Ajudam a gerenciar o limite de execuções simultâneas, especialmente em cenários com múltiplas instâncias de função. O limite padrão de concorrência por região é de 1.000 invocações simultâneas, com capacidade de burst de 500 a 3.000, variando por região.
+
+> Caso o limite de concorrência seja excedido, é gerado o erro "Rate exceeded" com o código `429` - "TooManyRequestsException".
+
+- **Reserved Concurrency** garante um número mínimo de execuções simultâneas, evitando problemas de disponibilidade. Definir a concorrência reservada para zero efetivamente bloqueia a função, impedindo qualquer processamento até que o limite seja removido.
+
+- **Provisioned Concurrency** garante que instâncias da função sejam mantidas prontas para atender a demandas imediatas, reduzindo a latência. Ela permite que a função escale com a mesma capacidade de burst da concorrência padrão, com a possibilidade de escalar automaticamente via Application Auto Scaling para lidar com aumentos repentinos de tráfego.
