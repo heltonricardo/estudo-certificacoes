@@ -61,6 +61,8 @@
   - [6.1. Arquitetura Orientada a Eventos e Serverless Services](#61-arquitetura-orientada-a-eventos-e-serverless-services)
   - [6.2. AWS Lambda](#62-aws-lambda)
     - [6.2.1. Modos de execução](#621-modos-de-execu%C3%A7%C3%A3o)
+    - [6.2.2. Versões](#622-vers%C3%B5es)
+    - [6.2.3. Aliases](#623-aliases)
 
 <!-- /TOC -->
 
@@ -580,3 +582,17 @@ AWS Lambda é um serviço serverless que permite executar código em resposta a 
 - **Assíncrono**:o evento é enfileirado, e a resposta é retornada imediatamente ao cliente. O AWS Lambda tenta processar o evento até três vezes e gerencia as tentativas de forma automática. Para invocar uma função de maneira assíncrona, basta definir o parâmetro de tipo de invocação como `Event`.
 
 - **Event Source Mapping**: permite à função Lambda fazer polling em uma origem de eventos, processando registros em ordem (exceto no caso de SQS standard). Isso facilita o processamento de itens de streams ou filas, como Amazon SQS, Kinesis e DynamoDB. O mapeamento de origem de eventos utiliza permissões no papel de execução da função para gerenciar itens na fonte de eventos.
+
+#### 6.2.2. Versões
+
+O AWS Lambda permite o uso de **versões** para gerenciar diferentes iterações de suas funções. Cada versão contém informações essenciais, como o código da função e suas dependências. Além disso, cada versão possui um ARN (Amazon Resource Name) exclusivo, facilitando a identificação e o gerenciamento das funções em ambientes distintos, como produção, homologação e desenvolvimento.
+
+Ao trabalhar com a versão `$LATEST`, você está lidando com a versão mais recente do código, chamada quando uma versão não é especificada. Quando uma versão está pronta para publicação, um número é atribuído a ela, começando em 1 e aumentando sequencialmente para cada nova versão. Essas versões são imutáveis, ou seja, não podem ser alteradas após a publicação. Apenas a `$LATEST` pode ser alterada até que se transforme em uma versão numerada.
+
+#### 6.2.3. Aliases
+
+São **ponteiros** que permitem referenciar versões específicas de uma função, oferecendo flexibilidade e controle na invocação. Com um alias, você pode chamar uma função sem precisar saber exatamente qual versão está em uso. São mutáveis, ou seja, você pode alterá-los conforme necessário, e possuem ARNs estáticos que garantem uma referência constante, independentemente da versão que apontam.
+
+Possibilitam a configuração de implantações do tipo **blue/green**, permitindo dividir o tráfego entre duas versões diferentes. Isso permite que você teste novas funcionalidades com um número limitado de usuários antes de um lançamento completo.
+
+> O alias não pode apontar para a versão **$LATEST**. Você deve ter uma versão previamente publicada.
