@@ -72,6 +72,8 @@
     - [6.2.10. Monitoramento, Logging, e Tracing](#6210-monitoramento-logging-e-tracing)
     - [6.2.11. Usando com VPC e ALB](#6211-usando-com-vpc-e-alb)
     - [6.2.12. Signer](#6212-signer)
+  - [6.3. SAM: Serverless Application Model](#63-sam-serverless-application-model)
+    - [6.3.1. Comandos](#631-comandos)
 
 <!-- /TOC -->
 
@@ -665,3 +667,22 @@ Além disso, o **Application Load Balancer (ALB)** permite que funções Lambda 
 #### 6.2.12. Signer
 
 Serviço de assinatura de código totalmente gerenciado que garante a integridade e a confiabilidade do código executado nas funções Lambda. Com ele, o código é validado por meio de uma assinatura digital, o que impede a execução de código não confiável. O Signer permite a criação de pacotes assinados digitalmente para implantação, e políticas do IAM podem ser configuradas para exigir que as funções Lambda só sejam criadas se tiverem a assinatura ativada. Em caso de mudanças na equipe, é possível revogar todas as versões do perfil de assinatura, garantindo que o código antigo não possa ser executado.
+
+### 6.3. SAM: Serverless Application Model
+
+Oferece uma sintaxe abreviada para configurar funções, APIs, tabelas de banco de dados e mapeamentos de eventos. Você define todos os recursos de uma aplicação serverless em um único arquivo de configuração YAML, conhecido como **template SAM**. Oferece recursos como:
+
+- `AWS::Serverless::Function` para Lambda
+- `AWS::Serverless::Api` para API Gateway
+- `AWS::Serverless::SimpleTable` para DynamoDB.
+
+> **Template SAM:** \
+> ![](assets/2024-10-31-16-05-47.png)
+>
+> Um template SAM utiliza o cabeçalho `Transform: 'AWS::Serverless-2016-10-31'`
+
+#### 6.3.1. Comandos
+
+- **`sam package` / `aws cloudformation package`**: Empacota o código e recursos da aplicação, armazenando-os em um bucket S3 e gerando um template atualizado com os caminhos dos recursos. Esse template serve para a implantação.
+
+- **`sam deploy` / `aws cloudformation deploy`**: Usa o template atualizado para criar ou atualizar os recursos definidos, permitindo o deploy e a atualização contínua da aplicação na AWS.
