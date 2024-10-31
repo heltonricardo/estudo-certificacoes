@@ -69,6 +69,7 @@
     - [6.2.7. Limites](#627-limites)
     - [6.2.8. Destinations e DLQ: Dead-Letter Queues](#628-destinations-e-dlq-dead-letter-queues)
     - [6.2.9. Reserved e Provisioned Concurrency](#629-reserved-e-provisioned-concurrency)
+    - [6.2.10. Monitoramento, Logging, e Tracing](#6210-monitoramento-logging-e-tracing)
 
 <!-- /TOC -->
 
@@ -633,7 +634,7 @@ Permitem gerenciar o fluxo de eventos e o tratamento de falhas durante invocaç�
 
 Os registros de execução são enviados em formato JSON e incluem informações como versão, timestamp e contexto da requisição. Para casos em que eventos não possam ser processados, as **DLQs** armazenam essas ocorrências, possibilitando que você as analise posteriormente. É possível configurar o número de tentativas de reprocessamento antes que um evento seja enviado para a **DLQ**.
 
-#### Reserved e Provisioned Concurrency
+#### 6.2.9. Reserved e Provisioned Concurrency
 
 Ajudam a gerenciar o limite de execuções simultâneas, especialmente em cenários com múltiplas instâncias de função. O limite padrão de concorrência por região é de 1.000 invocações simultâneas, com capacidade de burst de 500 a 3.000, variando por região.
 
@@ -642,3 +643,9 @@ Ajudam a gerenciar o limite de execuções simultâneas, especialmente em cenár
 - **Reserved Concurrency** garante um número mínimo de execuções simultâneas, evitando problemas de disponibilidade. Definir a concorrência reservada para zero efetivamente bloqueia a função, impedindo qualquer processamento até que o limite seja removido.
 
 - **Provisioned Concurrency** garante que instâncias da função sejam mantidas prontas para atender a demandas imediatas, reduzindo a latência. Ela permite que a função escale com a mesma capacidade de burst da concorrência padrão, com a possibilidade de escalar automaticamente via Application Auto Scaling para lidar com aumentos repentinos de tráfego.
+
+#### 6.2.10. Monitoramento, Logging, e Tracing
+
+O **monitoramento e logging** usam o Amazon CloudWatch para registrar métricas de desempenho e armazenar logs de execução.
+
+Para **tracing e análise de desempenho**, o AWS X-Ray coleta e visualiza dados sobre as execuções, tornando possível mapear os componentes da aplicação, identificar gargalos e depurar erros.
