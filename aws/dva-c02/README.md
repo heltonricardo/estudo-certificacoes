@@ -70,6 +70,7 @@
     - [6.2.8. Destinations e DLQ: Dead-Letter Queues](#628-destinations-e-dlq-dead-letter-queues)
     - [6.2.9. Reserved e Provisioned Concurrency](#629-reserved-e-provisioned-concurrency)
     - [6.2.10. Monitoramento, Logging, e Tracing](#6210-monitoramento-logging-e-tracing)
+    - [6.2.11. Usando com VPC e ALB](#6211-usando-com-vpc-e-alb)
 
 <!-- /TOC -->
 
@@ -649,3 +650,13 @@ Ajudam a gerenciar o limite de execuções simultâneas, especialmente em cenár
 O **monitoramento e logging** usam o Amazon CloudWatch para registrar métricas de desempenho e armazenar logs de execução.
 
 Para **tracing e análise de desempenho**, o AWS X-Ray coleta e visualiza dados sobre as execuções, tornando possível mapear os componentes da aplicação, identificar gargalos e depurar erros.
+
+#### 6.2.11. Usando com VPC e ALB
+
+Conectar uma função Lambda a uma VPC privada implica em perda de acesso direto à internet. Para habilitar essa comunicação, é necessário configurar uma **NAT Gateway** em uma sub-rede pública que se conecta ao **Internet Gateway** da VPC. Isso permite que a função Lambda na VPC use a internet conforme necessário, mas pode reduzir a velocidade de execução.
+
+![](assets/2024-10-31-00-02-38.png)
+
+Além disso, o **Application Load Balancer (ALB)** permite que funções Lambda sejam alvos diretos. Com isso, é possível registrar uma função Lambda como target e configurar regras no listener do ALB para redirecionar as requisições ao grupo-alvo da função, otimizando o roteamento e a distribuição de tráfego para a Lambda.
+
+![](assets/2024-10-30-23-59-32.png)
