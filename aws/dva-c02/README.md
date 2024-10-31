@@ -57,6 +57,8 @@
       - [5.1.1.2. Seções](#5112-se%C3%A7%C3%B5es)
   - [5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk](#52-paas-platform-as-a-service-com-aws-elastic-beanstalk)
     - [5.2.1. Configurações avançadas e SSL/TLS](#521-configura%C3%A7%C3%B5es-avan%C3%A7adas-e-ssltls)
+- [6. Lambda e SAM](#6-lambda-e-sam)
+  - [6.1. Arquitetura Orientada a Eventos e Serverless Services](#61-arquitetura-orientada-a-eventos-e-serverless-services)
 
 <!-- /TOC -->
 
@@ -544,3 +546,21 @@ Dentro do Beanstalk existem dois tipos principais de componentes: **Web Servers*
 O AWS Elastic Beanstalk permite personalizar seu ambiente usando arquivos de configuração localizados em um diretório chamado `.ebextensions` dentro do código-fonte da aplicação. Esses arquivos têm a extensão `.config` e são escritos em formato YAML ou JSON.
 
 Ele também permite a configuração de certificados SSL/TLS para o Elastic Load Balancer do ambiente, garantindo conexões seguras entre os clientes e o load balancer.
+
+## 6. Lambda e SAM
+
+### 6.1. Arquitetura Orientada a Eventos e Serverless Services
+
+**Arquitetura Orientada a Eventos** é um padrão arquitetônico em que os serviços respondem a eventos de forma assíncrona, permitindo que as operações sejam desencadeadas apenas quando ocorrem eventos específicos, como mudanças de dados ou ações do usuário. Isso torna a comunicação entre serviços mais eficiente e desacoplada.
+
+**Serverless Services** significa que o usuário não gerencia os servidores subjacentes. Esse modelo oferece serviços de computação, armazenamento e bancos de dados nos quais a infraestrutura é completamente gerenciada pela AWS, como é o caso do S3. Com Serverless, não há instâncias para gerenciar, e você não precisa provisionar hardware ou sistemas operacionais. Pode reduzir custos por funcionar de forma altamente otimizada e sob demanda.
+
+> **Exemplo**
+>
+> ![](assets/2024-10-30-21-32-26.png)
+>
+> 1. Um usuário realiza o upload de um arquivo em um bucket S3, que aciona uma função Lambda graças a uma notificação de evento configurada no próprio bucket.
+>
+> 2. A função Lambda processa o arquivo e o transfere para outro bucket S3. Simultaneamente, ela pode enviar uma mensagem para uma fila SQS, onde outras funções Lambda podem monitorar e identificar novos itens a serem processados.
+>
+> 3. A fila SQS pode acionar automaticamente outra função Lambda que, ao detectar um novo evento, grava os dados em uma tabela DynamoDB e envia uma notificação por e-mail via SNS.
