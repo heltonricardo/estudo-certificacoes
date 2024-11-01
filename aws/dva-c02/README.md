@@ -92,7 +92,9 @@
     - [7.7.1. Chave de Partição](#771-chave-de-parti%C3%A7%C3%A3o)
     - [7.7.2. Chave de Ordenação](#772-chave-de-ordena%C3%A7%C3%A3o)
     - [7.7.3. Chave Composta](#773-chave-composta)
-    - [7.7.4. Melhores Práticas para Chaves de Partição](#774-melhores-pr%C3%A1ticas-para-chaves-de-parti%C3%A7%C3%A3o)
+    - [7.7.4. Melhores práticas](#774-melhores-pr%C3%A1ticas)
+  - [7.8. Consistência](#78-consist%C3%AAncia)
+  - [7.9. Transactions](#79-transactions)
 
 <!-- /TOC -->
 
@@ -781,6 +783,34 @@ Permite a organização dos itens que compartilham a mesma chave de partição. 
 
 A chave composta combina uma chave de partição e uma chave de ordenação. Isso permite armazenar múltiplos itens sob a mesma chave de partição, desde que tenham valores diferentes na chave de ordenação. Por exemplo, em um fórum, a chave de partição poderia ser o ID do usuário, enquanto a chave de ordenação poderia ser o timestamp do post. Assim, você pode ter vários posts de um mesmo usuário, todos organizados e ordenados por data e hora.
 
-#### 7.7.4. Melhores Práticas para Chaves de Partição
+#### 7.7.4. Melhores práticas
 
-Para otimizar a performance, é crucial garantir uma distribuição uniforme do throughput (unidades de capacidade de leitura e gravação) entre as partições. Se o acesso a um único valor de chave de partição ultrapassar _3000 RCU_ ou _1000 WCU_, as solicitações podem ser limitadas. Isso pode ocorrer devido à escolha inadequada da chave de partição ou ao acesso frequente a um mesmo item (chave "quente"). É recomendado usar atributos de alta cardinalidade e chaves compostas, além de adicionar números aleatórios para cenários de alta taxa de gravação, como um sufixo em um número de fatura.
+Para otimizar a performance, é crucial garantir uma distribuição uniforme do _throughput_ (unidades de capacidade de leitura e gravação) entre as partições. Se o acesso a um único valor de chave de partição ultrapassar _3000 RCU_ ou _1000 WCU_, as solicitações podem ser limitadas. Isso pode ocorrer devido à escolha inadequada da chave de partição ou ao acesso frequente a um mesmo item (chave "quente"). É recomendado usar atributos de alta cardinalidade e chaves compostas, além de adicionar números aleatórios para cenários de alta taxa de gravação, como um sufixo em um número de fatura.
+
+### 7.8. Consistência
+
+- **Eventually Consistent Reads**: usa a consistência eventual por padrão. Isso significa que, após uma gravação bem-sucedida, uma leitura imediata pode retornar dados desatualizados, enquanto dados mais recentes se tornam disponíveis após um curto período. Esse tipo de leitura exige menos capacidade de _throughput_ e é útil para alta performance:
+
+  ![](assets/2024-11-01-14-47-44.png)
+
+  > **Throughput:** capacidade provisionada para operações de leitura e gravação em uma tabela.
+
+- **Strongly Consistent Reads**: retorna os dados mais atualizados, refletindo todas as operações de gravação anteriores e bem-sucedidas. Pode ter maior latência e consumir mais _throughput_ que a leitura eventual. Em casos de latência de rede ou falhas, DynamoDB pode retornar erro HTTP 500. É importante notar que leituras consistentes fortes não são suportadas em índices globais secundários.
+
+> [!NOTE]
+>
+> Para usar leituras consistentes fortes, é necessário definir o parâmetro `--consistent-read` (ou `ConsistentRead`) como `true` ao utilizar as operações **GetItem**, **Query** e **Scan**.
+
+### 7.9. Transactions
+
+Suporta transações que permitem mudanças coordenadas e "tudo ou nada" em múltiplos itens, tanto dentro quanto entre tabelas. Isso garante **atomicidade, consistência, isolamento e durabilidade (ACID)**, permitindo que múltiplos itens sejam lidos ou escritos em operação única.
+
+> "Tudo ou nada" significa que várias operações são tratadas como uma unidade: ou todas são executadas com sucesso, ou nenhuma é aplicada.
+
+- **Verificação de Condições**: Transações verificam condições prévias antes de escrever nos itens, aumentando a integridade dos dados.
+
+- **Cobrança e Execução**: Não há custo adicional para habilitar transações, mas cada operação na transação envolve duas leituras ou gravações — uma para preparar e outra para confirmar.
+
+- **APIs de Transação**:
+  - **TransactWriteItems**: agrupa várias operações como `Put`, `Update`, `Delete` e `ConditionCheck`, no modo tudo ou nada.
+  - **TransactGetItems**: agrupa múltiplas operações de `Get` em uma única solicitação para recuperação de dados de maneira atômica.
