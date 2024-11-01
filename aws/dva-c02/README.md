@@ -88,6 +88,11 @@
     - [7.4.3. Conjunto](#743-conjunto)
   - [7.5. Classes](#75-classes)
   - [7.6. Controle de acesso](#76-controle-de-acesso)
+  - [7.7. Chaves](#77-chaves)
+    - [7.7.1. Chave de Partição](#771-chave-de-parti%C3%A7%C3%A3o)
+    - [7.7.2. Chave de Ordenação](#772-chave-de-ordena%C3%A7%C3%A3o)
+    - [7.7.3. Chave Composta](#773-chave-composta)
+    - [7.7.4. Melhores Práticas para Chaves de Partição](#774-melhores-pr%C3%A1ticas-para-chaves-de-parti%C3%A7%C3%A3o)
 
 <!-- /TOC -->
 
@@ -759,3 +764,23 @@ O controle de acesso e a autenticação no DynamoDB são gerenciados exclusivame
 - **Anexar políticas de permissão** a roles para conceder permissões entre contas.
 
 É importante destacar que o DynamoDB não suporta políticas baseadas em recursos. No entanto, é possível utilizar uma condição IAM especial para restringir o acesso dos usuários apenas aos seus próprios registros.
+
+Desculpe pela confusão! Vamos organizar corretamente, incluindo a seção específica para a chave composta. Aqui está a versão revisada:
+
+### 7.7. Chaves
+
+#### 7.7.1. Chave de Partição
+
+Atributo exclusivo (como um ID de usuário) que determina a localização física dos dados no DynamoDB. O valor dessa chave é processado por uma função hash interna, garantindo que cada item tenha um valor único. Se a chave de partição for utilizada como chave primária, nenhum item pode compartilhar o mesmo valor.
+
+#### 7.7.2. Chave de Ordenação
+
+Permite a organização dos itens que compartilham a mesma chave de partição. Todos os itens com a mesma chave de partição são armazenados juntos e ordenados de acordo com o valor da chave de ordenação, permitindo consultas mais eficientes e acesso a conjuntos de dados relacionados.
+
+#### 7.7.3. Chave Composta
+
+A chave composta combina uma chave de partição e uma chave de ordenação. Isso permite armazenar múltiplos itens sob a mesma chave de partição, desde que tenham valores diferentes na chave de ordenação. Por exemplo, em um fórum, a chave de partição poderia ser o ID do usuário, enquanto a chave de ordenação poderia ser o timestamp do post. Assim, você pode ter vários posts de um mesmo usuário, todos organizados e ordenados por data e hora.
+
+#### 7.7.4. Melhores Práticas para Chaves de Partição
+
+Para otimizar a performance, é crucial garantir uma distribuição uniforme do throughput (unidades de capacidade de leitura e gravação) entre as partições. Se o acesso a um único valor de chave de partição ultrapassar _3000 RCU_ ou _1000 WCU_, as solicitações podem ser limitadas. Isso pode ocorrer devido à escolha inadequada da chave de partição ou ao acesso frequente a um mesmo item (chave "quente"). É recomendado usar atributos de alta cardinalidade e chaves compostas, além de adicionar números aleatórios para cenários de alta taxa de gravação, como um sufixo em um número de fatura.
