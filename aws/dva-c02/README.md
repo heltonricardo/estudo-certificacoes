@@ -1,8 +1,12 @@
 # DVA-C02 - AWS Certified Developer – Associate
 
-[Voltar para a página principal](../../README.md)
+[<- Voltar para a página principal](../../README.md)
 
 <img src="assets/badge.png" alt="DVA-C02 - AWS Certified Developer – Associate" width="200"/>
+
+---
+
+**Sumário**
 
 <!-- TOC -->
 
@@ -10,13 +14,11 @@
   - [1.1. Conta AWS](#11-conta-aws)
   - [1.2. IAM: Identity and Access Management](#12-iam-identity-and-access-management)
   - [1.3. Custos](#13-custos)
-  - [1.4. Assumindo um papel](#14-assumindo-um-papel)
-  - [1.5. STS: Security Token Service](#15-sts-security-token-service)
-  - [1.6. Access Control Methods](#16-access-control-methods)
+  - [1.4. STS: Security Token Service](#14-sts-security-token-service)
+  - [1.5. Access Control Methods](#15-access-control-methods)
 - [2. CLI: Command Line Interface](#2-cli-command-line-interface)
   - [2.1. Comandos](#21-comandos)
   - [2.2. Arquivos importantes](#22-arquivos-importantes)
-  - [2.3. Assumindo um papel](#23-assumindo-um-papel)
 - [3. VPC, EC2 e ELB](#3-vpc-ec2-e-elb)
   - [3.1. VPC: Virtual Private Cloud](#31-vpc-virtual-private-cloud)
     - [3.1.1. Grupos de Segurança e NACLs](#311-grupos-de-seguran%C3%A7a-e-nacls)
@@ -74,8 +76,24 @@
     - [6.2.12. Signer](#6212-signer)
   - [6.3. SAM: Serverless Application Model](#63-sam-serverless-application-model)
     - [6.3.1. Comandos](#631-comandos)
+- [7. Amazon DynamoDB](#7-amazon-dynamodb)
+  - [7.1. Características](#71-caracter%C3%ADsticas)
+  - [7.2. Componentes](#72-componentes)
+  - [7.3. API](#73-api)
+    - [7.3.1. Control Plane](#731-control-plane)
+    - [7.3.2. Data Plane](#732-data-plane)
+  - [7.4. Tipos de dados](#74-tipos-de-dados)
+    - [7.4.1. Escalares](#741-escalares)
+    - [7.4.2. Documento](#742-documento)
+    - [7.4.3. Conjunto](#743-conjunto)
+  - [7.5. Classes](#75-classes)
+  - [7.6. Controle de acesso](#76-controle-de-acesso)
 
 <!-- /TOC -->
+
+[<- Voltar para a página principal](../../README.md)
+
+---
 
 ## 1. Conta AWS e IAM
 
@@ -103,32 +121,11 @@ Para uma gestão eficaz dos recursos na AWS, é crucial compreender e utilizar f
 
 - **Cost Explorer:** É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas onde os custos podem ser otimizados.
 
-### 1.4. Assumindo um papel
-
-1. Crie um role (AWS Account para o exemplo). Acesse-o o role e copie o ARN (algo como `arn:aws:iam::123/role/nome-role`).
-
-2. Acesse o cadastro do usuário e adicione uma permissão inline JSON para ele:
-
-   ```
-   {
-     "Version": "2012-10-17",
-     "Statement": {
-       "Effect": "Allow",
-       "Action": "sts:AssumeRole",
-       "Resource": "arn:aws:iam::123/role/nome-role"
-     }
-   }
-   ```
-
-   > Ela permite que o usuário troque de papéis temporariamente.
-
-3. Acesse o role criado e copie o link para troca de papéis. Faça login via IAM de um usuário e acesse esse link. Algumas informações já estarão preenchidas. Basta clicar em trocar para ter acesso aos serviços especificados no role.
-
-### 1.5. STS: Security Token Service
+### 1.4. STS: Security Token Service
 
 Serviço que fornece credenciais temporárias para aplicações acessarem outras aplicações.
 
-### 1.6. Access Control Methods
+### 1.5. Access Control Methods
 
 - **Role-Based Access Control (RBAC):** Atribui permissões com base nas funções dos usuários dentro de uma organização, facilitando a gestão de acesso em grandes ambientes.
 
@@ -173,16 +170,6 @@ O AWS CLI é uma ferramenta de linha de comando para gerenciar serviços da AWS.
 > No Linux: o diretório `.aws` está onde os arquivos de instalação foram descompactados;
 >
 > No Windows: o diretório `.aws` está na pasta `C:\Users\User`.
-
-### 2.3. Assumindo um papel
-
-Copiar o código ARN do papel em IAM > Roles > NomeRole (algo como `arn:aws:iam::123/role/nome-role`) e colar usando este template no arquivo `.aws/config`:
-
-```
-[profile nome-role]
-    role_arn = arn:aws:iam::123/role/nome-role
-    source_profile = default
-```
 
 ## 3. VPC, EC2 e ELB
 
@@ -686,3 +673,89 @@ Oferece uma sintaxe abreviada para configurar funções, APIs, tabelas de banco 
 - **`sam package` / `aws cloudformation package`**: Empacota o código e recursos da aplicação, armazenando-os em um bucket S3 e gerando um template atualizado com os caminhos dos recursos. Esse template serve para a implantação.
 
 - **`sam deploy` / `aws cloudformation deploy`**: Usa o template atualizado para criar ou atualizar os recursos definidos, permitindo o deploy e a atualização contínua da aplicação na AWS.
+
+## 7. Amazon DynamoDB
+
+Serviço de banco de dados NoSQL serverless totalmente gerenciado, que opera como um armazenamento de chave/valor e de documentos. O dimensionamento é horizontal, aumentando a taxa de transferência à medida que a demanda cresce, com dados armazenados em partições e replicados em várias Zonas de Disponibilidade.
+
+Oferece baixa latência, geralmente na faixa de milissegundos, e pode atingir latências em microssegundos com o uso do **DynamoDB Accelerator (DAX)**. O recurso de _Tabelas Globais_ permite a sincronização de tabelas entre diferentes regiões.
+
+### 7.1. Características
+
+![](assets/2024-10-31-22-16-55.png)
+
+### 7.2. Componentes
+
+- **Tabelas**: Estruturas de dados primárias que armazenam os dados. Cada tabela possui uma chave primária, que pode ser simples (chave de partição) ou composta (chave de partição e chave de classificação).
+
+- **Itens**: Representam entradas individuais nas tabelas. Cada item deve ter uma chave primária única e pode conter atributos adicionais que armazenam dados relevantes.
+
+- **Atributos**: Características ou propriedades dos itens. Podem ser de diferentes tipos, como strings, números, listas ou mapas, proporcionando flexibilidade na modelagem dos dados.
+
+### 7.3. API
+
+#### 7.3.1. Control Plane
+
+Gerenciam a configuração e o estado das tabelas e índices.
+
+- **CreateTable**: Cria uma nova tabela.
+- **DescribeTable**: Retorna informações sobre uma tabela, como esquema da chave primária, configurações de throughput e informações de índices.
+- **ListTables**: Retorna os nomes de todas as suas tabelas.
+- **UpdateTable**: Modifica as configurações de uma tabela ou seus índices.
+- **DeleteTable**: Remove uma tabela e todos os seus objetos dependentes.
+
+#### 7.3.2. Data Plane
+
+Lidam com a manipulação de dados dentro das tabelas. As operações podem ser realizadas usando PartiQL (compatível com SQL) ou as APIs clássicas CRUD do DynamoDB.
+
+- **PutItem**: Escreve um único item em uma tabela.
+- **BatchWriteItem**: Escreve até 25 itens em uma tabela.
+- **GetItem**: Recupera um único item de uma tabela.
+- **BatchGetItem**: Recupera até 100 itens de uma ou mais tabelas.
+- **UpdateItem**: Modifica um ou mais atributos em um item.
+- **DeleteItem**: Deleta um único item de uma tabela.
+
+### 7.4. Tipos de dados
+
+#### 7.4.1. Escalares
+
+Representam exatamente um único valor.
+
+- **Número**: Números inteiros ou de ponto flutuante.
+- **String**: Cadeias de texto.
+- **Binário**: Dados em formato binário.
+- **Booleano**: Valores verdadeiro ou falso.
+- **Nulo**: Representa a ausência de valor.
+
+#### 7.4.2. Documento
+
+Representam estruturas complexas com atributos aninhados, semelhantes aos encontrados em documentos JSON.
+
+- **Lista**: Uma coleção ordenada de elementos.
+- **Mapa**: Uma coleção de pares chave-valor.
+
+#### 7.4.3. Conjunto
+
+Representam múltiplos valores escalares.
+
+- **Conjunto de Strings**: Conjunto de valores do tipo string.
+- **Conjunto de Números**: Conjunto de valores numéricos.
+- **Conjunto Binário**: Conjunto de valores binários.
+- etc.
+
+### 7.5. Classes
+
+- **DynamoDB Standard**: Classe padrão e recomendada para a maioria das cargas de trabalho. Ideal para aplicações que exigem acesso frequente a dados e oferecem baixa latência.
+
+- **DynamoDB Standard-Infrequent Access (DynamoDB Standard-IA)**: Classe projetada para armazenamento de dados que são acessados com pouca frequência, oferecendo custos reduzidos.
+
+### 7.6. Controle de acesso
+
+**Controle de Acesso no DynamoDB**
+
+O controle de acesso e a autenticação no DynamoDB são gerenciados exclusivamente pelo AWS Identity and Access Management (IAM). As políticas baseadas em identidade permitem:
+
+- **Anexar políticas de permissão** a usuários ou grupos em sua conta.
+- **Anexar políticas de permissão** a roles para conceder permissões entre contas.
+
+É importante destacar que o DynamoDB não suporta políticas baseadas em recursos. No entanto, é possível utilizar uma condição IAM especial para restringir o acesso dos usuários apenas aos seus próprios registros.
