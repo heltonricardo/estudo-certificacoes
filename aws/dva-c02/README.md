@@ -96,6 +96,8 @@
   - [7.8. Consistência](#78-consist%C3%AAncia)
   - [7.9. Transactions](#79-transactions)
   - [7.10. Performance](#710-performance)
+  - [7.11. Scan API](#711-scan-api)
+  - [7.12. Query API](#712-query-api)
 
 <!-- /TOC -->
 
@@ -825,3 +827,16 @@ Suporta transações que permitem mudanças coordenadas e "tudo ou nada" em múl
   - **Hot partitions**: Quando o acesso aos dados é desequilibrado, algumas partições recebem mais tráfego de leitura e gravação que outras.
   - **Itens grandes**: Itens maiores consomem mais RCUs e WCUs, o que aumenta a chance de throttling.
 
+### 7.11. Scan API
+
+A operação **Scan** permite recuperar um ou mais itens e atributos, acessando todos os itens de uma tabela ou índice secundário. Como o Scan acessa cada item, ele pode consumir muitas unidades de capacidade de leitura (RCUs), principalmente em tabelas grandes. Para limitar o número de itens retornados, é possível usar o parâmetro `Limit` ou aplicar filtros com `FilterExpression`.
+
+Cada operação Scan lê até 1 MB de dados por vez e procede de forma sequencial, mas pode ser paralelizada com os parâmetros `Segment` e `TotalSegments`, distribuindo a carga de leitura em múltiplas threads.
+
+> **Padrão de leitura:** eventualmente consistente
+
+### 7.12. Query API
+
+A operação **Query** é usada para localizar itens em uma tabela com base em um valor específico de chave primária. Por exemplo, é possível buscar um item por um ID de usuário e retornar todos os atributos relacionados. Para resultados mais refinados, a operação permite definir um valor de **chave de ordenação** adicional, como um timestamp, para recuperar apenas os itens em um intervalo de tempo específico.
+
+> **Padrão de leitura:** eventualmente consistente
