@@ -98,6 +98,10 @@
   - [7.10. Performance](#710-performance)
   - [7.11. Scan API](#711-scan-api)
   - [7.12. Query API](#712-query-api)
+  - [7.13. Índices](#713-%C3%ADndices)
+    - [7.13.1. LSI: Local Secondary Index](#7131-lsi-local-secondary-index)
+    - [7.13.2. GSI: Global Secondary Index](#7132-gsi-global-secondary-index)
+  - [7.14. Optimistic Locking](#714-optimistic-locking)
 
 <!-- /TOC -->
 
@@ -840,3 +844,23 @@ Cada operação Scan lê até 1 MB de dados por vez e procede de forma sequencia
 A operação **Query** é usada para localizar itens em uma tabela com base em um valor específico de chave primária. Por exemplo, é possível buscar um item por um ID de usuário e retornar todos os atributos relacionados. Para resultados mais refinados, a operação permite definir um valor de **chave de ordenação** adicional, como um timestamp, para recuperar apenas os itens em um intervalo de tempo específico.
 
 > **Padrão de leitura:** eventualmente consistente
+
+### 7.13. Índices
+
+#### 7.13.1. LSI: Local Secondary Index
+
+Permite definir uma chave de ordenação alternativa para buscas e queries, proporcionando uma visão adicional dos dados com base em uma organização distinta. Cada tabela pode ter até 5 LSIs, e eles precisam ser criados no momento da criação da tabela, sem possibilidade de alteração posterior. Usa a mesma chave de partição da tabela original, mas com uma chave de ordenação diferente.
+
+![](assets/2024-11-02-14-42-52.png)
+
+#### 7.13.2. GSI: Global Secondary Index
+
+Utilizado para acelerar consultas em atributos que não são chaves primárias. Ele pode ser criado no momento da criação da tabela ou em qualquer outro momento posterior. Permite especificar uma chave de partição e uma chave de ordenação diferentes, oferecendo uma perspectiva totalmente nova dos dados.
+
+![](assets/2024-11-02-14-47-17.png)
+
+### 7.14. Optimistic Locking
+
+Estratégia para gerenciar a concorrência durante operações de leitura e escrita. Ele permite que múltiplas transações acessem o mesmo item simultaneamente, assumindo que os conflitos são raros. Geralmente se utiliza um atributo de versão (como um número ou timestamp) no item.
+
+Quando uma atualização é feita, o sistema verifica se a versão do item na base de dados corresponde à versão que foi lida inicialmente. Se houver uma discrepância, isso indica que outra transação modificou o item, resultando em um erro que pode ser tratado na lógica da aplicação.
