@@ -95,6 +95,7 @@
     - [7.7.4. Melhores práticas](#774-melhores-pr%C3%A1ticas)
   - [7.8. Consistência](#78-consist%C3%AAncia)
   - [7.9. Transactions](#79-transactions)
+  - [7.10. Performance](#710-performance)
 
 <!-- /TOC -->
 
@@ -814,3 +815,13 @@ Suporta transações que permitem mudanças coordenadas e "tudo ou nada" em múl
 - **APIs de Transação**:
   - **TransactWriteItems**: agrupa várias operações como `Put`, `Update`, `Delete` e `ConditionCheck`, no modo tudo ou nada.
   - **TransactGetItems**: agrupa múltiplas operações de `Get` em uma única solicitação para recuperação de dados de maneira atômica.
+
+### 7.10. Performance
+
+**Throttling** ocorre quando a taxa de leitura (RCU) ou gravação (WCU) configurada é excedida, resultando no erro `ProvisionedThroughputExceededException`. As SDKs da AWS automaticamente tentam novamente as solicitações, tornando-as bem-sucedidas, a menos que a fila de retentativas fique sobrecarregada.
+
+- **Causas de problemas de desempenho**:
+  - **Hot keys**: Uma única chave de partição é acessada com muita frequência, sobrecarregando a partição.
+  - **Hot partitions**: Quando o acesso aos dados é desequilibrado, algumas partições recebem mais tráfego de leitura e gravação que outras.
+  - **Itens grandes**: Itens maiores consomem mais RCUs e WCUs, o que aumenta a chance de throttling.
+
