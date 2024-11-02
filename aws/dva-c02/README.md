@@ -103,6 +103,7 @@
     - [7.13.2. GSI: Global Secondary Index](#7132-gsi-global-secondary-index)
   - [7.14. Optimistic Locking](#714-optimistic-locking)
   - [7.15. Streams](#715-streams)
+  - [7.16. DAX](#716-dax)
 
 <!-- /TOC -->
 
@@ -873,3 +874,11 @@ Quando uma atualização é feita, o sistema verifica se a versão do item na ba
 > **`Exemplo:`** quando uma aplicação insere, atualiza ou exclui um item, um registro correspondente é escrito no stream. Em seguida, uma função **Lambda** pode ser acionada para processar essa alteração, como gravar informações em **CloudWatch Logs**, permitindo análises e monitoramento das operações realizadas.
 >
 > ![](assets/2024-11-02-15-03-47.png)
+
+### 7.16. DAX
+
+Oferece aceleração em memória para tabelas do DynamoDB, melhorando o desempenho de leituras de milissegundos para _**`microsegundos`**_, mesmo em cenários com milhões de requisições por segundo. A habilitação do DAX é simples, podendo ser feita pelo AWS Management Console ou utilizando o AWS SDK.
+
+![](assets/2024-11-02-15-11-41.png)
+
+> O DAX não requer modificações na aplicação.
