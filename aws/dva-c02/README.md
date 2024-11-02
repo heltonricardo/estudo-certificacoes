@@ -102,6 +102,7 @@
     - [7.13.1. LSI: Local Secondary Index](#7131-lsi-local-secondary-index)
     - [7.13.2. GSI: Global Secondary Index](#7132-gsi-global-secondary-index)
   - [7.14. Optimistic Locking](#714-optimistic-locking)
+  - [7.15. Streams](#715-streams)
 
 <!-- /TOC -->
 
@@ -864,3 +865,11 @@ Utilizado para acelerar consultas em atributos que não são chaves primárias. 
 Estratégia para gerenciar a concorrência durante operações de leitura e escrita. Ele permite que múltiplas transações acessem o mesmo item simultaneamente, assumindo que os conflitos são raros. Geralmente se utiliza um atributo de versão (como um número ou timestamp) no item.
 
 Quando uma atualização é feita, o sistema verifica se a versão do item na base de dados corresponde à versão que foi lida inicialmente. Se houver uma discrepância, isso indica que outra transação modificou o item, resultando em um erro que pode ser tratado na lógica da aplicação.
+
+### 7.15. Streams
+
+É um recurso que captura uma sequência ordenada de modificações em nível de item em qualquer tabela do DynamoDB. As alterações são registradas em um log por até 24 horas, permitindo que as aplicações acessem os dados antes e depois das modificações em quase tempo real. Isso é útil para monitoramento, replicação de dados e processamento de eventos. Para ativar ou modificar, você pode usar as operações da API **CreateTable** ou **UpdateTable**.
+
+> **`Exemplo:`** quando uma aplicação insere, atualiza ou exclui um item, um registro correspondente é escrito no stream. Em seguida, uma função **Lambda** pode ser acionada para processar essa alteração, como gravar informações em **CloudWatch Logs**, permitindo análises e monitoramento das operações realizadas.
+>
+> ![](assets/2024-11-02-15-03-47.png)
