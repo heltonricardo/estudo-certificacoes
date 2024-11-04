@@ -104,6 +104,13 @@
   - [7.14. Optimistic Locking](#714-optimistic-locking)
   - [7.15. Streams](#715-streams)
   - [7.16. DAX](#716-dax)
+- [8. Integrações e APIs](#8-integra%C3%A7%C3%B5es-e-apis)
+  - [8.1. SQS: Simple Queue Service](#81-sqs-simple-queue-service)
+    - [8.1.1. Tipos](#811-tipos)
+    - [8.1.2. DLQ: Dead Letter Queue](#812-dlq-dead-letter-queue)
+    - [8.1.3. Delay Queue](#813-delay-queue)
+    - [8.1.4. Visibility Timeout](#814-visibility-timeout)
+    - [8.1.5. SQS Long Polling x Short Polling](#815-sqs-long-polling-x-short-polling)
 
 <!-- /TOC -->
 
@@ -774,9 +781,7 @@ O controle de acesso e a autenticação no DynamoDB são gerenciados exclusivame
 - **Anexar políticas de permissão** a usuários ou grupos em sua conta.
 - **Anexar políticas de permissão** a roles para conceder permissões entre contas.
 
-É importante destacar que o DynamoDB não suporta políticas baseadas em recursos. No entanto, é possível utilizar uma condição IAM especial para restringir o acesso dos usuários apenas aos seus próprios registros.
-
-Desculpe pela confusão! Vamos organizar corretamente, incluindo a seção específica para a chave composta. Aqui está a versão revisada:
+> Não suporta políticas baseadas em recursos. Mas é possível utilizar uma condição IAM especial para restringir o acesso dos usuários apenas aos seus próprios registros.
 
 ### 7.7. Chaves
 
@@ -882,3 +887,49 @@ Oferece aceleração em memória para tabelas do DynamoDB, melhorando o desempen
 ![](assets/2024-11-02-15-11-41.png)
 
 > O DAX não requer modificações na aplicação.
+
+## 8. Integrações e APIs
+
+### 8.1. SQS: Simple Queue Service
+
+Serviço de fila baseado em **pull** (solicitação ativa), em que sistemas distribuídos colocam mensagens em uma fila para serem processadas de forma assíncrona, sem a necessidade de interação direta entre o remetente e o destinatário. Permite a troca de mensagens de até 256KB entre sistemas; para mensagens maiores, é possível usar a _SQS Extended Client Library for Java_. As mensagens podem ser mantidas na fila de 1 minuto a 14 dias, com um padrão de 4 dias. Garante que cada mensagem seja processada ao menos uma vez.
+
+![](assets/2024-11-04-10-30-19.png)
+
+#### 8.1.1. Tipos
+
+- **Standard Queue:** Suporta alto throughput, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
+
+- **FIFO Queue:** Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas. Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
+
+![](assets/2024-11-04-10-38-47.png)
+
+#### 8.1.2. DLQ: Dead Letter Queue
+
+Serve para isolar mensagens que não puderam ser processadas com sucesso, ajudando a identificar e resolver problemas de processamento. É apenas uma fila, Standard ou FIFO, configurada para receber mensagens falhas de outra fila.
+
+As mensagens são enviadas para ela quando o número de tentativas de processamento (_ReceiveCount_) excede o limite definido (_maxReceiveCount_). Em filas FIFO, o uso de DLQs pode comprometer a ordem das mensagens. Evite configurar DLQs para filas Standard se o aplicativo for tentar reenviar indefinidamente.
+
+![](assets/2024-11-04-10-50-56.png)
+
+#### 8.1.3. Delay Queue
+
+Permite atrasar o processamento de mensagens em toda a fila, útil para cenários nos quais é necessário um tempo extra antes de processar eventos. Esse atraso pode ser configurado para introduzir uma pausa antes que as mensagens fiquem disponíveis para leitura, ajudando a sincronizar processos em aplicações distribuídas.
+
+![](assets/2024-11-04-10-59-05.png)
+
+> Exemplo: pode ser usada para esperar alguns segundos após uma transação online, garantindo que dados de estoque ou de vendas sejam atualizados antes de notificar o cliente.
+
+#### 8.1.4. Visibility Timeout
+
+Define o tempo que uma mensagem fica invisível na fila após ser lida, garantindo que apenas uma instância de processamento trabalhe nela. Se a mensagem for processada antes desse tempo expirar, ela será excluída da fila. Caso contrário, ela se torna visível novamente, podendo ser reprocessada por outra instância, o que pode resultar em mensagens duplicadas.
+
+> [!IMPORTANT]
+>
+> O tempo padrão de invisibilidade é de 30 segundos, com um limite máximo de 12 horas.
+
+#### 8.1.5. SQS Long Polling x Short Polling
+
+O _long polling_ permite que a aplicação espere por mensagens antes de receber uma resposta, evitando retornos vazios e ajudando a reduzir custos. O _short polling_, por outro lado, verifica a fila e responde imediatamente, mesmo que não haja mensagens, o que pode gerar mais requisições.
+
+O _long polling_ pode ser configurado na fila ou via API com o parâmetro `WaitTimeSeconds`, que pode ser definido entre 1 e 20 segundos. Isso permite que a fila aguarde a chegada de novas mensagens antes de responder, melhorando a eficiência.
