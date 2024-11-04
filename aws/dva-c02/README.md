@@ -111,6 +111,8 @@
     - [8.1.3. Delay Queue](#813-delay-queue)
     - [8.1.4. Visibility Timeout](#814-visibility-timeout)
     - [8.1.5. SQS Long Polling x Short Polling](#815-sqs-long-polling-x-short-polling)
+  - [8.2. SNS: Simple Notification Service](#82-sns-simple-notification-service)
+    - [8.2.1. Fan-Out](#821-fan-out)
 
 <!-- /TOC -->
 
@@ -933,3 +935,19 @@ Define o tempo que uma mensagem fica invisível na fila após ser lida, garantin
 O _long polling_ permite que a aplicação espere por mensagens antes de receber uma resposta, evitando retornos vazios e ajudando a reduzir custos. O _short polling_, por outro lado, verifica a fila e responde imediatamente, mesmo que não haja mensagens, o que pode gerar mais requisições.
 
 O _long polling_ pode ser configurado na fila ou via API com o parâmetro `WaitTimeSeconds`, que pode ser definido entre 1 e 20 segundos. Isso permite que a fila aguarde a chegada de novas mensagens antes de responder, melhorando a eficiência.
+
+### 8.2. SNS: Simple Notification Service
+
+Serviço de mensagens pub/sub gerenciado, altamente disponível e seguro, ideal para enviar mensagens push de alta taxa de transferência em sistemas distribuídos. Você pode configurar tópicos que agrupam múltiplos destinatários e permitem o envio de notificações idênticas para diferentes tipos de endpoint, como Amazon SQS, funções Lambda, webhooks HTTP/S, notificações push para dispositivos móveis e SMS.
+
+Os tópicos são "pontos de acesso" nos quais os sistemas publicadores enviam mensagens que são automaticamente replicadas para todos os assinantes. A API é simples, permitindo integração ágil com aplicações e suporte a múltiplos protocolos para entrega flexível das mensagens.
+
+![](assets/2024-11-04-18-02-25.png)
+
+> - **Publicadores:** sistemas que enviam mensagens para um ponto central, conhecido como tópico.
+>
+> - **Assinantes:** sistemas ou serviços que "assinam" o tópico para receber mensagens enviadas pelos publicadores.
+
+#### 8.2.1. Fan-Out
+
+Permite enviar uma mensagem publicada em um tópico para várias filas SQS inscritas simultaneamente. O SQS gerencia as permissões de assinatura, garantindo que cada fila receba uma cópia da mensagem para processamento independente, ideal para notificar múltiplos sistemas ao mesmo tempo.
