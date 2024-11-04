@@ -114,6 +114,7 @@
   - [8.2. SNS: Simple Notification Service](#82-sns-simple-notification-service)
     - [8.2.1. Fan-Out](#821-fan-out)
   - [8.3. Step Functions](#83-step-functions)
+  - [8.4. EventBridge](#84-eventbridge)
 
 <!-- /TOC -->
 
@@ -958,3 +959,9 @@ Permite enviar uma mensagem publicada em um tópico para várias filas SQS inscr
 Permite construir e executar aplicações distribuídas organizadas como uma série de etapas visuais em fluxos de trabalho, usando máquinas de estado. Você define cada passo no **Amazon States Language** (formato JSON), e a interface gráfica exibe a sequência de execução para fácil visualização. Ao iniciar uma execução, o Step Functions gerencia e escala automaticamente cada etapa, garantindo que a aplicação funcione de maneira confiável, mesmo sob aumento de demanda.
 
 ![](assets/2024-11-04-18-18-37.png)
+
+### 8.4. EventBridge
+
+Sistema de comunicação que permite que diferentes serviços, aplicativos e componentes de uma arquitetura troquem informações de forma assíncrona e em tempo real. Permite configurar regras para rotear eventos em tempo real de fontes como aplicações AWS, SaaS e sistemas personalizados para serviços de destino, incluindo Lambda, SQS e Step Functions.
+
+![](assets/2024-11-04-18-36-26.png)
