@@ -113,6 +113,7 @@
     - [8.1.5. SQS Long Polling x Short Polling](#815-sqs-long-polling-x-short-polling)
   - [8.2. SNS: Simple Notification Service](#82-sns-simple-notification-service)
     - [8.2.1. Fan-Out](#821-fan-out)
+  - [8.3. Step Functions](#83-step-functions)
 
 <!-- /TOC -->
 
@@ -951,3 +952,9 @@ Os tópicos são "pontos de acesso" nos quais os sistemas publicadores enviam me
 #### 8.2.1. Fan-Out
 
 Permite enviar uma mensagem publicada em um tópico para várias filas SQS inscritas simultaneamente. O SQS gerencia as permissões de assinatura, garantindo que cada fila receba uma cópia da mensagem para processamento independente, ideal para notificar múltiplos sistemas ao mesmo tempo.
+
+### 8.3. Step Functions
+
+Permite construir e executar aplicações distribuídas organizadas como uma série de etapas visuais em fluxos de trabalho, usando máquinas de estado. Você define cada passo no **Amazon States Language** (formato JSON), e a interface gráfica exibe a sequência de execução para fácil visualização. Ao iniciar uma execução, o Step Functions gerencia e escala automaticamente cada etapa, garantindo que a aplicação funcione de maneira confiável, mesmo sob aumento de demanda.
+
+![](assets/2024-11-04-18-18-37.png)
