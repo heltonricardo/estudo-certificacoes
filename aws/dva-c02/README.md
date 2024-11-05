@@ -11,28 +11,31 @@
 <!-- TOC -->
 
 - [1. Conta AWS e IAM](#1-conta-aws-e-iam)
-  - [1.1. Conta AWS](#11-conta-aws)
+  - [1.1. Perfis](#11-perfis)
   - [1.2. IAM: Identity and Access Management](#12-iam-identity-and-access-management)
   - [1.3. Custos](#13-custos)
   - [1.4. STS: Security Token Service](#14-sts-security-token-service)
-  - [1.5. Access Control Methods](#15-access-control-methods)
+  - [1.5. Métodos de controle de acesso](#15-m%C3%A9todos-de-controle-de-acesso)
 - [2. CLI: Command Line Interface](#2-cli-command-line-interface)
   - [2.1. Comandos](#21-comandos)
   - [2.2. Arquivos importantes](#22-arquivos-importantes)
 - [3. VPC, EC2 e ELB](#3-vpc-ec2-e-elb)
   - [3.1. VPC: Virtual Private Cloud](#31-vpc-virtual-private-cloud)
-    - [3.1.1. Grupos de Segurança e NACLs](#311-grupos-de-seguran%C3%A7a-e-nacls)
+    - [3.1.1. Conexões e Componentes Adicionais](#311-conex%C3%B5es-e-componentes-adicionais)
+    - [3.1.2. Segurança](#312-seguran%C3%A7a)
   - [3.2. EC2: Elastic Compute Cloud](#32-ec2-elastic-compute-cloud)
     - [3.2.1. EBS: Elastic Block Store](#321-ebs-elastic-block-store)
     - [3.2.2. Instance Stores](#322-instance-stores)
     - [3.2.3. EFS: Elastic File System](#323-efs-elastic-file-system)
       - [3.2.3.1. Classes de armazenamento](#3231-classes-de-armazenamento)
       - [3.2.3.2. Desempenho](#3232-desempenho)
-    - [3.2.4. Metadata e User Data](#324-metadata-e-user-data)
-    - [3.2.5. Access Keys e IAM Roles](#325-access-keys-e-iam-roles)
-    - [3.2.6. Auto Scaling](#326-auto-scaling)
-      - [3.2.6.1. ASG: Auto Scaling Groups](#3261-asg-auto-scaling-groups)
-    - [3.2.7. ECB: Elastic Load Balancing](#327-ecb-elastic-load-balancing)
+    - [3.2.4. Metadata](#324-metadata)
+    - [3.2.5. User Data](#325-user-data)
+    - [3.2.6. Access Keys e IAM Roles](#326-access-keys-e-iam-roles)
+    - [3.2.7. Auto Scaling](#327-auto-scaling)
+      - [3.2.7.1. ASG: Auto Scaling Groups](#3271-asg-auto-scaling-groups)
+  - [3.3. ELB: Elastic Load Balancing](#33-elb-elastic-load-balancing)
+    - [3.3.1. Tipos](#331-tipos)
 - [4. Amazon S3 e CloudFront](#4-amazon-s3-e-cloudfront)
   - [4.1. S3: Simple Storage Service](#41-s3-simple-storage-service)
     - [4.1.1. Classes de Armazenamento](#411-classes-de-armazenamento)
@@ -128,6 +131,7 @@
       - [8.5.9.1. Políticas Baseadas em Recursos](#8591-pol%C3%ADticas-baseadas-em-recursos)
       - [8.5.9.2. Lambda Authorizer](#8592-lambda-authorizer)
       - [8.5.9.3. Cognito User Pools](#8593-cognito-user-pools)
+      - [8.5.9.4. Cognito User Pools](#8594-cognito-user-pools)
 
 <!-- /TOC -->
 
@@ -137,9 +141,9 @@
 
 ## 1. Conta AWS e IAM
 
-### 1.1. Conta AWS
+### 1.1. Perfis
 
-A conta root em AWS é a conta de administrador principal, com acesso total a todos os serviços e recursos da AWS. No entanto, recomenda-se usá-la apenas para criar usuários, grupos, políticas e papéis, e não para atividades do dia a dia.
+- **Conta Root:** A conta root em AWS é a conta de administrador principal, com acesso total a todos os serviços e recursos da AWS. No entanto, recomenda-se usá-la apenas para criar usuários, grupos, políticas e papéis, e não para atividades do dia a dia.
 
 - **Usuário (User):** Entidade com permissões específicas dentro da AWS. Eles representam pessoas ou aplicações que precisam de acesso aos recursos AWS.
 
@@ -157,15 +161,15 @@ O IAM é usado para gerenciar quem pode acessar os recursos AWS e de que forma. 
 
 Para uma gestão eficaz dos recursos na AWS, é crucial compreender e utilizar ferramentas que ajudem a monitorar e otimizar os custos dos serviços.
 
-- **Budget:** Refere-se à criação e gerenciamento de orçamentos na AWS, onde você define limites de gastos e configura alertas para monitorar o uso e os custos dos serviços.
+- **Budget:** Refere-se à criação e gerenciamento de orçamentos na AWS, nos quais você define limites de gastos e configura alertas para monitorar o uso e os custos dos serviços.
 
-- **Cost Explorer:** É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas onde os custos podem ser otimizados.
+- **Cost Explorer:** É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas nas quais os custos podem ser otimizados.
 
 ### 1.4. STS: Security Token Service
 
 Serviço que fornece credenciais temporárias para aplicações acessarem outras aplicações.
 
-### 1.5. Access Control Methods
+### 1.5. Métodos de controle de acesso
 
 - **Role-Based Access Control (RBAC):** Atribui permissões com base nas funções dos usuários dentro de uma organização, facilitando a gestão de acesso em grandes ambientes.
 
@@ -173,7 +177,7 @@ Serviço que fornece credenciais temporárias para aplicações acessarem outras
 
 ## 2. CLI: Command Line Interface
 
-O AWS CLI é uma ferramenta de linha de comando para gerenciar serviços da AWS. Permite automatizar tarefas, configurar recursos e realizar operações diretamente do terminal. Você pode instalá-lo usando pip ou gerenciadores de pacotes e executar comandos no formato `aws [serviço] [operação]`.
+Ferramenta de linha de comando para gerenciar serviços da AWS. Permite automatizar tarefas, configurar recursos e realizar operações diretamente do terminal. Você pode instalá-lo usando `pip` ou gerenciadores de pacotes e executar comandos no formato `aws [serviço] [operação]`.
 
 ### 2.1. Comandos
 
@@ -204,7 +208,7 @@ O AWS CLI é uma ferramenta de linha de comando para gerenciar serviços da AWS.
 ### 2.2. Arquivos importantes
 
 - `.aws/config`: Contém configurações, como região especificada;
-- `.aws/credentials`: Contém os dados da credencial em texto sem criptografia.
+- `.aws/credentials`: Contém os dados da credencial em texto **sem criptografia**.
 
 > [!NOTE]
 > No Linux: o diretório `.aws` está onde os arquivos de instalação foram descompactados;
@@ -227,20 +231,29 @@ Para controlar o tráfego dentro da VPC, há um roteador interno que utiliza uma
 
 ![](assets/2024-10-24-15-18-56.png)
 
-**Conexões e Componentes Adicionais**
+#### 3.1.1. Conexões e Componentes Adicionais
 
 - **Peering Connection:** Uma conexão direta entre duas VPCs, permitindo que elas se comuniquem como se estivessem na mesma rede.
+
+---
+
+- **AWS Direct Connect:** Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
+
+---
+
 - **NAT Instance:** Uma instância que habilita o acesso à Internet para instâncias EC2 em subnets privadas, gerenciada por você.
 - **NAT Gateway:** Similar à NAT Instance, porém gerenciada pela AWS, fornecendo acesso à Internet para instâncias em subnets privadas de forma mais escalável.
+
+---
+
 - **Virtual Private Gateway:** O lado da VPC que faz parte de uma conexão de VPN, usada para conectar a rede local do cliente à VPC da AWS.
 - **Customer Gateway:** O lado do cliente de uma conexão de VPN, representando o dispositivo de borda que se conecta à VPC.
-- **AWS Direct Connect:** Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
-- **Security Group:** Um firewall a nível de instância, que controla o tráfego de entrada e saída para os recursos implantados.
-- **Network ACL (Access Control List):** Um firewall a nível de subnet, que controla o tráfego para e a partir das subnets na VPC.
 
-#### 3.1.1. Grupos de Segurança e NACLs
+---
 
-Os Network ACLs (NACLs) e Grupos de Segurança são firewalls usados para proteger o tráfego na VPC:
+#### 3.1.2. Segurança
+
+São dois firewalls usados para proteger o tráfego na VPC:
 
 - **Network ACLs:** Aplicadas no nível da subnet, controlam o tráfego que entra e sai. Permitem ou negam o tráfego com base em regras de portas, protocolos e IPs.
 
@@ -250,9 +263,9 @@ Os Network ACLs (NACLs) e Grupos de Segurança são firewalls usados para proteg
 
 ### 3.2. EC2: Elastic Compute Cloud
 
-EC2 é um serviço essencial da AWS que oferece servidores virtuais. A AWS gerencia os hosts físicos, enquanto nós gerenciamos as instâncias, que podem executar Windows, Linux ou macOS.
+Serviço que oferece servidores virtuais. A AWS gerencia os hosts físicos, enquanto nós gerenciamos as instâncias, que podem executar Windows, Linux ou macOS.
 
-O EC2 é um tipo de IaaS (Infrastructure as a Service), permitindo que você escolha atributos de hardware para cada instância e instale suas aplicações. Cada instância opera dentro de uma VPC (Virtual Private Cloud).
+O EC2 é um tipo de **IaaS** (Infrastructure as a Service), permitindo que você escolha atributos de hardware para cada instância e instale suas aplicações. Cada instância opera dentro de uma _VPC (Virtual Private Cloud)_.
 
 No Amazon EC2, as instâncias operam com três tipos de endereços IP:
 
@@ -260,33 +273,33 @@ No Amazon EC2, as instâncias operam com três tipos de endereços IP:
 
 - **IP Privado:** Usado para comunicação interna entre instâncias na mesma VPC. Para que uma instância com IP privado acesse a Internet, é necessária a configuração de um NAT (Network Address Translation), que permite a tradução do IP privado para um IP público.
 
-- **IP Elástico:** Um IP público estático que você pode associar a uma instância. Ao contrário do IP público dinâmico, o IP elástico não é perdido quando a instância é desligada, garantindo que você mantenha o mesmo endereço IP mesmo após reinicializações.
+- **IP Elástico:** Um IP público estático que você pode associar a uma instância. O IP elástico não é perdido quando a instância é desligada, garantindo que você mantenha o mesmo endereço IP mesmo após reinicializações.
 
 ![](assets/2024-10-24-21-21-08.png)
 
 #### 3.2.1. EBS: Elastic Block Store
 
-O EBS oferece volumes de armazenamento para instâncias EC2. Esses volumes são um sistema de armazenamento em bloco, diferente do armazenamento em arquivo, e existem dentro de uma Zona de Disponibilidade (AZ).
+Oferece volumes de armazenamento para instâncias EC2. Esses volumes são um sistema de armazenamento em bloco, diferente do armazenamento em arquivo, e existem dentro de uma _Zona de Disponibilidade (AZ)_.
 
 ![](assets/2024-10-24-21-45-10.png)
 
 #### 3.2.2. Instance Stores
 
-As instâncias EC2 também possuem instance store volumes, que são fisicamente conectados aos hosts EC2. Esses volumes oferecem alta performance, mas os dados não são persistidos após o desligamento da instância.
+As instâncias EC2 também possuem instance store volumes, que são fisicamente conectados aos hosts EC2. Esses volumes oferecem alta performance, mas os dados são perdidos após o desligamento da instância.
 
 ![](assets/2024-10-24-21-50-29.png)
 
-Os backups do EBS são chamados de snapshots, que são armazenados no S3 (um serviço da AWS na mesma região) e não na AZ. Os snapshots são incrementais, ou seja, só fazem backup das alterações desde o último snapshot. A partir de um snapshot, você pode criar um novo volume EBS ou uma Amazon Machine Image (AMI), que permite lançar instâncias pré-configuradas rapidamente.
+Os backups do EBS são chamados de snapshots, que são armazenados no S3 (um serviço da AWS na mesma região) e não na AZ. Os snapshots são incrementais, ou seja, só fazem backup das alterações desde o último snapshot. A partir de um snapshot, você pode criar um novo volume EBS ou uma _Amazon Machine Image (AMI)_, que permite lançar instâncias pré-configuradas rapidamente.
 
 ![](assets/2024-10-24-21-59-24.png)
 
 #### 3.2.3. EFS: Elastic File System
 
-O EFS é um sistema de arquivos compartilhado que permite que múltiplas instâncias EC2 se conectem a ele, mesmo em diferentes Zonas de Disponibilidade (AZs). As instâncias se conectam a um ponto de montagem na AZ, utilizando o protocolo NFS (Network File System), que é compatível apenas com Linux.
+O EFS é um sistema de arquivos compartilhado que permite que múltiplas instâncias EC2 se conectem a ele, mesmo em diferentes _Zonas de Disponibilidade (AZs)_. As instâncias se conectam a um ponto de montagem na AZ, utilizando o protocolo NFS (Network File System), que é **compatível apenas com Linux**.
 
 ![](assets/2024-10-24-22-31-00.png)
 
-Para sistemas de arquivos regionais, as operações de gravação são duravelmente armazenadas em várias AZs, e aplicações clientes NFS podem usar bloqueios de arquivo NFS v4 para garantir consistência durante leituras e gravações.
+> Para sistemas de arquivos regionais, as operações de gravação são duravelmente armazenadas em várias AZs, e aplicações clientes NFS podem usar bloqueios de arquivo NFS v4 para garantir consistência durante leituras e gravações.
 
 ##### 3.2.3.1. Classes de armazenamento
 
@@ -311,46 +324,52 @@ Em termos de desempenho, existem duas opções:
 
 > Throughput: quantidade de dados que pode ser processada ou transferida em um determinado período de tempo.
 
-#### 3.2.4. Metadata e User Data
+#### 3.2.4. Metadata
 
-- **EC2 Metadata**: Informações sobre a instância EC2, como ID, IP etc.
-  - **IMDSv1**: Método antigo e menos seguro.
-  - **IMDSv2**: Requer uso de token para maior segurança.
-- **User Data**: Script executado automaticamente na primeira inicialização da instância.
-  - Deve ser codificado em **base64** (feito automaticamente no console e AWS CLI).
-  - Limite de **16 KB** em formato bruto (antes de ser codificado).
-  - Executado apenas **uma vez**, no primeiro boot.
+Informações sobre a instância EC2, como ID, IP etc.
 
-#### 3.2.5. Access Keys e IAM Roles
+- **IMDSv1**: Método antigo e menos seguro.
+- **IMDSv2**: Requer uso de token para maior segurança.
+
+#### 3.2.5. User Data
+
+Script executado automaticamente na primeira inicialização da instância.
+
+- Deve ser codificado em **base64** (feito automaticamente no console e AWS CLI).
+- Limite de **16 KB** em formato bruto (antes de ser codificado).
+- Executado apenas **uma vez**, no primeiro boot.
+
+#### 3.2.6. Access Keys e IAM Roles
 
 AWS Access Keys são usadas na CLI e têm as mesmas permissões do usuário IAM. O problema é que são credenciais de longo prazo, armazenadas em texto simples na instância, o que aumenta o risco de comprometimento. Para evitar isso, use IAM Roles com políticas atribuídas, que não são armazenadas na instância. O serviço utiliza o STS da AWS para obter tokens temporários.
 
-#### 3.2.6. Auto Scaling
+#### 3.2.7. Auto Scaling
 
-EC2 Auto Scaling ajusta automaticamente a quantidade de instâncias, substituindo ou adaptando a capacidade de clusters para atender à demanda. Ele é compatível com EC2, ECS e EKS, e se integra a outros serviços como CloudWatch (monitoramento e escalonamento), ELB (balanceamento de carga), EC2 Spot Instances (otimização de custo) e VPC (deploy entre AZs).
+Ajusta automaticamente a quantidade de instâncias, substituindo ou adaptando a capacidade de clusters para atender à demanda. Ele é compatível com EC2, ECS e EKS, e se integra a outros serviços como _CloudWatch_ (monitoramento e escalonamento), ELB (balanceamento de carga), _EC2 Spot Instances_ (otimização de custo) e VPC (deploy entre AZs).
 
 ![](assets/2024-10-28-14-44-13.png)
 
 O escalonamento é horizontal (scale-out), proporcionando elasticidade e escalabilidade, aumentando a capacidade quando necessário e reduzindo quando possível. Possui health checks para EC2 e ELB, além de um período de espera (grace period) antes de iniciar operações. Existem quatro modos de escalonamento: manual, dinâmico (sob demanda), preditivo (usando ML) e agendado.
 
-##### 3.2.6.1. ASG: Auto Scaling Groups
+##### 3.2.7.1. ASG: Auto Scaling Groups
 
-Auto Scaling Groups permitem a criação e gerenciamento automáticos de grupos de instâncias EC2, ajustando a capacidade de acordo com a demanda. Com ASG, é possível configurar políticas de escalabilidade para aumentar ou reduzir o número de instâncias, promovendo alta disponibilidade e otimização de custos. ASG monitora o estado das instâncias com health checks e, se necessário, substitui instâncias com falhas automaticamente. Ele suporta escalonamento manual, dinâmico, preditivo e agendado, atendendo tanto a picos de uso quanto a demandas mais previsíveis.
+Permitem a criação e gerenciamento automáticos de grupos de instâncias EC2, ajustando a capacidade de acordo com a demanda. Com ASG, é possível configurar políticas de escalabilidade para aumentar ou reduzir o número de instâncias. Os ASG monitoram o estado das instâncias com health checks e, se necessário, substituem instâncias com falhas automaticamente. Suportam escalonamento manual, dinâmico, preditivo e agendado, atendendo tanto a picos de uso quanto a demandas mais previsíveis.
 
-#### 3.2.7. ECB: Elastic Load Balancing
+### 3.3. ELB: Elastic Load Balancing
 
-Amazon ELB (Elastic Load Balancing) oferece alta disponibilidade e tolerância a falhas, permitindo que múltiplas instâncias fiquem atrás de um único endpoint. Ele distribui o tráfego de forma transparente entre EC2, ECS, endereços IP, Lambda e outros balanceadores. Se uma instância falhar, o ELB redireciona automaticamente a sessão para outra instância disponível.
+Oferece alta disponibilidade e tolerância a falhas, permitindo que múltiplas instâncias fiquem atrás de um único endpoint. Ele distribui o tráfego de forma transparente entre EC2, ECS, endereços IP, Lambda e outros balanceadores. Se uma instância falhar, o ELB redireciona automaticamente a sessão para outra instância disponível.
 
 ![](assets/2024-10-28-15-08-45.png)
-**Tipos de Load Balancer:**
+
+#### 3.3.1. Tipos
+
+![](assets/2024-10-28-15-18-56.png)
 
 - **Application Load Balancer (ALB):** Opera na camada de aplicação (HTTP/HTTPS) e permite roteamento avançado com base em caminhos, hosts, parâmetros de consulta e endereços IP de origem.
 
 - **Network Load Balancer (NLB):** Opera na camada de transporte (TCP/UDP) e usa roteamento baseado no protocolo IP, oferecendo latência ultrabaixa para conexões de alto desempenho.
 
 - **Gateway Load Balancer (GLB):** Ideal para implantar, escalar e gerenciar appliances de terceiros (como firewalls e sistemas de detecção de intrusão) em redes VPC. Combina roteamento com um modelo de encaminhamento que facilita a implementação de soluções de segurança em larga escala.
-
-![](assets/2024-10-28-15-18-56.png)
 
 ## 4. Amazon S3 e CloudFront
 
@@ -917,7 +936,7 @@ Serviço de fila baseado em **pull** (solicitação ativa), em que sistemas dist
 
 - **Standard Queue:** Suporta alto throughput, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
 
-- **FIFO Queue:** Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas. Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
+- **FIFO Queue:** Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas (recurso chamado _deduplication_). Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
 
 ![](assets/2024-11-04-10-38-47.png)
 
@@ -1067,6 +1086,7 @@ Utilizam funções Lambda para controlar o acesso às APIs, retornando uma polí
 - **Token-based**: recebe a identidade através de um token bearer, como JWT ou OAuth.
 - **Request parameter-based**: utiliza uma combinação de cabeçalhos, parâmetros de consulta e variáveis de contexto. Esse tipo é o único suportado para APIs WebSocket.
 
+##### 8.5.9.3. Cognito User Pools
 ##### 8.5.9.3. Cognito User Pools
 
 Funcionam como um diretório de usuários, permitindo logins via Amazon Cognito ou provedores de identidade externos, como Google, Facebook ou SAML. Com um user pool, você pode criar um authorizer do tipo `COGNITO USER POOLS` e configurá-lo para controlar o acesso aos métodos da API.
