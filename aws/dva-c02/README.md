@@ -115,6 +115,19 @@
     - [8.2.1. Fan-Out](#821-fan-out)
   - [8.3. Step Functions](#83-step-functions)
   - [8.4. EventBridge](#84-eventbridge)
+  - [8.5. API Gateway](#85-api-gateway)
+    - [8.5.1. Tipos de implantação](#851-tipos-de-implanta%C3%A7%C3%A3o)
+    - [8.5.2. Recursos e métodos](#852-recursos-e-m%C3%A9todos)
+    - [8.5.3. Tipos de integração](#853-tipos-de-integra%C3%A7%C3%A3o)
+    - [8.5.4. Mapping Templates](#854-mapping-templates)
+    - [8.5.5. Implantações e Estágios](#855-implanta%C3%A7%C3%B5es-e-est%C3%A1gios)
+    - [8.5.6. Caching](#856-caching)
+    - [8.5.7. Throttling](#857-throttling)
+    - [8.5.8. Planos de Uso e Chaves de API](#858-planos-de-uso-e-chaves-de-api)
+    - [8.5.9. Controle de acesso](#859-controle-de-acesso)
+      - [8.5.9.1. Políticas Baseadas em Recursos](#8591-pol%C3%ADticas-baseadas-em-recursos)
+      - [8.5.9.2. Lambda Authorizer](#8592-lambda-authorizer)
+      - [8.5.9.3. Cognito User Pools](#8593-cognito-user-pools)
 
 <!-- /TOC -->
 
@@ -965,3 +978,95 @@ Permite construir e executar aplicações distribuídas organizadas como uma sé
 Sistema de comunicação que permite que diferentes serviços, aplicativos e componentes de uma arquitetura troquem informações de forma assíncrona e em tempo real. Permite configurar regras para rotear eventos em tempo real de fontes como aplicações AWS, SaaS e sistemas personalizados para serviços de destino, incluindo Lambda, SQS e Step Functions.
 
 ![](assets/2024-11-04-18-36-26.png)
+
+### 8.5. API Gateway
+
+Serviço gerenciado da AWS que facilita a criação, publicação, monitoramento e segurança de APIs em escala. Ele permite que aplicações cliente (como web, mobile e IoT) se comuniquem com serviços de backend de forma segura e eficiente, possibilitando a criação de APIs RESTful e WebSocket. Lida automaticamente com o gerenciamento de tráfego, controle de acesso e monitoramento, além de oferecer opções de autenticação (como AWS IAM, Lambda Authorizers e Amazon Cognito) e recursos de throttling para proteger suas APIs contra sobrecarga. Suporta **REST APIs**, **HTTP APIs** e **WebSocket APIs**.
+
+![](assets/2024-11-04-18-44-40.png)
+
+#### 8.5.1. Tipos de implantação
+
+- **Edge-optimized endpoint**: Reduz a latência para solicitações de qualquer lugar do mundo, utilizando a rede de distribuição de conteúdo (CDN) da AWS, o Amazon CloudFront. É ideal para clientes geograficamente distribuídos, pois as solicitações são roteadas para o ponto de presença (POP) mais próximo. Este é o tipo de endpoint **padrão** para APIs REST do API Gateway.
+
+- **Regional endpoint**: Ideal para solicitações originadas na mesma região, proporciona baixa latência e permite a configuração de uma CDN personalizada, além de proteger a aplicação com o AWS WAF. É destinado a clientes na mesma região. Domínios personalizados são específicos para a região em que a API está implantada e podem ser usados em várias regiões.
+
+- **Private endpoint**: Permite expor suas APIs REST de forma segura apenas para serviços dentro de sua VPC ou através de conexões dedicadas via _AWS Direct Connect_, garantindo que os dados permaneçam privados e seguros. Pode ser acessada apenas a partir de uma VPC usando um endpoint de interface VPC.
+
+#### 8.5.2. Recursos e métodos
+
+![](assets/2024-11-04-19-09-20.png)
+
+Um **recurso** representa um caminho na sua API, que pode ser usado para organizar e gerenciar suas operações. Os **métodos** são criados dentro desses recursos e representam a interface que o cliente utiliza para interagir com a API e acessar os recursos de backend. Cada método é associado a um verbo HTTP específico ou pode ser configurado para aceitar qualquer verbo utilizando a opção **ANY**.
+
+![](assets/2024-11-04-19-11-12.png)
+
+#### 8.5.3. Tipos de integração
+
+- **AWS**: Permite que a API exponha ações de serviços da AWS. Requer a configuração das solicitações e respostas de integração, além do mapeamento de dados entre a solicitação do método e a solicitação de integração.
+
+- **AWS_PROXY (Lambda Proxy Integration)**: Facilita a interação direta entre o cliente e a função Lambda. O API Gateway passa a solicitação recebida diretamente para a função Lambda, que extrai dados de cabeçalhos, parâmetros e corpo, retornando o resultado em um formato específico. Não é necessário configurar solicitações e respostas de integração.
+
+- **HTTP**: Expõe endpoints HTTP no backend e requer a configuração das solicitações e respostas de integração. É necessário estabelecer o mapeamento de dados entre a solicitação do método e a solicitação de integração.
+
+- **MOCK**: Permite que o API Gateway retorne uma resposta sem encaminhar a solicitação ao backend, útil para testar configurações e apoiar o desenvolvimento colaborativo. As equipes podem simular componentes da API sem incorrer em custos de uso do backend.
+
+#### 8.5.4. Mapping Templates
+
+Scripts escritos em _Velocity Template Language (VTL)_, que possibilitam a transformação do payload da requisição para o formato adequado da requisição de integração e vice-versa.
+
+> **Payload:** é a parte de uma mensagem que contém os dados enviados em uma requisição ou resposta em APIs, ou seja, dados que o cliente envia para a API e os dados que a API retorna ao cliente.
+
+#### 8.5.5. Implantações e Estágios
+
+Implantações no Amazon API Gateway representam uma _snapshot_ dos recursos e métodos da API. Para que a API seja acessível, as implantações devem ser criadas e associadas a um estágio, que serve como uma referência lógica a um estado do ciclo de vida da API (por exemplo, 'dev', 'prod', 'beta'). Cada estágio é identificado pelo ID da API e pelo nome do estágio.
+
+![](assets/2024-11-04-19-49-49.png)
+
+As variáveis de estágio funcionam como variáveis de ambiente para o API Gateway e podem ser utilizadas em diversas configurações, como ARNs de funções Lambda, endpoints HTTP e templates de mapeamento de parâmetros.
+
+#### 8.5.6. Caching
+
+O Amazon API Gateway permite adicionar caching às chamadas da API através da provisão de um cache, com tamanho especificado em gigabytes. O caching armazena a resposta do endpoint, reduzindo o número de chamadas ao backend e melhorando a latência das requisições à API. As respostas são armazenadas em cache por um período determinado, conhecido como _Time to Live (TTL)_, com um valor padrão de 300 segundos (mínimo de 0, máximo de 3600).
+
+Os caches são definidos por estágio e têm capacidade que varia de 0,5 GB a 237 GB. É possível criptografar os caches e sobrescrever as configurações de cache para métodos específicos. Se necessário, todo o cache pode ser invalidado imediatamente. Além disso, os clientes têm a opção de invalidar o cache utilizando o cabeçalho: `Cache-Control: max-age=0`.
+
+![](assets/2024-11-04-19-57-51.png)
+
+#### 8.5.7. Throttling
+
+O Amazon API Gateway impõe limites à taxa de requisições em estado constante e a picos de submissão de requisições em todas as APIs da sua conta. Por padrão, a taxa de requisições contínuas é limitada a 10.000 requisições por segundo, enquanto o número máximo de requisições simultâneas é de 5.000. Exceder esses limites resulta em um erro **429 (Too Many Requests)**, e o cliente deve reencaminhar as requisições com uma abordagem de controle de taxa, respeitando os limites de throttling.
+
+Existem dois tipos básicos de configurações relacionadas ao throttling no API Gateway:
+
+- os limites de throttling do lado do servidor, que se aplicam a todos os clientes para evitar sobrecarga, e;
+- os limites de throttling por cliente, que se aplicam a clientes utilizando chaves de API associadas às suas políticas de uso.
+
+#### 8.5.8. Planos de Uso e Chaves de API
+
+Um plano de uso define quem pode acessar um ou mais estágios e métodos de API implantados, além de regular a quantidade e a velocidade de acesso. Com ele, é possível configurar limites de throttling e cotas, que são aplicados a chaves de API específicas de cada cliente.
+
+![](assets/2024-11-04-22-21-22.png)
+
+Os planos de uso utilizam chaves de API para identificar os clientes e monitorar o acesso aos estágios da API associados. Eles permitem a configuração de limites de throttling e cotas, que são aplicados a cada chave de API individualmente.
+
+#### 8.5.9. Controle de acesso
+
+##### 8.5.9.1. Políticas Baseadas em Recursos
+
+São documentos JSON que você anexa a uma API para controlar se um principal específico pode invocá-la. Esse método permite definir permissões detalhadas diretamente nos recursos da API.
+
+> [!NOTE]
+>
+> "Principal" refere-se à entidade que está fazendo uma chamada ou tentando acessar um recurso. Um principal pode ser um usuário, uma função (role), uma conta da AWS ou um serviço que está fazendo a solicitação de acesso a um recurso.
+
+##### 8.5.9.2. Lambda Authorizer
+
+Utilizam funções Lambda para controlar o acesso às APIs, retornando uma política IAM com base na identidade do chamador. Existem dois tipos:
+
+- **Token-based**: recebe a identidade através de um token bearer, como JWT ou OAuth.
+- **Request parameter-based**: utiliza uma combinação de cabeçalhos, parâmetros de consulta e variáveis de contexto. Esse tipo é o único suportado para APIs WebSocket.
+
+##### 8.5.9.3. Cognito User Pools
+
+Funcionam como um diretório de usuários, permitindo logins via Amazon Cognito ou provedores de identidade externos, como Google, Facebook ou SAML. Com um user pool, você pode criar um authorizer do tipo `COGNITO USER POOLS` e configurá-lo para controlar o acesso aos métodos da API.
