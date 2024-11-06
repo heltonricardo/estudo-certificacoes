@@ -144,6 +144,9 @@
     - [9.1.9. Scaling](#919-scaling)
       - [9.1.9.1. Service Auto Scaling](#9191-service-auto-scaling)
       - [9.1.9.2. Cluster Auto Scaling](#9192-cluster-auto-scaling)
+  - [9.2. ECR: Elastic Container Registry](#92-ecr-elastic-container-registry)
+    - [9.2.1. Componentes](#921-componentes)
+    - [9.2.2. Funcionalidades](#922-funcionalidades)
 
 <!-- /TOC -->
 
@@ -1200,3 +1203,37 @@ Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser as
 - **Managed Instance Termination Protection**: Proteção que permite a resiliência das instâncias em execução durante o processo de redução de escala, garantindo que as instâncias com tarefas ativas sejam mantidas.
 
 ![](assets/2024-11-05-21-11-18.png)
+
+### 9.2. ECR: Elastic Container Registry
+
+É um registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker - nuvem, localmente ou on-premises.
+
+As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR permite a organização dos repositórios por namespaces. Há suporte para **repositórios públicos** (para acesso global) e **repositórios privados** (com controle de acesso).
+
+> O controle de acesso em repositórios privados inclui:
+>
+> - **IAM Access Control**: Configuração de políticas para definir permissões de acesso a imagens em repositórios privados.
+>
+> - **Resource-based Policies**: Controle de acesso específico para ações como `create`, `list`, `describe`, `delete` e `get`.
+
+#### 9.2.1. Componentes
+
+| **Nome**                | **Descrição**                                                                                                                                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Registry**            | Cada conta AWS tem um registro privado Amazon ECR, no qual é possível criar múltiplos repositórios para armazenar imagens.                                                                       |
+| **Authorization Token** | O cliente deve autenticar-se no Amazon ECR com um token de autorização como usuário AWS para realizar operações de `push` e `pull` de imagens.                                                   |
+| **Repository**          | Um repositório Amazon ECR armazena imagens Docker, imagens compatíveis com OCI e artefatos compatíveis com OCI, permitindo a organização e versionamento dos contêineres.                        |
+| **Repository Policy**   | Políticas de repositório permitem definir o controle de acesso sobre os repositórios e as imagens contidas neles, garantindo segurança e permissões personalizadas.                              |
+| **Image**               | Imagens de contêiner que podem ser enviadas (`push`) para o repositório ou baixadas (`pull`) a partir dele, facilitando o armazenamento, a distribuição e a execução de contêineres gerenciados. |
+
+#### 9.2.2. Funcionalidades
+
+- **Lifecycle Policies**: Automatizam a gestão do ciclo de vida das imagens nos repositórios, permitindo a limpeza e a retenção de imagens conforme as regras definidas.
+
+- **Image Scanning**: Permite a verificação de vulnerabilidades de segurança em imagens de contêiner, ajudando a identificar e mitigar riscos antes da implantação.
+
+- **Cross-Region e Cross-Account Replication**: Facilita a replicação de imagens entre diferentes contas e regiões AWS, garantindo alta disponibilidade e conformidade geográfica.
+
+- **Pull Through Cache Rules**: Habilita o cache de repositórios em registros públicos remotos dentro do ECR privado, reduzindo a latência de acesso e otimizando o tempo de resposta.
+
+![](assets/2024-11-05-21-23-00.png)
