@@ -147,6 +147,12 @@
   - [9.2. ECR: Elastic Container Registry](#92-ecr-elastic-container-registry)
     - [9.2.1. Componentes](#921-componentes)
     - [9.2.2. Funcionalidades](#922-funcionalidades)
+  - [9.3. EKS: Elastic Kubernetes Service](#93-eks-elastic-kubernetes-service)
+    - [9.3.1. Auto Scaling](#931-auto-scaling)
+      - [9.3.1.1. Cluster Auto Scaling](#9311-cluster-auto-scaling)
+      - [9.3.1.2. Workload Auto Scaling](#9312-workload-auto-scaling)
+    - [9.3.2. Redes de pods](#932-redes-de-pods)
+    - [9.3.3. Balanceamento de carga](#933-balanceamento-de-carga)
 
 <!-- /TOC -->
 
@@ -1237,3 +1243,43 @@ As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR 
 - **Pull Through Cache Rules**: Habilita o cache de repositórios em registros públicos remotos dentro do ECR privado, reduzindo a latência de acesso e otimizando o tempo de resposta.
 
 ![](assets/2024-11-05-21-23-00.png)
+
+### 9.3. EKS: Elastic Kubernetes Service
+
+Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. Ele é útil para quatro cenários principais:
+
+- **Implantação Híbrida**: Permite gerenciar clusters e aplicações Kubernetes em ambientes híbridos, tanto na AWS quanto on-premises, oferecendo flexibilidade para arquiteturas mistas.
+
+- **Processamento em Lote**: Suporta cargas de trabalho sequenciais ou paralelas via API de Jobs do Kubernetes, otimizando o planejamento e execução de tarefas em lote.
+
+- **Machine Learning**: Com Kubeflow integrado ao EKS, você organiza fluxos de trabalho de ML e realiza treinos distribuídos usando instâncias EC2 avançadas, incluindo GPUs e _Inferentia_.
+
+- **Aplicações Web**: Ideal para construir aplicações web escaláveis, com alta disponibilidade e distribuição em múltiplas Zonas de Disponibilidade (AZs), garantindo robustez e desempenho.
+
+![](assets/2024-11-05-21-31-38.png)
+
+#### 9.3.1. Auto Scaling
+
+Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamicamente os recursos para maximizar o desempenho e otimizar custos. Ele abrange duas abordagens principais:
+
+##### 9.3.1.1. Cluster Auto Scaling
+
+- **Vertical Pod Autoscaler** ajusta automaticamente as reservas de CPU e memória dos pods, garantindo que cada aplicação tenha a quantidade exata de recursos necessária.
+- **Horizontal Pod Autoscaler** ajusta o número de pods em um deployment, replication controller ou replica set com base na utilização de CPU, aumentando a capacidade conforme a demanda.
+
+##### 9.3.1.2. Workload Auto Scaling
+
+- **Kubernetes Cluster Autoscaler**, que utiliza grupos de escalabilidade da AWS para ajustar o número de nós no cluster.
+- **Karpenter**, um projeto open source que interage diretamente com a frota EC2 para escalar de forma mais flexível e rápida, sem depender de grupos de escalabilidade.
+
+#### 9.3.2. Redes de pods
+
+O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que cada pod receba um endereço IP privado (IPv4 ou IPv6) da sua VPC. Faz isso através de um plugin que é implementado como um DaemonSet chamado `aws-node` em cada instância Amazon EC2.
+
+#### 9.3.3. Balanceamento de carga
+
+O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportando _Network Load Balancers (NLB)_ e _Application Load Balancers (ALB)_ para distribuir tráfego de rede em seus clusters Kubernetes. Esse gerenciamento é feito pelo **AWS Load Balancer Controller**, que configura e mantém os Load Balancers automaticamente para o cluster.
+O controlador gerencia dois recursos principais:
+
+- **Application Load Balancer (ALB)**: Provisionado ao criar um recurso Kubernetes Ingress, direcionando o tráfego HTTP/HTTPS para os pods.
+- **Network Load Balancer (NLB)**: Criado ao configurar um serviço Kubernetes do tipo LoadBalancer, roteando o tráfego em nível de rede para os pods.
