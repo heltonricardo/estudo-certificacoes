@@ -131,7 +131,19 @@
       - [8.5.9.1. Políticas Baseadas em Recursos](#8591-pol%C3%ADticas-baseadas-em-recursos)
       - [8.5.9.2. Lambda Authorizer](#8592-lambda-authorizer)
       - [8.5.9.3. Cognito User Pools](#8593-cognito-user-pools)
-      - [8.5.9.4. Cognito User Pools](#8594-cognito-user-pools)
+- [9. Contêineres](#9-cont%C3%AAineres)
+  - [9.1. ECS: Elastic Container Service](#91-ecs-elastic-container-service)
+    - [9.1.1. Componentes](#911-componentes)
+    - [9.1.2. Funcionalidades](#912-funcionalidades)
+    - [9.1.3. Cluster](#913-cluster)
+    - [9.1.4. Imagens](#914-imagens)
+    - [9.1.5. Task definition](#915-task-definition)
+    - [9.1.6. Launch Type](#916-launch-type)
+    - [9.1.7. Task Placement Strategies](#917-task-placement-strategies)
+    - [9.1.8. CQL: Cluster Query Language](#918-cql-cluster-query-language)
+    - [9.1.9. Scaling](#919-scaling)
+      - [9.1.9.1. Service Auto Scaling](#9191-service-auto-scaling)
+      - [9.1.9.2. Cluster Auto Scaling](#9192-cluster-auto-scaling)
 
 <!-- /TOC -->
 
@@ -143,15 +155,15 @@
 
 ### 1.1. Perfis
 
-- **Conta Root:** A conta root em AWS é a conta de administrador principal, com acesso total a todos os serviços e recursos da AWS. No entanto, recomenda-se usá-la apenas para criar usuários, grupos, políticas e papéis, e não para atividades do dia a dia.
+- **Conta Root**: A conta root em AWS é a conta de administrador principal, com acesso total a todos os serviços e recursos da AWS. No entanto, recomenda-se usá-la apenas para criar usuários, grupos, políticas e papéis, e não para atividades do dia a dia.
 
-- **Usuário (User):** Entidade com permissões específicas dentro da AWS. Eles representam pessoas ou aplicações que precisam de acesso aos recursos AWS.
+- **Usuário (User)**: Entidade com permissões específicas dentro da AWS. Eles representam pessoas ou aplicações que precisam de acesso aos recursos AWS.
 
-- **Grupo (Group):** Coleção de usuários. Permissões são aplicadas ao grupo, e todos os usuários dentro dele herdam essas permissões.
+- **Grupo (Group)**: Coleção de usuários. Permissões são aplicadas ao grupo, e todos os usuários dentro dele herdam essas permissões.
 
-- **Política (Policy):** Define permissões e especifica quais ações são permitidas ou negadas em quais recursos. Elas são escritas em formato JSON.
+- **Política (Policy)**: Define permissões e especifica quais ações são permitidas ou negadas em quais recursos. Elas são escritas em formato JSON.
 
-- **Papéis (Role):** Semelhante a um usuário, mas não é associada a uma pessoa específica. São usados para conceder permissões temporárias a usuários ou serviços que precisem acessar recursos.
+- **Papéis (Role)**: Semelhante a um usuário, mas não é associada a uma pessoa específica. São usados para conceder permissões temporárias a usuários ou serviços que precisem acessar recursos.
 
 ### 1.2. IAM: Identity and Access Management
 
@@ -161,9 +173,9 @@ O IAM é usado para gerenciar quem pode acessar os recursos AWS e de que forma. 
 
 Para uma gestão eficaz dos recursos na AWS, é crucial compreender e utilizar ferramentas que ajudem a monitorar e otimizar os custos dos serviços.
 
-- **Budget:** Refere-se à criação e gerenciamento de orçamentos na AWS, nos quais você define limites de gastos e configura alertas para monitorar o uso e os custos dos serviços.
+- **Budget**: Refere-se à criação e gerenciamento de orçamentos na AWS, nos quais você define limites de gastos e configura alertas para monitorar o uso e os custos dos serviços.
 
-- **Cost Explorer:** É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas nas quais os custos podem ser otimizados.
+- **Cost Explorer**: É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas nas quais os custos podem ser otimizados.
 
 ### 1.4. STS: Security Token Service
 
@@ -171,9 +183,9 @@ Serviço que fornece credenciais temporárias para aplicações acessarem outras
 
 ### 1.5. Métodos de controle de acesso
 
-- **Role-Based Access Control (RBAC):** Atribui permissões com base nas funções dos usuários dentro de uma organização, facilitando a gestão de acesso em grandes ambientes.
+- **Role-Based Access Control (RBAC)**: Atribui permissões com base nas funções dos usuários dentro de uma organização, facilitando a gestão de acesso em grandes ambientes.
 
-- **Attribute-Based Access Control (ABAC):** Oferece uma abordagem mais flexível e dinâmica, utilizando tags e múltiplos atributos (como localização e horário) para tomar decisões de acesso em tempo real.
+- **Attribute-Based Access Control (ABAC)**: Oferece uma abordagem mais flexível e dinâmica, utilizando tags e múltiplos atributos (como localização e horário) para tomar decisões de acesso em tempo real.
 
 ## 2. CLI: Command Line Interface
 
@@ -233,21 +245,21 @@ Para controlar o tráfego dentro da VPC, há um roteador interno que utiliza uma
 
 #### 3.1.1. Conexões e Componentes Adicionais
 
-- **Peering Connection:** Uma conexão direta entre duas VPCs, permitindo que elas se comuniquem como se estivessem na mesma rede.
+- **Peering Connection**: Uma conexão direta entre duas VPCs, permitindo que elas se comuniquem como se estivessem na mesma rede.
 
 ---
 
-- **AWS Direct Connect:** Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
+- **AWS Direct Connect**: Uma conexão de rede privada de alta velocidade e alta largura de banda, que liga a rede do cliente diretamente à AWS, sem passar pela Internet pública.
 
 ---
 
-- **NAT Instance:** Uma instância que habilita o acesso à Internet para instâncias EC2 em subnets privadas, gerenciada por você.
-- **NAT Gateway:** Similar à NAT Instance, porém gerenciada pela AWS, fornecendo acesso à Internet para instâncias em subnets privadas de forma mais escalável.
+- **NAT Instance**: Uma instância que habilita o acesso à Internet para instâncias EC2 em subnets privadas, gerenciada por você.
+- **NAT Gateway**: Similar à NAT Instance, porém gerenciada pela AWS, fornecendo acesso à Internet para instâncias em subnets privadas de forma mais escalável.
 
 ---
 
-- **Virtual Private Gateway:** O lado da VPC que faz parte de uma conexão de VPN, usada para conectar a rede local do cliente à VPC da AWS.
-- **Customer Gateway:** O lado do cliente de uma conexão de VPN, representando o dispositivo de borda que se conecta à VPC.
+- **Virtual Private Gateway**: O lado da VPC que faz parte de uma conexão de VPN, usada para conectar a rede local do cliente à VPC da AWS.
+- **Customer Gateway**: O lado do cliente de uma conexão de VPN, representando o dispositivo de borda que se conecta à VPC.
 
 ---
 
@@ -255,9 +267,9 @@ Para controlar o tráfego dentro da VPC, há um roteador interno que utiliza uma
 
 São dois firewalls usados para proteger o tráfego na VPC:
 
-- **Network ACLs:** Aplicadas no nível da subnet, controlam o tráfego que entra e sai. Permitem ou negam o tráfego com base em regras de portas, protocolos e IPs.
+- **Network ACLs**: Aplicadas no nível da subnet, controlam o tráfego que entra e sai. Permitem ou negam o tráfego com base em regras de portas, protocolos e IPs.
 
-- **Grupos de Segurança:** Aplicados no nível da instância, controlam o tráfego permitido para recursos específicos. Um mesmo grupo pode ser usado em instâncias de diferentes subnets.
+- **Grupos de Segurança**: Aplicados no nível da instância, controlam o tráfego permitido para recursos específicos. Um mesmo grupo pode ser usado em instâncias de diferentes subnets.
 
 ![](assets/2024-10-24-16-28-30.png)
 
@@ -269,11 +281,11 @@ O EC2 é um tipo de **IaaS** (Infrastructure as a Service), permitindo que você
 
 No Amazon EC2, as instâncias operam com três tipos de endereços IP:
 
-- **IP Público:** Acessível pela Internet, mas é dinâmico e pode mudar se a instância for parada e iniciada novamente.
+- **IP Público**: Acessível pela Internet, mas é dinâmico e pode mudar se a instância for parada e iniciada novamente.
 
-- **IP Privado:** Usado para comunicação interna entre instâncias na mesma VPC. Para que uma instância com IP privado acesse a Internet, é necessária a configuração de um NAT (Network Address Translation), que permite a tradução do IP privado para um IP público.
+- **IP Privado**: Usado para comunicação interna entre instâncias na mesma VPC. Para que uma instância com IP privado acesse a Internet, é necessária a configuração de um NAT (Network Address Translation), que permite a tradução do IP privado para um IP público.
 
-- **IP Elástico:** Um IP público estático que você pode associar a uma instância. O IP elástico não é perdido quando a instância é desligada, garantindo que você mantenha o mesmo endereço IP mesmo após reinicializações.
+- **IP Elástico**: Um IP público estático que você pode associar a uma instância. O IP elástico não é perdido quando a instância é desligada, garantindo que você mantenha o mesmo endereço IP mesmo após reinicializações.
 
 ![](assets/2024-10-24-21-21-08.png)
 
@@ -303,9 +315,9 @@ O EFS é um sistema de arquivos compartilhado que permite que múltiplas instân
 
 ##### 3.2.3.1. Classes de armazenamento
 
-- **EFS Standard:** Usando SSDs para baixa latência.
-- **EFS Infrequent Access (IA):** Uma opção econômica para dados menos acessados.
-- **EFS Archive:** A opção mais barata para dados arquivados.
+- **EFS Standard**: Usando SSDs para baixa latência.
+- **EFS Infrequent Access (IA)**: Uma opção econômica para dados menos acessados.
+- **EFS Archive**: A opção mais barata para dados arquivados.
 
 > Todas as classes oferecem 99,999999999% de durabilidade.
 
@@ -319,8 +331,8 @@ O EFS integra-se com o AWS Backup para backups automáticos do sistema de arquiv
 
 Em termos de desempenho, existem duas opções:
 
-- **Provisioned Throughput:** Permite especificar um nível de throughput independente do tamanho do sistema de arquivos.
-- **Bursting Throughput:** O throughput escala com a quantidade de armazenamento, permitindo picos de desempenho conforme necessário.
+- **Provisioned Throughput**: Permite especificar um nível de throughput independente do tamanho do sistema de arquivos.
+- **Bursting Throughput**: O throughput escala com a quantidade de armazenamento, permitindo picos de desempenho conforme necessário.
 
 > Throughput: quantidade de dados que pode ser processada ou transferida em um determinado período de tempo.
 
@@ -365,11 +377,11 @@ Oferece alta disponibilidade e tolerância a falhas, permitindo que múltiplas i
 
 ![](assets/2024-10-28-15-18-56.png)
 
-- **Application Load Balancer (ALB):** Opera na camada de aplicação (HTTP/HTTPS) e permite roteamento avançado com base em caminhos, hosts, parâmetros de consulta e endereços IP de origem.
+- **Application Load Balancer (ALB)**: Opera na camada de aplicação (HTTP/HTTPS) e permite roteamento avançado com base em caminhos, hosts, parâmetros de consulta e endereços IP de origem.
 
-- **Network Load Balancer (NLB):** Opera na camada de transporte (TCP/UDP) e usa roteamento baseado no protocolo IP, oferecendo latência ultrabaixa para conexões de alto desempenho.
+- **Network Load Balancer (NLB)**: Opera na camada de transporte (TCP/UDP) e usa roteamento baseado no protocolo IP, oferecendo latência ultrabaixa para conexões de alto desempenho.
 
-- **Gateway Load Balancer (GLB):** Ideal para implantar, escalar e gerenciar appliances de terceiros (como firewalls e sistemas de detecção de intrusão) em redes VPC. Combina roteamento com um modelo de encaminhamento que facilita a implementação de soluções de segurança em larga escala.
+- **Gateway Load Balancer (GLB)**: Ideal para implantar, escalar e gerenciar appliances de terceiros (como firewalls e sistemas de detecção de intrusão) em redes VPC. Combina roteamento com um modelo de encaminhamento que facilita a implementação de soluções de segurança em larga escala.
 
 ## 4. Amazon S3 e CloudFront
 
@@ -437,7 +449,7 @@ Gerenciamento do ciclo de vida define ações automáticas para objetos:
 - Transição: Move objetos para outra classe de armazenamento após um período.
 - Expiração: Define quando os objetos expiram e são automaticamente excluídos pelo S3.
 
-**Possíveis transições:** \
+**Possíveis transições**: \
 ![](assets/2024-10-28-22-29-39.png)
 
 #### 4.1.6. MFA: Multi-Factor Authentication
@@ -722,7 +734,7 @@ Oferece uma sintaxe abreviada para configurar funções, APIs, tabelas de banco 
 - `AWS::Serverless::Api` para API Gateway
 - `AWS::Serverless::SimpleTable` para DynamoDB.
 
-> **Template SAM:** \
+> **Template SAM**: \
 > ![](assets/2024-10-31-16-05-47.png)
 >
 > Um template SAM utiliza o cabeçalho `Transform: 'AWS::Serverless-2016-10-31'`
@@ -843,7 +855,7 @@ Para otimizar a performance, é crucial garantir uma distribuição uniforme do 
 
   ![](assets/2024-11-01-14-47-44.png)
 
-  > **Throughput:** capacidade provisionada para operações de leitura e gravação em uma tabela.
+  > **Throughput**: capacidade provisionada para operações de leitura e gravação em uma tabela.
 
 - **Strongly Consistent Reads**: retorna os dados mais atualizados, refletindo todas as operações de gravação anteriores e bem-sucedidas. Pode ter maior latência e consumir mais _throughput_ que a leitura eventual. Em casos de latência de rede ou falhas, DynamoDB pode retornar erro HTTP 500. É importante notar que leituras consistentes fortes não são suportadas em índices globais secundários.
 
@@ -880,13 +892,13 @@ A operação **Scan** permite recuperar um ou mais itens e atributos, acessando 
 
 Cada operação Scan lê até 1 MB de dados por vez e procede de forma sequencial, mas pode ser paralelizada com os parâmetros `Segment` e `TotalSegments`, distribuindo a carga de leitura em múltiplas threads.
 
-> **Padrão de leitura:** eventualmente consistente
+> **Padrão de leitura**: eventualmente consistente
 
 ### 7.12. Query API
 
 A operação **Query** é usada para localizar itens em uma tabela com base em um valor específico de chave primária. Por exemplo, é possível buscar um item por um ID de usuário e retornar todos os atributos relacionados. Para resultados mais refinados, a operação permite definir um valor de **chave de ordenação** adicional, como um timestamp, para recuperar apenas os itens em um intervalo de tempo específico.
 
-> **Padrão de leitura:** eventualmente consistente
+> **Padrão de leitura**: eventualmente consistente
 
 ### 7.13. Índices
 
@@ -934,9 +946,9 @@ Serviço de fila baseado em **pull** (solicitação ativa), em que sistemas dist
 
 #### 8.1.1. Tipos
 
-- **Standard Queue:** Suporta alto throughput, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
+- **Standard Queue**: Suporta alto throughput, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
 
-- **FIFO Queue:** Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas (recurso chamado _deduplication_). Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
+- **FIFO Queue**: Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas (recurso chamado _deduplication_). Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
 
 ![](assets/2024-11-04-10-38-47.png)
 
@@ -978,9 +990,9 @@ Os tópicos são "pontos de acesso" nos quais os sistemas publicadores enviam me
 
 ![](assets/2024-11-04-18-02-25.png)
 
-> - **Publicadores:** sistemas que enviam mensagens para um ponto central, conhecido como tópico.
+> - **Publicadores**: sistemas que enviam mensagens para um ponto central, conhecido como tópico.
 >
-> - **Assinantes:** sistemas ou serviços que "assinam" o tópico para receber mensagens enviadas pelos publicadores.
+> - **Assinantes**: sistemas ou serviços que "assinam" o tópico para receber mensagens enviadas pelos publicadores.
 
 #### 8.2.1. Fan-Out
 
@@ -1034,7 +1046,7 @@ Um **recurso** representa um caminho na sua API, que pode ser usado para organiz
 
 Scripts escritos em _Velocity Template Language (VTL)_, que possibilitam a transformação do payload da requisição para o formato adequado da requisição de integração e vice-versa.
 
-> **Payload:** é a parte de uma mensagem que contém os dados enviados em uma requisição ou resposta em APIs, ou seja, dados que o cliente envia para a API e os dados que a API retorna ao cliente.
+> **Payload**: é a parte de uma mensagem que contém os dados enviados em uma requisição ou resposta em APIs, ou seja, dados que o cliente envia para a API e os dados que a API retorna ao cliente.
 
 #### 8.5.5. Implantações e Estágios
 
@@ -1087,6 +1099,104 @@ Utilizam funções Lambda para controlar o acesso às APIs, retornando uma polí
 - **Request parameter-based**: utiliza uma combinação de cabeçalhos, parâmetros de consulta e variáveis de contexto. Esse tipo é o único suportado para APIs WebSocket.
 
 ##### 8.5.9.3. Cognito User Pools
-##### 8.5.9.3. Cognito User Pools
 
 Funcionam como um diretório de usuários, permitindo logins via Amazon Cognito ou provedores de identidade externos, como Google, Facebook ou SAML. Com um user pool, você pode criar um authorizer do tipo `COGNITO USER POOLS` e configurá-lo para controlar o acesso aos métodos da API.
+
+## 9. Contêineres
+
+### 9.1. ECS: Elastic Container Service
+
+Serviço gerenciado para executar e gerenciar contêineres na AWS. Ele organiza os contêineres em grupos chamados _clusters_, no qual cada _cluster_ é um conjunto de recursos que roda as _tasks_ (tarefas). Uma _task_ é a menor unidade de execução no ECS e pode conter um ou mais contêineres definidos em um arquivo de configuração.
+
+Os contêineres utilizam imagens armazenadas no Amazon ECR (Elastic Container Registry), um repositório seguro e integrado ao ECS para gerenciar imagens de contêiner. Essas imagens são baixadas pelo ECS para criar e executar os contêineres necessários.
+
+![](assets/2024-11-05-20-22-52.png)
+
+#### 9.1.1. Componentes
+
+| **Nome**           | **Descrição**                                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Cluster            | Agrupamento lógico de tarefas (_tasks_) ou serviços (_services_) no ECS.                                          |
+| Container Instance | Instância EC2 executando o agente ECS para comunicação e execução de tarefas dentro de um cluster.                |
+| Task Definition    | Blueprint que define como um contêiner Docker deve ser lançado, incluindo configurações de CPU, memória e imagem. |
+| Task               | Contêiner em execução baseado em uma Task Definition, podendo conter um ou mais contêineres.                      |
+| Service            | Controla tarefas de execução contínua, permitindo definir contagem de tarefas e usar Auto Scaling e ELB.          |
+
+#### 9.1.2. Funcionalidades
+
+- **AWS Fargate**: Execução sem servidor, totalmente gerenciada e escalável para contêineres.
+- **Orquestração de contêineres gerenciada**: Plano de controle automatizado pela AWS.
+- **Suporte a Docker**: Execução e gerenciamento de contêineres Docker, com integração ao Docker Compose CLI.
+- **Suporte a contêineres Windows**: Gerenciamento de contêineres baseados no Windows.
+- **Integração com Elastic Load Balancing**: Distribuição de tráfego entre contêineres usando ALB ou NLB.
+- **Amazon ECS Anywhere (Novo)**: Permite usar o controle do ECS para gerenciar implementações locais (on-premises).
+
+#### 9.1.3. Cluster
+
+Agrupamento lógico de instâncias de contêineres onde você pode executar tarefas. Por padrão, um cluster é criado, mas é possível criar múltiplos clusters para separar recursos conforme necessário. O ECS permite definir um número específico de tarefas (_desired count_) para rodar em cada cluster.
+
+#### 9.1.4. Imagens
+
+Os **contêineres** são criados a partir de imagens, que são templates somente leitura com instruções para construir contêineres Docker. As imagens são geradas a partir de um **Dockerfile** e somente contêineres Docker são compatíveis.
+
+As imagens podem ser armazenadas em repositórios como **DockerHub** ou o **Amazon Elastic Container Registry (ECR)**. Você pode usar a **Docker CLI** para fazer push, pull e gerenciar as imagens armazenadas.
+
+#### 9.1.5. Task definition
+
+É necessária para executar contêineres Docker. Ela é um arquivo em formato JSON que descreve um ou mais contêineres, com limite de até 10 contêineres por definição. A **task definition** especifica qual imagem Docker será usada para lançar os contêineres.
+
+> Você também define o número de tarefas (contêineres) a serem executadas, permitindo controlar quantas instâncias de cada contêiner devem rodar simultaneamente.
+
+#### 9.1.6. Launch Type
+
+- **EC2 Launch Type**: Você deve provisionar e gerenciar manualmente as instâncias EC2. O custo é baseado nas instâncias EC2 em execução, e você tem mais controle sobre a infraestrutura, incluindo otimização de clusters e integração com EFS e EBS. Esse tipo oferece maior flexibilidade, mas exige mais gestão e configuração.
+
+- **Fargate Launch Type**: O Fargate provisiona e gerencia automaticamente os recursos, eliminando a necessidade de gerenciar instâncias EC2. O custo é baseado nas tarefas em execução, e a otimização do cluster é feita automaticamente. Embora o Fargate seja mais fácil de usar, ele oferece menos controle sobre a infraestrutura e não possui integração com EBS.
+
+![](assets/2024-11-05-20-51-34.png)
+
+#### 9.1.7. Task Placement Strategies
+
+São algoritmos usados para selecionar instâncias para a colocação de tarefas ou para decidir quando terminar uma tarefa. Essas estratégias são aplicáveis apenas ao **EC2 launch type** e podem ser definidas ao executar uma tarefa ou ao criar um novo serviço:
+
+- **binpack**: Aloca tarefas com base na menor quantidade disponível de CPU ou memória, minimizando o número de instâncias em uso.
+
+- **random**: Coloca as tarefas aleatoriamente nas instâncias.
+
+- **spread**: Distribui as tarefas de forma equilibrada, conforme um valor especificado, como `instanceId` ou `host`.
+
+#### 9.1.8. CQL: Cluster Query Language
+
+Permite criar expressões para agrupar objetos com base em atributos específicos. Isso é útil para organizar instâncias de contêineres por características como tipo de instância, zona de disponibilidade ou metadados personalizados.
+
+> Exemplos:
+>
+> Selecionar instâncias com um tipo específico de instância:  
+>  `attribute:ecs.instance-type == t2.small`
+>
+> Selecionar instâncias em zonas de disponibilidade específicas:  
+>  `attribute:ecs.availability-zone in [us-east-la, us-east-lb]`
+>
+> Selecionar instâncias que estão executando tarefas de um grupo de serviço:  
+>  `task:group == service:production`
+
+#### 9.1.9. Scaling
+
+##### 9.1.9.1. Service Auto Scaling
+
+Ajusta automaticamente a contagem desejada de tarefas para cima ou para baixo, utilizando o serviço **Application Auto Scaling**. Ele suporta três tipos de políticas de escalonamento:
+
+1. **Target Tracking Scaling Policies**: Aumenta ou diminui o número de tarefas com base em um valor-alvo de uma métrica específica do CloudWatch.
+2. **Step Scaling Policies**: Ajusta o número de tarefas em resposta a alarmes do CloudWatch, com ajustes baseados no tamanho da violação do alarme.
+3. **Scheduled Scaling**: Permite aumentar ou diminuir o número de tarefas em horários específicos.
+
+![](assets/2024-11-05-21-06-23.png)
+
+##### 9.1.9.2. Cluster Auto Scaling
+
+Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser associado a um **EC2 Auto Scaling Group (ASG)**. O ASG pode escalar automaticamente utilizando:
+
+- **Managed Scaling**: Criação automática de políticas de escalonamento no ASG.
+- **Managed Instance Termination Protection**: Proteção que permite a resiliência das instâncias em execução durante o processo de redução de escala, garantindo que as instâncias com tarefas ativas sejam mantidas.
+
+![](assets/2024-11-05-21-11-18.png)
