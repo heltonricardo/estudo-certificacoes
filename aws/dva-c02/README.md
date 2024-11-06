@@ -154,6 +154,20 @@
     - [9.3.2. Redes de pods](#932-redes-de-pods)
     - [9.3.3. Balanceamento de carga](#933-balanceamento-de-carga)
   - [9.4. AWS Copilot](#94-aws-copilot)
+- [10. Developer Tools CI/CD](#10-developer-tools-cicd)
+  - [10.1. CodeCommit](#101-codecommit)
+  - [10.2. CodePipeline](#102-codepipeline)
+    - [10.2.1. Definições](#1021-defini%C3%A7%C3%B5es)
+  - [10.3. CodeGuru](#103-codeguru)
+    - [10.3.1. CodeGuru Reviewer](#1031-codeguru-reviewer)
+    - [10.3.2. CodeGuru Profiler](#1032-codeguru-profiler)
+  - [10.4. CodeBuild](#104-codebuild)
+    - [10.4.1. Componentes](#1041-componentes)
+    - [10.4.2. CodeDeploy](#1042-codedeploy)
+      - [10.4.2.1. Blue/Green Traffic Shifting](#10421-bluegreen-traffic-shifting)
+  - [10.5. Cloud9](#105-cloud9)
+  - [10.6. Amplify](#106-amplify)
+  - [10.7. AppSync](#107-appsync)
 
 <!-- /TOC -->
 
@@ -519,7 +533,7 @@ Alternativa às Signed URLs, permitindo controle de acesso sem a necessidade de 
 
 Serviço de DNS altamente escalável e confiável que oferece uma variedade de recursos inteligentes. Ele permite o registro de domínios e fornece funcionalidades avançadas de gerenciamento de tráfego.
 
-Entre os recursos principais estão os **health checks**, que monitoram a saúde dos recursos e garantem que o tráfego seja direcionado apenas para endpoints disponíveis. O **Traffic Flow** permite criar políticas de roteamento complexas, otimizando a distribuição do tráfego com base em critérios como localização geográfica, latência e desempenho.
+Entre os recursos estão os **health checks**, que monitoram a saúde dos recursos e garantem que o tráfego seja direcionado apenas para endpoints disponíveis. O **Traffic Flow** permite criar políticas de roteamento complexas, otimizando a distribuição do tráfego com base em critérios como localização geográfica, latência e desempenho.
 
 ## 5. IaC e PaaS
 
@@ -616,7 +630,7 @@ Também oferece uma interface de usuário (UI) para monitorar e gerenciar a saú
 
 ![](assets/2024-10-29-22-59-37.png)
 
-Dentro do Beanstalk existem dois tipos principais de componentes: **Web Servers** e **Workers**.
+Dentro do Beanstalk existem dois tipos de componentes: **Web Servers** e **Workers**.
 
 > **Web Servers** são aplicações padrão que escutam e processam requisições HTTP, geralmente na porta 80, permitindo que os usuários acessem o conteúdo de forma rápida e eficiente.
 >
@@ -680,7 +694,7 @@ Possibilitam a configuração de implantações do tipo **blue/green**, permitin
 
 #### 6.2.4. Deploy de pacotes
 
-É o processo de enviar o código da função e suas dependências para execução na plataforma. Existem duas opções principais para empacotar e implantar funções:
+É o processo de enviar o código da função e suas dependências para execução na plataforma. Existem duas opções para empacotar e implantar funções:
 
 - **Imagens de contêiner** incluem o sistema operacional base, o runtime, extensões do Lambda e o código da aplicação com suas dependências. Elas são carregadas no Amazon Elastic Container Registry (ECR) e, em seguida, implantadas na função Lambda. Essa abordagem oferece flexibilidade, permitindo usar qualquer linguagem ou biblioteca que funcione em um contêiner.
 
@@ -1245,7 +1259,7 @@ As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR 
 
 ### 9.3. EKS: Elastic Kubernetes Service
 
-Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. Ele é útil para quatro cenários principais:
+Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. Ele é útil para quatro cenários:
 
 - **Implantação híbrida**: Permite gerenciar clusters e aplicações Kubernetes em ambientes híbridos, tanto na AWS quanto on-premises, oferecendo flexibilidade para arquiteturas mistas.
 
@@ -1259,7 +1273,7 @@ Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes
 
 #### 9.3.1. Auto Scaling
 
-Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamicamente os recursos para maximizar o desempenho e otimizar custos. Ele abrange duas abordagens principais:
+Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamicamente os recursos para maximizar o desempenho e otimizar custos. Ele abrange duas abordagens:
 
 ##### 9.3.1.1. Cluster Auto Scaling
 
@@ -1277,8 +1291,7 @@ O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que ca
 
 #### 9.3.3. Balanceamento de carga
 
-O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportando _Network Load Balancers (NLB)_ e _Application Load Balancers (ALB)_ para distribuir tráfego de rede em seus clusters Kubernetes. Esse gerenciamento é feito pelo **AWS Load Balancer Controller**, que configura e mantém os Load Balancers automaticamente para o cluster.
-O controlador gerencia dois recursos principais:
+O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportando _Network Load Balancers (NLB)_ e _Application Load Balancers (ALB)_ para distribuir tráfego de rede em seus clusters Kubernetes. Esse gerenciamento é feito pelo **AWS Load Balancer Controller**, que configura e mantém os Load Balancers automaticamente para o cluster. O controlador gerencia dois recursos:
 
 - **Application Load Balancer (ALB)**: Provisionado ao criar um recurso _Kubernetes Ingress_, direcionando o tráfego HTTP/HTTPS para os pods.
 - **Network Load Balancer (NLB)**: Criado ao configurar um serviço Kubernetes do tipo LoadBalancer, roteando o tráfego em nível de rede para os pods.
@@ -1296,3 +1309,111 @@ O controlador gerencia dois recursos principais:
 - `copilot env ls`: Mostra os ambientes existentes.
 - `copilot svc ls`: Lista todos os serviços de um aplicativo.
 - `copilot svc status`: Exibe o status de um serviço específico.
+
+## 10. Developer Tools (CI/CD)
+
+**CI/CD** é um conjunto de práticas para automatizar o desenvolvimento, testes e implantação de software.
+
+![](assets/2024-11-05-22-24-05.png)
+
+**Continuous Integration (CI)**: Integra frequentemente o código de desenvolvedores em um repositório central, onde é automaticamente compilado e testado. Isso permite identificar rapidamente erros e garantir que o código esteja sempre funcional.
+
+**Continuous Deployment (CD)**: Automatiza a entrega do código para ambientes de produção ou staging, garantindo atualizações rápidas e consistentes. Na AWS, é possível configurar pipelines que realizam desde o build até a implantação em instâncias EC2, ECS, Lambda ou outros serviços.
+
+### 10.1. CodeCommit
+
+Serviço totalmente gerenciado de controle de versão baseado em Git, similar ao **GitHub** ou **GitLab**, permitindo hospedar repositórios privados de código. Ele oferece armazenamento centralizado para código, binários, imagens e bibliotecas, além de gerenciar mudanças de código, manter o histórico de versões e facilitar a colaboração entre equipes.
+
+O CodeCommit é integrado com ferramentas de CI/CD como **Jenkins** e **AWS CodeBuild** e oferece escalabilidade automática. Seus repositórios são criptografados automaticamente com o **AWS KMS** para segurança. Você pode acessar seus repositórios usando **HTTPS** ou **SSH**, e o IAM fornece diferentes tipos de credenciais, como **Git credentials**, **SSH keys** e **AWS access keys**, para facilitar o acesso e a comunicação com os repositórios.
+
+### 10.2. CodePipeline
+
+Serviço totalmente gerenciado de entrega contínua, semelhante ao **Jenkins** ou **GitLab CI/CD**, que automatiza as fases de **build**, **test** e **deploy** de seu processo de lançamento sempre que há uma alteração no código. Ele permite criar pipelines de forma rápida e confiável para atualizações de aplicações e infraestrutura.
+
+É altamente integrável, com suporte para várias ferramentas da AWS e de terceiros, incluindo **S3**, **CodeCommit**, **GitHub**, **Jenkins**, **CodeBuild**, **CloudFormation**, **ECS**, **Elastic Beanstalk**, entre outras, em cada estágio da pipeline.
+
+#### 10.2.1. Definições
+
+- **Pipelines**: Fluxos de trabalho que descrevem como as mudanças de software passam pelo processo de lançamento.
+- **Artefatos**: Arquivos ou alterações trabalhadas nas ações e estágios da pipeline. São passados entre os estágios e armazenados no **Amazon S3**.
+- **Estágios**: Cada pipeline é dividida em estágios como **build**, **test**, **deploy**, **load test**, etc. Ações sequenciais ou paralelas podem ser realizadas em cada estágio.
+- **Ações**: Cada estágio contém ao menos uma ação, que afeta os artefatos e pode ter entradas, saídas ou ambos.
+- **Transições**: Movimentação de um estágio para outro na pipeline, podendo envolver aprovação manual em qualquer estágio.
+
+### 10.3. CodeGuru
+
+Ferramenta da AWS semelhante ao **SonarQube** e **FindBugs**, fornecendo recomendações inteligentes para melhorar o desempenho, a eficiência e a qualidade do código. Ele é composto por dois serviços:
+
+#### 10.3.1. CodeGuru Reviewer
+
+Analisa código Java e Python, oferecendo sugestões baseadas em boas práticas, como a detecção de vazamentos de recursos e análise de segurança. Ele integra-se com serviços como **AWS CodeCommit**, **Bitbucket**, **GitHub** e **Amazon S3**. Além disso, usa o **Secrets Manager** para detectar segredos não protegidos no código.
+
+#### 10.3.2. CodeGuru Profiler
+
+Coleta dados de desempenho em tempo real de aplicações em produção, fornecendo recomendações para otimizar o uso de CPU e reduzir custos de infraestrutura. Ele ajuda a identificar problemas de latência, utilização de CPU e uso de heap, com visualizações que permitem entender o comportamento da aplicação e melhorar seu desempenho.
+
+### 10.4. CodeBuild
+
+Serviço totalmente gerenciado de **integração contínua (CI)**, semelhante ao **Jenkins**. Ele compila código-fonte, executa testes e gera pacotes de software prontos para implantação, escalando automaticamente para processar vários builds simultaneamente. O custo é baseado no tempo de execução de cada build.
+
+O CodeBuild pode buscar o código-fonte em repositórios como **GitHub**, **CodeCommit**, **CodePipeline** e **S3**. As instruções de build são configuradas no arquivo **`buildspec.yml`**, e os logs gerados durante o processo podem ser armazenados em **Amazon S3** e **Amazon CloudWatch Logs** para monitoramento e análise.
+
+![](assets/2024-11-05-23-04-55.png)
+
+#### 10.4.1. Componentes
+
+- **Build project**: Define como o CodeBuild executará o build, incluindo a localização do código-fonte, o ambiente de build a ser utilizado, os comandos a serem executados e onde armazenar os resultados do build.
+
+- **Build environment**: Especifica o sistema operacional, o ambiente de execução da linguagem e as ferramentas necessárias para o processo de build.
+
+- **Build specification (buildspec.yml)**: Arquivo YAML que descreve os comandos e configurações que o CodeBuild usará para executar o build, oferecendo controle sobre as etapas de compilação, teste e implantação.
+
+#### 10.4.2. CodeDeploy
+
+Serviço de implantação que automatiza o processo de deploy de aplicações em diversas plataformas, como instâncias EC2, instâncias on-premises, funções serverless Lambda e Amazon ECS. Ele é capaz de gerenciar uma ampla variedade de conteúdos de aplicação, como funções Lambda, arquivos web, executáveis, pacotes, scripts e arquivos multimídia.
+
+Um **CodeDeploy application** contém informações sobre o que e como implantar, exigindo que você escolha a plataforma de computação adequada:
+
+- **EC2/On-Premises**: Usa instâncias EC2 ou servidores locais, com o tráfego redirecionado por dois tipos de deployment: in-place (atualiza a aplicação no lugar) ou blue/green (cria um novo ambiente e troca o tráfego para ele).
+
+- **AWS Lambda**: Deploys para funções Lambda com opções de controle do tráfego: canário (distribuição gradual), linear ou total (toda a carga é direcionada de uma vez).
+
+- **Amazon ECS**: Deploys de aplicativos containerizados no ECS, usando o modelo blue/green para criar um novo conjunto de tarefas. O tráfego de produção é redirecionado para a nova versão após a conclusão do deployment, com opções de controle de tráfego similares ao Lambda.
+
+##### 10.4.2.1. Blue/Green Traffic Shifting
+
+Permite a atualização gradual ou total do tráfego para novas versões de aplicativos. Ele funciona de forma diferente dependendo da plataforma:
+
+- **AWS Lambda:** O tráfego é redirecionado de uma versão para outra da função Lambda durante o deployment.
+- **Amazon ECS:** O tráfego é transferido de um conjunto de tarefas para um conjunto de tarefas substituto no mesmo serviço ECS.
+- **EC2/On-Premises:** O tráfego é movido de um conjunto de instâncias para outro em um ambiente EC2 ou servidores locais.
+
+No **ECS** e **AWS Lambda**, existem três formas de movimentação do tráfego durante o deployment:
+
+- **Canary:** O tráfego é movido em dois incrementos, com uma porcentagem do tráfego transferido na primeira parte e o restante após um intervalo determinado.
+- **Linear:** O tráfego é movido em incrementos iguais, com intervalos regulares entre cada um.
+- **All-at-once:** Todo o tráfego é transferido de uma vez para a nova versão.
+
+### 10.5. Cloud9
+
+É um ambiente de desenvolvimento integrado (IDE) que permite aos desenvolvedores escrever, executar e depurar código diretamente na nuvem. Ele oferece recursos como destaque de sintaxe, autocompletar e verificação de erros, além de um terminal para navegação no sistema de arquivos, execução de comandos e gerenciamento de código.
+
+A plataforma facilita a colaboração em tempo real, permitindo que múltiplos desenvolvedores trabalhem simultaneamente na mesma base de código. Também integra-se facilmente com serviços da AWS, como **AWS Lambda**, **Amazon EC2** e **AWS CodePipeline**, proporcionando uma experiência de desenvolvimento mais fluida e integrada.
+
+> [!TIP]
+>
+> **AWS Cloud9** é semelhante ao **Visual Studio Code** em termos de funcionalidade, mas com a vantagem de ser totalmente gerenciado e baseado na nuvem, sem a necessidade de instalação local.
+
+### 10.6. Amplify
+
+Plataforma para desenvolvimento de aplicações full-stack, oferecendo ferramentas para construir backends de aplicativos móveis e web, além de interfaces frontend, como o **Firebase** do Google. **Amplify Studio** é uma interface visual que permite criar aplicativos móveis e web sem a necessidade de conhecimentos aprofundados de backend, incluindo funcionalidades como definição de modelos de dados, autenticação de usuários e armazenamento de arquivos.
+
+Você também pode integrar serviços AWS adicionais usando o **AWS Cloud Development Kit (CDK)**, além de conectar apps móveis e web com **Amplify Libraries** para diversas plataformas como iOS, Android, Flutter, React Native e JavaScript. O **AWS Amplify Hosting** oferece um serviço totalmente gerenciado para CI/CD e hospedagem de aplicações estáticas e renderizadas no lado do servidor, garantindo rapidez e segurança.
+
+### 10.7. AppSync
+
+Serviço totalmente gerenciado que facilita o desenvolvimento de APIs **GraphQL**, como o **Apollo Server**. Ele permite que aplicações acessem, manipulem e recebam atualizações em tempo real de múltiplas fontes de dados, como bancos de dados e APIs. O AppSync escala automaticamente o motor de execução da API GraphQL conforme o volume de requisições, além de suportar integrações com **AWS Lambda**, **Amazon DynamoDB** e **Amazon Elasticsearch**.
+
+![](assets/2024-11-05-23-27-35.png)
+
+Além disso, o AppSync permite configurar quais dados devem ser acessados em tempo real usando **GraphQL Subscriptions** e possui recursos de cache de dados no lado do servidor, reduzindo a necessidade de acessar diretamente as fontes de dados. Esse serviço elimina a sobrecarga operacional de gerenciar clusters de cache.
