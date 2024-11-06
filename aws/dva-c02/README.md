@@ -1118,7 +1118,7 @@ Funcionam como um diretório de usuários, permitindo logins via Amazon Cognito 
 
 Serviço gerenciado para executar e gerenciar contêineres na AWS. Ele organiza os contêineres em grupos chamados _clusters_, no qual cada _cluster_ é um conjunto de recursos que roda as _tasks_ (tarefas). Uma _task_ é a menor unidade de execução no ECS e pode conter um ou mais contêineres definidos em um arquivo de configuração.
 
-Os contêineres utilizam imagens armazenadas no Amazon ECR (Elastic Container Registry), um repositório seguro e integrado ao ECS para gerenciar imagens de contêiner. Essas imagens são baixadas pelo ECS para criar e executar os contêineres necessários.
+Os contêineres utilizam imagens armazenadas no Amazon _ECR (Elastic Container Registry)_, um repositório seguro e integrado ao ECS para gerenciar imagens de contêiner. Essas imagens são baixadas pelo ECS para criar e executar os contêineres necessários.
 
 ![](assets/2024-11-05-20-22-52.png)
 
@@ -1147,9 +1147,7 @@ Agrupamento lógico de instâncias de contêineres onde você pode executar tare
 
 #### 9.1.4. Imagens
 
-Os **contêineres** são criados a partir de imagens, que são templates somente leitura com instruções para construir contêineres Docker. As imagens são geradas a partir de um **Dockerfile** e somente contêineres Docker são compatíveis.
-
-As imagens podem ser armazenadas em repositórios como **DockerHub** ou o **Amazon Elastic Container Registry (ECR)**. Você pode usar a **Docker CLI** para fazer push, pull e gerenciar as imagens armazenadas.
+Os **contêineres** são criados a partir de imagens, que são templates somente leitura com instruções para construir contêineres Docker. As imagens são geradas a partir de um **Dockerfile** e somente contêineres Docker são compatíveis. Elas podem ser armazenadas em repositórios como **DockerHub** ou o **Amazon Elastic Container Registry (ECR)**. Você pode usar a **Docker CLI** para fazer push, pull e gerenciar as imagens armazenadas.
 
 #### 9.1.5. Task definition
 
@@ -1177,7 +1175,7 @@ São algoritmos usados para selecionar instâncias para a colocação de tarefas
 
 #### 9.1.8. CQL: Cluster Query Language
 
-Permite criar expressões para agrupar objetos com base em atributos específicos. Isso é útil para organizar instâncias de contêineres por características como tipo de instância, zona de disponibilidade ou metadados personalizados.
+Permite criar expressões para agrupar objetos com base em atributos específicos. É útil para organizar instâncias de contêineres por características como tipo de instância, zona de disponibilidade ou metadados personalizados.
 
 > Exemplos:
 >
@@ -1196,8 +1194,8 @@ Permite criar expressões para agrupar objetos com base em atributos específico
 
 Ajusta automaticamente a contagem desejada de tarefas para cima ou para baixo, utilizando o serviço **Application Auto Scaling**. Ele suporta três tipos de políticas de escalonamento:
 
-1. **Target Tracking Scaling Policies**: Aumenta ou diminui o número de tarefas com base em um valor-alvo de uma métrica específica do CloudWatch.
-2. **Step Scaling Policies**: Ajusta o número de tarefas em resposta a alarmes do CloudWatch, com ajustes baseados no tamanho da violação do alarme.
+1. **Target Tracking Scaling Policies**: Aumenta ou diminui o número de tarefas com base em um valor-alvo de uma métrica específica do _CloudWatch_.
+2. **Step Scaling Policies**: Ajusta o número de tarefas em resposta a alarmes do _CloudWatch_, com ajustes baseados no tamanho da violação do alarme.
 3. **Scheduled Scaling**: Permite aumentar ou diminuir o número de tarefas em horários específicos.
 
 ![](assets/2024-11-05-21-06-23.png)
@@ -1213,7 +1211,7 @@ Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser as
 
 ### 9.2. ECR: Elastic Container Registry
 
-É um registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker - nuvem, localmente ou on-premises.
+É um registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker: nuvem, localmente ou on-premises.
 
 As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR permite a organização dos repositórios por namespaces. Há suporte para **repositórios públicos** (para acesso global) e **repositórios privados** (com controle de acesso).
 
@@ -1249,11 +1247,11 @@ As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR 
 
 Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. Ele é útil para quatro cenários principais:
 
-- **Implantação Híbrida**: Permite gerenciar clusters e aplicações Kubernetes em ambientes híbridos, tanto na AWS quanto on-premises, oferecendo flexibilidade para arquiteturas mistas.
+- **Implantação híbrida**: Permite gerenciar clusters e aplicações Kubernetes em ambientes híbridos, tanto na AWS quanto on-premises, oferecendo flexibilidade para arquiteturas mistas.
 
-- **Processamento em Lote**: Suporta cargas de trabalho sequenciais ou paralelas via API de Jobs do Kubernetes, otimizando o planejamento e execução de tarefas em lote.
+- **Processamento em lote**: Suporta cargas de trabalho sequenciais ou paralelas via API de Jobs do Kubernetes, otimizando o planejamento e execução de tarefas em lote.
 
-- **Machine Learning**: Com Kubeflow integrado ao EKS, você organiza fluxos de trabalho de ML e realiza treinos distribuídos usando instâncias EC2 avançadas, incluindo GPUs e _Inferentia_.
+- **Machine Learning**: Com _Kubeflow_ integrado ao EKS, você organiza fluxos de trabalho de ML e realiza treinos distribuídos usando instâncias EC2 avançadas, incluindo GPUs e _Inferentia_.
 
 - **Aplicações Web**: Ideal para construir aplicações web escaláveis, com alta disponibilidade e distribuição em múltiplas Zonas de Disponibilidade (AZs), garantindo robustez e desempenho.
 
@@ -1266,7 +1264,7 @@ Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamic
 ##### 9.3.1.1. Cluster Auto Scaling
 
 - **Vertical Pod Autoscaler** ajusta automaticamente as reservas de CPU e memória dos pods, garantindo que cada aplicação tenha a quantidade exata de recursos necessária.
-- **Horizontal Pod Autoscaler** ajusta o número de pods em um deployment, replication controller ou replica set com base na utilização de CPU, aumentando a capacidade conforme a demanda.
+- **Horizontal Pod Autoscaler** ajusta o número de pods em um **deployment**, **replication controller** ou **replica set** com base na utilização de CPU, aumentando a capacidade conforme a demanda.
 
 ##### 9.3.1.2. Workload Auto Scaling
 
@@ -1275,14 +1273,14 @@ Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamic
 
 #### 9.3.2. Redes de pods
 
-O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que cada pod receba um endereço IP privado (IPv4 ou IPv6) da sua VPC. Faz isso através de um plugin que é implementado como um DaemonSet chamado `aws-node` em cada instância Amazon EC2.
+O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que cada pod receba um endereço IP privado (IPv4 ou IPv6) da sua VPC. Faz isso através de um plugin que é implementado como um _DaemonSet_ chamado `aws-node` em cada instância Amazon EC2.
 
 #### 9.3.3. Balanceamento de carga
 
 O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportando _Network Load Balancers (NLB)_ e _Application Load Balancers (ALB)_ para distribuir tráfego de rede em seus clusters Kubernetes. Esse gerenciamento é feito pelo **AWS Load Balancer Controller**, que configura e mantém os Load Balancers automaticamente para o cluster.
 O controlador gerencia dois recursos principais:
 
-- **Application Load Balancer (ALB)**: Provisionado ao criar um recurso Kubernetes Ingress, direcionando o tráfego HTTP/HTTPS para os pods.
+- **Application Load Balancer (ALB)**: Provisionado ao criar um recurso _Kubernetes Ingress_, direcionando o tráfego HTTP/HTTPS para os pods.
 - **Network Load Balancer (NLB)**: Criado ao configurar um serviço Kubernetes do tipo LoadBalancer, roteando o tráfego em nível de rede para os pods.
 
 ### 9.4. AWS Copilot
