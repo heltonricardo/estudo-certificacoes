@@ -153,6 +153,7 @@
       - [9.3.1.2. Workload Auto Scaling](#9312-workload-auto-scaling)
     - [9.3.2. Redes de pods](#932-redes-de-pods)
     - [9.3.3. Balanceamento de carga](#933-balanceamento-de-carga)
+  - [9.4. AWS Copilot](#94-aws-copilot)
 
 <!-- /TOC -->
 
@@ -1283,3 +1284,17 @@ O controlador gerencia dois recursos principais:
 
 - **Application Load Balancer (ALB)**: Provisionado ao criar um recurso Kubernetes Ingress, direcionando o tráfego HTTP/HTTPS para os pods.
 - **Network Load Balancer (NLB)**: Criado ao configurar um serviço Kubernetes do tipo LoadBalancer, roteando o tráfego em nível de rede para os pods.
+
+### 9.4. AWS Copilot
+
+É uma interface de linha de comando (CLI) que facilita o lançamento e gerenciamento de contêineres em serviços como **Amazon ECS**, **Fargate** e **AWS AppRunner**. Ele é baseado em templates de **Infrastructure as Code (IaC)**, permitindo a criação e configuração de ambientes e serviços de forma simples e automatizada.
+
+![](assets/2024-11-05-21-52-17.png)
+
+**Alguns comandos**:
+
+- `copilot init`: Cria e inicializa um ambiente de contêiner.
+- `copilot app show`: Exibe informações sobre o aplicativo e seus serviços.
+- `copilot env ls`: Mostra os ambientes existentes.
+- `copilot svc ls`: Lista todos os serviços de um aplicativo.
+- `copilot svc status`: Exibe o status de um serviço específico.
