@@ -178,8 +178,8 @@
     - [11.2.1. Comparações](#1121-compara%C3%A7%C3%B5es)
     - [11.2.2. Escalabilidade](#1122-escalabilidade)
       - [11.2.2.1. Memcached](#11221-memcached)
-      - [11.2.2.2. Redis: Cluster Mode Disabled](#11222-redis-cluster-mode-disabled)
-      - [11.2.2.3. Redis: Cluster Mode Enabled](#11223-redis-cluster-mode-enabled)
+      - [11.2.2.2. Redis modo de cluster desativado](#11222-redis-modo-de-cluster-desativado)
+      - [11.2.2.3. Redis modo de cluster desativado](#11223-redis-modo-de-cluster-desativado)
   - [11.3. MemoryDB para Redis](#113-memorydb-para-redis)
   - [11.4. Kinesis](#114-kinesis)
     - [11.4.1. Kinesis Data Streams](#1141-kinesis-data-streams)
@@ -1443,9 +1443,7 @@ Além disso, o AppSync permite configurar quais dados devem ser acessados em tem
 
 ### 11.1. RDS: Relational Database Service
 
-Serviço gerenciado de banco de dados relacional, ideal para casos de uso de processamento de transações online (OLTP). Ele é executado em instâncias do **Amazon EC2** e utiliza volumes do **Amazon EBS** para armazenamento, com a possibilidade de realizar backups por meio de **EBS snapshots**. No RDS, você escolhe o tipo de instância de banco de dados, e uma instância pode hospedar múltiplos bancos de dados criados pelo usuário.
-
-O RDS oferece suporte a diferentes mecanismos de banco de dados, como:
+Serviço gerenciado de banco de dados relacional, ideal para casos de uso de processamento de transações online (OLTP). Ele é executado em instâncias do **Amazon EC2** e utiliza volumes do **Amazon EBS** para armazenamento, com a possibilidade de realizar backups por meio de **EBS snapshots**. No RDS, você escolhe o tipo de instância de banco de dados, e uma instância pode hospedar múltiplos bancos de dados criados pelo usuário. Oferece suporte a diferentes mecanismos de banco de dados:
 
 - **Amazon Aurora**: compatível com MySQL e PostgreSQL;
 - **MySQL**: um dos sistemas de gerenciamento de banco de dados relacional open-source mais populares;
@@ -1497,25 +1495,25 @@ As réplicas de leitura são criptografadas automaticamente quando a instância 
 
 ### 11.2. ElastiCache
 
-É um serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e DynamoDB para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
+É um serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e _DynamoDB_ para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
 
 ![](assets/2024-11-06-16-42-16.png)
 
-Entre os principais casos de uso do ElastiCache estão armazenar dados relativamente estáticos e frequentemente acessados, onde a aplicação pode tolerar dados desatualizados. É útil em cenários onde a recuperação de dados é mais lenta ou cara do que o acesso ao cache. É ideal para escalabilidade automatizada de memória, leituras e gravações, e é `comumente utilizado para armazenar estados de sessão`.
+É útil para armazenar dados relativamente estáticos e frequentemente acessados, quando a aplicação pode tolerar dados desatualizados. É útil em cenários onde a recuperação de dados é mais lenta ou cara do que o acesso ao cache. É ideal para escalabilidade automatizada de memória, leituras e gravações, e é `comumente utilizado para armazenar estados de sessão`.
 
 #### 11.2.1. Comparações
 
-| Feature                         | Memcached                                                    | Redis (cluster mode disabled)                               | Redis (cluster mode enabled)                                |
-| ------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| Data persistence                | No                                                           | Yes                                                         | Yes                                                         |
-| Data types                      | Simple                                                       | Complex                                                     | Complex                                                     |
-| Data partitioning               | Yes                                                          | No                                                          | Yes                                                         |
-| Encryption                      | No                                                           | Yes                                                         | Yes                                                         |
-| High availability (replication) | No                                                           | Yes                                                         | Yes                                                         |
-| Multi-AZ                        | Yes, place nodes in multiple AZs. No failover or replication | Yes, with auto-failover. Uses read replicas (0-5 per shard) | Yes, with auto-failover. Uses read replicas (0-5 per shard) |
-| Scaling                         | Up (node type); out (add nodes)                              | Up (node type); out (replica)                               | Up (node type); out (add shards)                            |
-| Multithreaded                   | Yes                                                          | No                                                          | No                                                          |
-| Backup and restore              | No (and no snapshots)                                        | Yes, automatic and manual snapshots                         | Yes, automatic and manual snapshots                         |
+| Funcionalidade                    | Memcached                                                       | Redis (modo de cluster desativado)                                    | Redis (modo de cluster ativado)                                       |
+| --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Persistência de dados             | Não                                                             | Sim                                                                   | Sim                                                                   |
+| Tipos de dados                    | Simples                                                         | Complexos                                                             | Complexos                                                             |
+| Particionamento de dados          | Sim                                                             | Não                                                                   | Sim                                                                   |
+| Criptografia                      | Não                                                             | Sim                                                                   | Sim                                                                   |
+| Alta disponibilidade (replicação) | Não                                                             | Sim                                                                   | Sim                                                                   |
+| Multi-AZ                          | Sim, posiciona nós em múltiplas AZs. Sem failover ou replicação | Sim, com failover automático. Usa réplicas de leitura (0-5 por shard) | Sim, com failover automático. Usa réplicas de leitura (0-5 por shard) |
+| Escalabilidade                    | Vertical (tipo de nó); horizontal (adicionar nós)               | Vertical (tipo de nó); horizontal (réplica)                           | Vertical (tipo de nó); horizontal (adicionar shards)                  |
+| Multithreading                    | Sim                                                             | Não                                                                   | Não                                                                   |
+| Backup e restauração              | Não (sem snapshots)                                             | Sim, snapshots automáticos e manuais                                  | Sim, snapshots automáticos e manuais                                  |
 
 #### 11.2.2. Escalabilidade
 
@@ -1525,13 +1523,13 @@ Permite escalar adicionando nós a um cluster. A escalabilidade vertical (altera
 
 ![](assets/2024-11-06-19-52-15.png)
 
-##### 11.2.2.2. Redis: Cluster Mode Disabled
+##### 11.2.2.2. Redis (modo de cluster desativado)
 
 É possível adicionar réplicas ou alterar o tipo de nó, o que cria um novo cluster e migra os dados.
 
 ![](assets/2024-11-06-19-53-04.png)
 
-##### 11.2.2.3. Redis: Cluster Mode Enabled
+##### 11.2.2.3. Redis (modo de cluster desativado)
 
 Oferece **resharding online** para adicionar ou remover shards e escalar verticalmente alterando o tipo de nó. Já o **resharding offline** permite adicionar ou remover shards, alterar o tipo de nó ou atualizar a versão do engine, oferecendo maior flexibilidade em comparação ao resharding online.
 
@@ -1539,7 +1537,7 @@ Oferece **resharding online** para adicionar ou remover shards e escalar vertica
 
 ### 11.3. MemoryDB para Redis
 
-Amazon MemoryDB é um serviço de banco de dados in-memory compatível com Redis, projetado para alta durabilidade e desempenho ultra-rápido. Ele armazena todo o dataset na memória, permitindo microsecond latência para leitura e latência de escrita em milissegundos, com alta taxa de transferência. É ideal para aplicações modernas e arquiteturas de microserviços, utilizando as estruturas de dados, APIs e comandos Redis de forma nativa.
+Serviço de banco de dados in-memory compatível com Redis, projetado para alta durabilidade e desempenho ultra-rápido. Ele armazena todo o dataset na memória, permitindo latência de leitura em microssegundos e latência de escrita em milissegundos, com alta taxa de transferência. É ideal para aplicações modernas e arquiteturas de microserviços, utilizando as estruturas de dados, APIs e comandos Redis de forma nativa.
 
 Para durabilidade, os dados são distribuídos em um log transacional replicado em múltiplas zonas de disponibilidade (AZs). Permite escalabilidade de escrita com sharding e de leitura com réplicas, suportando uma grande quantidade de acessos simultâneos sem comprometer o desempenho.
 
@@ -1555,8 +1553,6 @@ Para durabilidade, os dados são distribuídos em um log transacional replicado 
 > | **Escalabilidade de escrita** | Sharding e réplicas                                          | Sharding (Redis cluster mode)            |
 > | **Cenário de uso**            | Soluções que exigem persistência e baixa latência            | Cache de consultas para reduzir latência |
 
-Esta tabela ajuda a escolher a melhor solução com base nas necessidades de persistência, consistência e performance da aplicação.
-
 ### 11.4. Kinesis
 
 É uma família de serviços da AWS para coleta, processamento e análise de dados em tempo real, ideal para aplicações que exigem baixa latência.
@@ -1571,7 +1567,7 @@ Coleta e processa dados em tempo real, ideal para grandes volumes de dados cont�
 
 #### 11.4.2. Kinesis Data Firehose
 
-Entrega dados de streaming de forma simplificada e totalmente gerenciada para serviços como S3, Redshift, Elasticsearch e Splunk, com transformação opcional via _AWS Lambda_. É escalável e não usa shards, sendo ideal para entregas **próximas** ao tempo real, com latência de aproximadamente 60 segundos. Destinos incluem _S3_, _Redshift_ (usando _S3_ intermediário), _Elasticsearch_, Splun*k, \_Datadog*, _MongoDB_, _New Relic_ e endpoints HTTP.
+Entrega dados de streaming de forma simplificada e totalmente gerenciada para serviços como _S3_, _Redshift_, _Elasticsearch_ e _Splunk_, com transformação opcional via _AWS Lambda_. É escalável e não usa shards, sendo ideal para entregas **próximas** ao tempo real, com latência de aproximadamente 60 segundos. Destinos incluem _S3_, _Redshift_ (usando _S3_ intermediário), _Elasticsearch_, _Splunk_, _Datadog_, _MongoDB_, _New Relic_ e endpoints HTTP.
 
 ![](assets/2024-11-06-20-17-54.png)
 
