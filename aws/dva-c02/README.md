@@ -168,6 +168,27 @@
   - [10.5. Cloud9](#105-cloud9)
   - [10.6. Amplify](#106-amplify)
   - [10.7. AppSync](#107-appsync)
+- [11. Bancos de Dados e Análises](#11-bancos-de-dados-e-an%C3%A1lises)
+  - [11.1. RDS: Relational Database Service](#111-rds-relational-database-service)
+    - [11.1.1. Disponibilidade e escalabilidade](#1111-disponibilidade-e-escalabilidade)
+    - [11.1.2. Backup and Recuperação](#1112-backup-and-recupera%C3%A7%C3%A3o)
+    - [11.1.3. Aurora](#1113-aurora)
+    - [11.1.4. Segurança](#1114-seguran%C3%A7a)
+  - [11.2. ElastiCache](#112-elasticache)
+    - [11.2.1. Comparações](#1121-compara%C3%A7%C3%B5es)
+    - [11.2.2. Escalabilidade](#1122-escalabilidade)
+      - [11.2.2.1. Memcached](#11221-memcached)
+      - [11.2.2.2. Redis: Cluster Mode Disabled](#11222-redis-cluster-mode-disabled)
+      - [11.2.2.3. Redis: Cluster Mode Enabled](#11223-redis-cluster-mode-enabled)
+  - [11.3. MemoryDB para Redis](#113-memorydb-para-redis)
+  - [11.4. Kinesis](#114-kinesis)
+    - [11.4.1. Kinesis Data Streams](#1141-kinesis-data-streams)
+    - [11.4.2. Kinesis Data Firehose](#1142-kinesis-data-firehose)
+    - [11.4.3. Kinesis Data Analytics](#1143-kinesis-data-analytics)
+    - [11.4.4. KCL: Kinesis Client Library](#1144-kcl-kinesis-client-library)
+  - [11.5. OpenSearch Service](#115-opensearch-service)
+  - [11.6. Athena](#116-athena)
+  - [11.7. Glue](#117-glue)
 
 <!-- /TOC -->
 
@@ -672,7 +693,7 @@ AWS Lambda é um serviço serverless que permite executar código em resposta a 
 
 - **Síncrono**: a função é executada e o cliente aguarda a resposta, permitindo tratamento de erros no lado do cliente, como tentativas de execução. Esse modo é útil para integrações que requerem feedback imediato, e o comando para invocar funções via AWS CLI é `invoke`.
 
-- **Assíncrono**:o evento é enfileirado, e a resposta é retornada imediatamente ao cliente. O AWS Lambda tenta processar o evento até três vezes e gerencia as tentativas de forma automática. Para invocar uma função de maneira assíncrona, basta definir o parâmetro de tipo de invocação como `Event`.
+- **Assíncrono**: o evento é enfileirado, e a resposta é retornada imediatamente ao cliente. O AWS Lambda tenta processar o evento até três vezes e gerencia as tentativas de forma automática. Para invocar uma função de maneira assíncrona, basta definir o parâmetro de tipo de invocação como `Event`.
 
 - **Event Source Mapping**: permite à função Lambda fazer polling em uma origem de eventos, processando registros em ordem (exceto no caso de SQS standard). Isso facilita o processamento de itens de streams ou filas, como Amazon SQS, Kinesis e DynamoDB. O mapeamento de origem de eventos utiliza permissões no papel de execução da função para gerenciar itens na fonte de eventos.
 
@@ -1384,15 +1405,15 @@ Um **CodeDeploy application** contém informações sobre o que e como implantar
 
 Permite a atualização gradual ou total do tráfego para novas versões de aplicativos. Ele funciona de forma diferente dependendo da plataforma:
 
-- **AWS Lambda:** O tráfego é redirecionado de uma versão para outra da função Lambda durante o deployment.
-- **Amazon ECS:** O tráfego é transferido de um conjunto de tarefas para um conjunto de tarefas substituto no mesmo serviço ECS.
-- **EC2/On-Premises:** O tráfego é movido de um conjunto de instâncias para outro em um ambiente EC2 ou servidores locais.
+- **AWS Lambda**: O tráfego é redirecionado de uma versão para outra da função Lambda durante o deployment.
+- **Amazon ECS**: O tráfego é transferido de um conjunto de tarefas para um conjunto de tarefas substituto no mesmo serviço ECS.
+- **EC2/On-Premises**: O tráfego é movido de um conjunto de instâncias para outro em um ambiente EC2 ou servidores locais.
 
 No **ECS** e **AWS Lambda**, existem três formas de movimentação do tráfego durante o deployment:
 
-- **Canary:** O tráfego é movido em dois incrementos, com uma porcentagem do tráfego transferido na primeira parte e o restante após um intervalo determinado.
-- **Linear:** O tráfego é movido em incrementos iguais, com intervalos regulares entre cada um.
-- **All-at-once:** Todo o tráfego é transferido de uma vez para a nova versão.
+- **Canary**: O tráfego é movido em dois incrementos, com uma porcentagem do tráfego transferido na primeira parte e o restante após um intervalo determinado.
+- **Linear**: O tráfego é movido em incrementos iguais, com intervalos regulares entre cada um.
+- **All-at-once**: Todo o tráfego é transferido de uma vez para a nova versão.
 
 ### 10.5. Cloud9
 
@@ -1417,3 +1438,180 @@ Serviço totalmente gerenciado que facilita o desenvolvimento de APIs **GraphQL*
 ![](assets/2024-11-05-23-27-35.png)
 
 Além disso, o AppSync permite configurar quais dados devem ser acessados em tempo real usando **GraphQL Subscriptions** e possui recursos de cache de dados no lado do servidor, reduzindo a necessidade de acessar diretamente as fontes de dados. Esse serviço elimina a sobrecarga operacional de gerenciar clusters de cache.
+
+## 11. Bancos de Dados e Análises
+
+### 11.1. RDS: Relational Database Service
+
+Serviço gerenciado de banco de dados relacional, ideal para casos de uso de processamento de transações online (OLTP). Ele é executado em instâncias do **Amazon EC2** e utiliza volumes do **Amazon EBS** para armazenamento, com a possibilidade de realizar backups por meio de **EBS snapshots**. No RDS, você escolhe o tipo de instância de banco de dados, e uma instância pode hospedar múltiplos bancos de dados criados pelo usuário.
+
+O RDS oferece suporte a diferentes mecanismos de banco de dados, como:
+
+- **Amazon Aurora**: compatível com MySQL e PostgreSQL;
+- **MySQL**: um dos sistemas de gerenciamento de banco de dados relacional open-source mais populares;
+- **PostgreSQL**: que suporta consultas relacionais e não-relacionais (JSON);
+- **Oracle**: com opções de licenciamento "_License Included_" ou "_Bring Your Own License (BYOL)_";
+- **Microsoft SQL Server**: com várias edições disponíveis;
+- **MariaDB**: um fork comunitário do MySQL, mantido como open-source sob a licença GNU GPL.
+
+#### 11.1.1. Disponibilidade e escalabilidade
+
+O Amazon RDS oferece alta disponibilidade com a opção Multi-AZ (Multi-Availability Zone), que replica os dados para uma instância de banco de dados em outra zona de disponibilidade. A **instância de espera (standby)** é uma réplica passiva que fica pronta para assumir o papel de instância principal em caso de falha, garantindo failover automático e minimizando o tempo de inatividade.
+
+Além disso, o RDS permite **escalabilidade vertical**, aumentando os recursos da instância de banco de dados (CPU, memória), e **escalabilidade horizontal**, permitindo a adição de réplicas de leitura para distribuir a carga de trabalho e melhorar o desempenho das consultas.
+
+#### 11.1.2. Backup and Recuperação
+
+**RDS Automated Backups** são backups diários automáticos realizados pela AWS, sem interrupção do serviço. Eles incluem todo o banco de dados e são armazenados por até 35 dias. O RDS faz backup de suas bases de dados em nível de instância, possibilitando a restauração para qualquer ponto no tempo dentro do período de retenção.
+
+![](assets/2024-11-06-16-16-43.png)
+
+**RDS Manual Backups (Snapshots)** são backups manuais tirados da instância de banco de dados inteira, não apenas de bancos individuais. Para instâncias **Single-AZ**, pode ocorrer uma breve suspensão de I/O. Para instâncias **Multi-AZ**, o backup é tirado da instância de espera (standby), evitando impacto no serviço. Snapshots não têm período de retenção e não expiram.
+
+**Amazon RDS Maintenance Windows** são períodos programados para manutenção do sistema operacional e do banco de dados, que podem exigir que a instância seja colocada offline. Por padrão, é configurada uma janela de manutenção semanal, mas o usuário pode definir sua própria janela para maior controle.
+
+#### 11.1.3. Aurora
+
+Banco de dados gerenciado da AWS, compatível com MySQL e PostgreSQL, projetado para a nuvem. Ele é até cinco vezes mais rápido que bancos de dados MySQL padrão e três vezes mais rápido que PostgreSQL padrão, oferecendo alto desempenho. Utiliza um sistema de armazenamento distribuído, tolerante a falhas e auto-curável, que escala automaticamente até 128 TB por instância de banco de dados, garantindo alta disponibilidade e escalabilidade.
+
+> Possui replicação entre três zonas de disponibilidade (AZs). Utiliza um único volume lógico para armazenamento, facilitando a consistência e recuperação de dados. Para escalar as leituras, você pode adicionar **Aurora Replicas**, que distribuem as requisições de leitura. Essas réplicas podem ser promovidas a instâncias primárias ou usadas para criar novas instâncias primárias, permitindo maior flexibilidade e escalabilidade.
+>
+> ![](assets/2024-11-06-16-24-08.png)
+
+#### 11.1.4. Segurança
+
+O Amazon RDS oferece criptografia em repouso para proteger dados em DB storage, backups, réplicas de leitura e snapshots. A criptografia pode ser ativada somente no momento da criação da instância de banco de dados, não podendo ser desabilitada posteriormente.
+
+> **Criptografia em repouso** protege os dados armazenados, garantindo segurança mesmo quando não estão sendo acessados, por meio de criptografia.
+
+Utiliza criptografia **AES 256** com impacto mínimo no desempenho, sendo transparente para o usuário. No caso de _RDS for Oracle e SQL Server_, a criptografia é realizada por meio de **Transparent Data Encryption (TDE)**, o que _pode gerar impacto no desempenho_. As chaves de criptografia são gerenciadas pelo AWS KMS.
+
+![](assets/2024-11-06-16-31-40.png)
+
+As réplicas de leitura são criptografadas automaticamente quando a instância principal também está criptografada. Se a réplica estiver em outra região, será usada uma chave KMS diferente.
+![](assets/2024-11-06-16-32-08.png)
+
+> [!CAUTION]
+>
+> Não é possível criar réplicas de leitura criptografadas a partir de instâncias não criptografadas nem restaurar backups ou snapshots não criptografados em instâncias criptografadas.
+
+### 11.2. ElastiCache
+
+É um serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e DynamoDB para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
+
+![](assets/2024-11-06-16-42-16.png)
+
+Entre os principais casos de uso do ElastiCache estão armazenar dados relativamente estáticos e frequentemente acessados, onde a aplicação pode tolerar dados desatualizados. É útil em cenários onde a recuperação de dados é mais lenta ou cara do que o acesso ao cache. É ideal para escalabilidade automatizada de memória, leituras e gravações, e é `comumente utilizado para armazenar estados de sessão`.
+
+#### 11.2.1. Comparações
+
+| Feature                         | Memcached                                                    | Redis (cluster mode disabled)                               | Redis (cluster mode enabled)                                |
+| ------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| Data persistence                | No                                                           | Yes                                                         | Yes                                                         |
+| Data types                      | Simple                                                       | Complex                                                     | Complex                                                     |
+| Data partitioning               | Yes                                                          | No                                                          | Yes                                                         |
+| Encryption                      | No                                                           | Yes                                                         | Yes                                                         |
+| High availability (replication) | No                                                           | Yes                                                         | Yes                                                         |
+| Multi-AZ                        | Yes, place nodes in multiple AZs. No failover or replication | Yes, with auto-failover. Uses read replicas (0-5 per shard) | Yes, with auto-failover. Uses read replicas (0-5 per shard) |
+| Scaling                         | Up (node type); out (add nodes)                              | Up (node type); out (replica)                               | Up (node type); out (add shards)                            |
+| Multithreaded                   | Yes                                                          | No                                                          | No                                                          |
+| Backup and restore              | No (and no snapshots)                                        | Yes, automatic and manual snapshots                         | Yes, automatic and manual snapshots                         |
+
+#### 11.2.2. Escalabilidade
+
+##### 11.2.2.1. Memcached
+
+Permite escalar adicionando nós a um cluster. A escalabilidade vertical (alteração do tipo de nó) requer a criação manual de um novo cluster.
+
+![](assets/2024-11-06-19-52-15.png)
+
+##### 11.2.2.2. Redis: Cluster Mode Disabled
+
+É possível adicionar réplicas ou alterar o tipo de nó, o que cria um novo cluster e migra os dados.
+
+![](assets/2024-11-06-19-53-04.png)
+
+##### 11.2.2.3. Redis: Cluster Mode Enabled
+
+Oferece **resharding online** para adicionar ou remover shards e escalar verticalmente alterando o tipo de nó. Já o **resharding offline** permite adicionar ou remover shards, alterar o tipo de nó ou atualizar a versão do engine, oferecendo maior flexibilidade em comparação ao resharding online.
+
+![](assets/2024-11-06-19-58-05.png)
+
+### 11.3. MemoryDB para Redis
+
+Amazon MemoryDB é um serviço de banco de dados in-memory compatível com Redis, projetado para alta durabilidade e desempenho ultra-rápido. Ele armazena todo o dataset na memória, permitindo microsecond latência para leitura e latência de escrita em milissegundos, com alta taxa de transferência. É ideal para aplicações modernas e arquiteturas de microserviços, utilizando as estruturas de dados, APIs e comandos Redis de forma nativa.
+
+Para durabilidade, os dados são distribuídos em um log transacional replicado em múltiplas zonas de disponibilidade (AZs). Permite escalabilidade de escrita com sharding e de leitura com réplicas, suportando uma grande quantidade de acessos simultâneos sem comprometer o desempenho.
+
+> **MemoryDB for Redis $\times$ ElastiCache**
+>
+> | Característica                | **MemoryDB for Redis**                                       | **ElastiCache**                          |
+> | ----------------------------- | ------------------------------------------------------------ | ---------------------------------------- |
+> | **Propósito**                 | Solução completa de banco de dados e cache                   | Cache de dados para melhorar performance |
+> | **Persistência de dados**     | Sim, dados duráveis com log distribuído                      | Opcional, geralmente volátil             |
+> | **Latência**                  | Microsegundos para leitura, milissegundos para gravação      | Depende do engine e da configuração      |
+> | **Consistência**              | Consistência forte nos nós principais, eventual nas réplicas | Pode variar de acordo com a configuração |
+> | **Escalabilidade de leitura** | Réplicas adicionais                                          | Réplicas (Redis), escalável em cluster   |
+> | **Escalabilidade de escrita** | Sharding e réplicas                                          | Sharding (Redis cluster mode)            |
+> | **Cenário de uso**            | Soluções que exigem persistência e baixa latência            | Cache de consultas para reduzir latência |
+
+Esta tabela ajuda a escolher a melhor solução com base nas necessidades de persistência, consistência e performance da aplicação.
+
+### 11.4. Kinesis
+
+É uma família de serviços da AWS para coleta, processamento e análise de dados em tempo real, ideal para aplicações que exigem baixa latência.
+
+![](assets/2024-11-06-20-10-00.png)
+
+#### 11.4.1. Kinesis Data Streams
+
+Coleta e processa dados em tempo real, ideal para grandes volumes de dados contínuos. Suporta armazenamento em "shards" (partições) com persistência de até 7 dias. Os produtores enviam dados para o Kinesis, onde ficam armazenados em shards por 24 horas (padrão), podendo ser consumidos em ~200ms (`tempo real`) por consumidores que os processam e direcionam para outros serviços da AWS.
+
+![](assets/2024-11-06-20-17-02.png)
+
+#### 11.4.2. Kinesis Data Firehose
+
+Entrega dados de streaming de forma simplificada e totalmente gerenciada para serviços como S3, Redshift, Elasticsearch e Splunk, com transformação opcional via _AWS Lambda_. É escalável e não usa shards, sendo ideal para entregas **próximas** ao tempo real, com latência de aproximadamente 60 segundos. Destinos incluem _S3_, _Redshift_ (usando _S3_ intermediário), _Elasticsearch_, Splun*k, \_Datadog*, _MongoDB_, _New Relic_ e endpoints HTTP.
+
+![](assets/2024-11-06-20-17-54.png)
+
+#### 11.4.3. Kinesis Data Analytics
+
+Processa dados em tempo real vindos de _Kinesis Data Streams_ e Firehose usando SQL, permitindo monitoramento e detecção de anomalias. Os resultados das análises podem ser direcionados para _Kinesis Data Streams_, _Firehose_ ou _AWS Lambda_, otimizando cenários de monitoramento de eventos e insights em tempo real.
+
+![](assets/2024-11-06-20-19-06.png)
+
+#### 11.4.4. KCL: Kinesis Client Library
+
+É uma biblioteca que facilita o consumo e processamento de dados do _Kinesis Data Streams_. Abstrai o processamento dos dados especificamente para a função de consumidor.
+
+![](assets/2024-11-06-20-30-28.png)
+
+Cada "shard" é atribuído a um único trabalhador KCL, que usa um processador de registro exclusivo, garantindo que não haja duplicação de processamento. Um único trabalhador KCL pode gerenciar múltiplos shards, permitindo escalabilidade mesmo quando o número de shards ultrapassa o número de instâncias, otimizando o uso de recursos para grandes volumes de dados.
+
+![](assets/2024-11-06-20-30-22.png)
+
+### 11.5. OpenSearch Service
+
+Solução distribuída para buscas e análises baseada no popular _Elasticsearch_, oferecendo recursos de consulta em SQL e integração com ferramentas open-source. Ele permite escalabilidade ao adicionar ou remover instâncias e pode operar em até três zonas de disponibilidade para alta disponibilidade. Backups são feitos por snapshots, e o serviço garante criptografia tanto em repouso quanto em trânsito.
+
+Clusters, chamados de "domínios", podem ser configurados pelo Console de Gerenciamento, API ou CLI. O usuário define o número e tipo de instâncias, além das opções de armazenamento, que incluem _UltraWarm_ e _Cold Storage_ para otimizar custos e desempenho em dados menos acessados.
+
+![](assets/2024-11-06-20-36-11.png)
+
+### 11.6. Athena
+
+Permite realizar consultas SQL diretamente nos dados armazenados no S3, sem necessidade de um servidor. É compatível com formatos como CSV, TSV, JSON, Parquet e ORC e pode ser integrado a outras fontes de dados via AWS Lambda. O serviço utiliza o AWS Glue como catálogo de dados gerenciado para armazenar informações e esquemas de bancos de dados e tabelas.
+
+**Para melhorar o desempenho das consultas no Athena**:
+
+- Particione e organize os dados em buckets dentro das partições.
+- Utilize compressão recomendada (Parquet ou ORC) e ajuste o tamanho dos arquivos.
+- Prefira formatos de dados colunar (Parquet e ORC) para otimizar operações de leitura.
+- Utilize funções aproximadas e selecione apenas as colunas necessárias para reduzir tempo de execução e custos.
+
+### 11.7. Glue
+
+Serviço totalmente gerenciado de _ETL (extrair, transformar e carregar)_ voltado para a preparação de dados para análise, executando tarefas de ETL em um ambiente escalável de _Apache Spark_. Ele descobre dados automaticamente e armazena o metadado associado (como definições de tabela e esquemas) no _AWS Glue Data Catalog_, facilitando a integração com data lakes (como dados no S3), data warehouses (como o RedShift) e data stores (como RDS e bancos de dados no EC2).
+
+O AWS Glue utiliza crawlers para automatizar a criação e atualização de tabelas no _Data Catalog_, permitindo que múltiplos data stores sejam varridos em uma única execução. As tabelas do _Data Catalog_ são então usadas como fontes e alvos nos jobs de ETL, simplificando a integração e o processamento dos dados para uso em aplicações analíticas.
