@@ -189,6 +189,24 @@
   - [11.5. OpenSearch Service](#115-opensearch-service)
   - [11.6. Athena](#116-athena)
   - [11.7. Glue](#117-glue)
+- [12. Gestão e Segurança](#12-gest%C3%A3o-e-seguran%C3%A7a)
+  - [12.1. CDK: Cloud Development Kit](#121-cdk-cloud-development-kit)
+  - [12.2. CloudWatch](#122-cloudwatch)
+    - [12.2.1. Metrics](#1221-metrics)
+    - [12.2.2. Alarms](#1222-alarms)
+    - [12.2.3. Logs](#1223-logs)
+    - [12.2.4. Events](#1224-events)
+    - [12.2.5. The Unified CloudWatch Agent](#1225-the-unified-cloudwatch-agent)
+  - [12.3. CloudTrail](#123-cloudtrail)
+    - [12.3.1. Tipos de eventos](#1231-tipos-de-eventos)
+  - [12.4. KMS: Key Management Service](#124-kms-key-management-service)
+    - [12.4.1. Chaves](#1241-chaves)
+    - [12.4.2. API and CLI](#1242-api-and-cli)
+  - [12.5. ACM: AWS Certificate Manager](#125-acm-aws-certificate-manager)
+  - [12.6. Systems Manager](#126-systems-manager)
+    - [12.6.1. AppConfig](#1261-appconfig)
+    - [12.6.2. Secrets Manager](#1262-secrets-manager)
+  - [12.7. Cognito](#127-cognito)
 
 <!-- /TOC -->
 
@@ -220,7 +238,7 @@ Para uma gestão eficaz dos recursos na AWS, é crucial compreender e utilizar f
 
 - **Budget**: Refere-se à criação e gerenciamento de orçamentos na AWS, nos quais você define limites de gastos e configura alertas para monitorar o uso e os custos dos serviços.
 
-- **Cost Explorer**: É uma ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas nas quais os custos podem ser otimizados.
+- **Cost Explorer**: Ferramenta usada para analisar os custos e o uso dos serviços na AWS. Permite visualizar tendências de gastos ao longo do tempo e identificar áreas nas quais os custos podem ser otimizados.
 
 ### 1.4. STS: Security Token Service
 
@@ -548,7 +566,7 @@ Alternativa às Signed URLs, permitindo controle de acesso sem a necessidade de 
 
 #### 4.2.3. OAC: Origin Access Control
 
-É um mecanismo de controle de acesso que permite ao Amazon CloudFront acessar conteúdo protegido em um bucket do S3 de maneira segura. A AWS recomenda o uso do OAC em vez do OAI (Origin Access Identity), pois oferece uma configuração mais simplificada e flexível.
+Mecanismo de controle de acesso que permite ao Amazon CloudFront acessar conteúdo protegido em um bucket do S3 de maneira segura. A AWS recomenda o uso do OAC em vez do OAI (Origin Access Identity), pois oferece uma configuração mais simplificada e flexível.
 
 #### 4.2.4. Route 53 DNS
 
@@ -967,7 +985,7 @@ Quando uma atualização é feita, o sistema verifica se a versão do item na ba
 
 ### 7.15. Streams
 
-É um recurso que captura uma sequência ordenada de modificações em nível de item em qualquer tabela do DynamoDB. As alterações são registradas em um log por até 24 horas, permitindo que as aplicações acessem os dados antes e depois das modificações em quase tempo real. Isso é útil para monitoramento, replicação de dados e processamento de eventos. Para ativar ou modificar, você pode usar as operações da API **CreateTable** ou **UpdateTable**.
+Recurso que captura uma sequência ordenada de modificações em nível de item em qualquer tabela do DynamoDB. As alterações são registradas em um log por até 24 horas, permitindo que as aplicações acessem os dados antes e depois das modificações em quase tempo real. Isso é útil para monitoramento, replicação de dados e processamento de eventos. Para ativar ou modificar, você pode usar as operações da API **CreateTable** ou **UpdateTable**.
 
 > **`Exemplo:`** quando uma aplicação insere, atualiza ou exclui um item, um registro correspondente é escrito no stream. Em seguida, uma função **Lambda** pode ser acionada para processar essa alteração, como gravar informações em **CloudWatch Logs**, permitindo análises e monitoramento das operações realizadas.
 >
@@ -1246,7 +1264,7 @@ Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser as
 
 ### 9.2. ECR: Elastic Container Registry
 
-É um registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker: nuvem, localmente ou on-premises.
+Registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker: nuvem, localmente ou on-premises.
 
 As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR permite a organização dos repositórios por namespaces. Há suporte para **repositórios públicos** (para acesso global) e **repositórios privados** (com controle de acesso).
 
@@ -1319,7 +1337,7 @@ O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportan
 
 ### 9.4. AWS Copilot
 
-É uma interface de linha de comando (CLI) que facilita o lançamento e gerenciamento de contêineres em serviços como **Amazon ECS**, **Fargate** e **AWS AppRunner**. Ele é baseado em templates de **Infrastructure as Code (IaC)**, permitindo a criação e configuração de ambientes e serviços de forma simples e automatizada.
+Interface de linha de comando (CLI) que facilita o lançamento e gerenciamento de contêineres em serviços como **Amazon ECS**, **Fargate** e **AWS AppRunner**. Ele é baseado em templates de **Infrastructure as Code (IaC)**, permitindo a criação e configuração de ambientes e serviços de forma simples e automatizada.
 
 ![](assets/2024-11-05-21-52-17.png)
 
@@ -1417,7 +1435,7 @@ No **ECS** e **AWS Lambda**, existem três formas de movimentação do tráfego 
 
 ### 10.5. Cloud9
 
-É um ambiente de desenvolvimento integrado (IDE) que permite aos desenvolvedores escrever, executar e depurar código diretamente na nuvem. Ele oferece recursos como destaque de sintaxe, autocompletar e verificação de erros, além de um terminal para navegação no sistema de arquivos, execução de comandos e gerenciamento de código.
+Ambiente de desenvolvimento integrado (IDE) que permite aos desenvolvedores escrever, executar e depurar código diretamente na nuvem. Ele oferece recursos como destaque de sintaxe, autocompletar e verificação de erros, além de um terminal para navegação no sistema de arquivos, execução de comandos e gerenciamento de código.
 
 A plataforma facilita a colaboração em tempo real, permitindo que múltiplos desenvolvedores trabalhem simultaneamente na mesma base de código. Também integra-se facilmente com serviços da AWS, como **AWS Lambda**, **Amazon EC2** e **AWS CodePipeline**, proporcionando uma experiência de desenvolvimento mais fluida e integrada.
 
@@ -1495,7 +1513,7 @@ As réplicas de leitura são criptografadas automaticamente quando a instância 
 
 ### 11.2. ElastiCache
 
-É um serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e _DynamoDB_ para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
+Serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e _DynamoDB_ para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
 
 ![](assets/2024-11-06-16-42-16.png)
 
@@ -1555,7 +1573,7 @@ Para durabilidade, os dados são distribuídos em um log transacional replicado 
 
 ### 11.4. Kinesis
 
-É uma família de serviços da AWS para coleta, processamento e análise de dados em tempo real, ideal para aplicações que exigem baixa latência.
+Família de serviços da AWS para coleta, processamento e análise de dados em tempo real, ideal para aplicações que exigem baixa latência.
 
 ![](assets/2024-11-06-20-10-00.png)
 
@@ -1579,7 +1597,7 @@ Processa dados em tempo real vindos de _Kinesis Data Streams_ e Firehose usando 
 
 #### 11.4.4. KCL: Kinesis Client Library
 
-É uma biblioteca que facilita o consumo e processamento de dados do _Kinesis Data Streams_. Abstrai o processamento dos dados especificamente para a função de consumidor.
+Biblioteca que facilita o consumo e processamento de dados do _Kinesis Data Streams_. Abstrai o processamento dos dados especificamente para a função de consumidor.
 
 ![](assets/2024-11-06-20-30-28.png)
 
@@ -1611,3 +1629,175 @@ Permite realizar consultas SQL diretamente nos dados armazenados no S3, sem nece
 Serviço totalmente gerenciado de _ETL (extrair, transformar e carregar)_ voltado para a preparação de dados para análise, executando tarefas de ETL em um ambiente escalável de _Apache Spark_. Ele descobre dados automaticamente e armazena o metadado associado (como definições de tabela e esquemas) no _AWS Glue Data Catalog_, facilitando a integração com data lakes (como dados no S3), data warehouses (como o RedShift) e data stores (como RDS e bancos de dados no EC2).
 
 O AWS Glue utiliza crawlers para automatizar a criação e atualização de tabelas no _Data Catalog_, permitindo que múltiplos data stores sejam varridos em uma única execução. As tabelas do _Data Catalog_ são então usadas como fontes e alvos nos jobs de ETL, simplificando a integração e o processamento dos dados para uso em aplicações analíticas.
+
+Entendi! Nesse caso, a reorganização pode ser feita com base na hierarquia e na relação entre os serviços. Aqui está uma sugestão de como organizá-los, considerando os serviços que estão dentro de outros:
+
+## 12. Gestão e Segurança
+
+### 12.1. CDK: Cloud Development Kit
+
+Permite criar aplicativos na nuvem utilizando linguagens de programação comuns, como _TypeScript_, _JavaScript_, _Python_, _Java_, _C#/.NET_ e _Go_. Com ele, é possível criar `Constructs` reutilizáveis. O CDK oferece uma ferramenta de linha de comando que facilita o gerenciamento desses componentes, além de gerar templates do _AWS CloudFormation_ para automatizar a criação e a configuração da infraestrutura.
+
+> **Constructs** são componentes de infraestrutura que podem ser combinados em **Stacks** e **Apps** para definir recursos na AWS.
+>
+> ![](assets/2024-11-06-21-53-26.png)
+
+### 12.2. CloudWatch
+
+Ferramenta de monitoramento de desempenho, coleta de logs, configuração de alarmes e execução de ações automáticas. Ele permite coletar métricas de desempenho de sistemas AWS e locais, além de automatizar respostas a mudanças operacionais, otimizando recursos e melhorando a performance geral.
+
+O CloudWatch também oferece insights acionáveis a partir de logs, permitindo visibilidade e monitoramento contínuos das operações. Com ele, é possível identificar falhas rapidamente, ajustar processos e tomar decisões baseadas em dados, garantindo maior eficiência operacional.
+
+#### 12.2.1. Metrics
+
+Coleta dados temporais de serviços, com métricas enviadas por diversos serviços da AWS, como o EC2. Por padrão, as métricas do EC2 são enviadas a cada 5 minutos, sem custo adicional, enquanto o monitoramento detalhado do EC2 envia dados a cada 1 minuto, com cobrança adicional. O _Unified CloudWatch Agent_ também pode ser utilizado para coletar métricas de sistemas, tanto para instâncias EC2 quanto para servidores on-premises.
+
+As métricas personalizadas podem ter duas resoluções:
+
+- resolução padrão (granularidade de 1 minuto) - definida como padrão
+- resolução alta (granularidade de 1 segundo).
+
+![](assets/2024-11-06-22-15-05.png)
+
+#### 12.2.2. Alarms
+
+Permite monitorar métricas e automatizar ações com base nos resultados.
+
+Tipos de alarmes:
+
+- _Metric alarm_, que realiza ações com base em uma única métrica;
+- _Composite alarm_, que utiliza uma expressão de regra e considera múltiplos alarmes.
+
+Os estados de um _metric alarm_ incluem:
+
+- **OK**: a métrica está dentro do limite estabelecido.
+- **ALARM**: a métrica está fora do limite.
+- **INSUFFICIENT DATA**: não há dados suficientes para avaliar a métrica.
+
+![](assets/2024-11-06-22-13-19.png)
+
+#### 12.2.3. Logs
+
+Oferece uma coleta centralizada de logs de sistema e aplicação. Ele permite armazenar e monitorar logs, com políticas de expiração definidas e criptografia via KMS para garantir a segurança dos dados. Os logs podem ser enviados para outros destinos, como:
+
+- **Amazon S3** (para exportação)
+- **Kinesis Data Streams**
+- **Kinesis Data Firehose**
+
+![](assets/2024-11-06-22-17-31.png)
+
+#### 12.2.4. Events
+
+Serviço que permite monitorar e reagir a alterações em recursos da AWS em tempo real. Ele captura eventos do sistema, como modificações em instâncias EC2, lançamentos de recursos ou alterações no status de serviços, e pode disparar ações automáticas, como invocar funções Lambda, enviar notificações ou iniciar fluxos de trabalho no _AWS Step Functions_.
+
+#### 12.2.5. The Unified CloudWatch Agent
+
+Coleta métricas e logs de instâncias EC2 e servidores locais. Ele permite a coleta de métricas internas do sistema, como uso de CPU, memória e disco, além de métricas personalizadas de aplicativos usando protocolos como `StatsD` e `collectd`. Para utilizá-lo, o agente precisa ser instalado nas instâncias EC2 ou servidores locais. Ele é compatível com ambientes **Linux**, **Windows Server** e **macOS**. O agente também coleta logs, possibilitando uma visão unificada do desempenho e das atividades de sistemas em nuvem e locais.
+
+### 12.3. CloudTrail
+
+Registra e audita a atividade de API em sua conta AWS, permitindo monitoramento e rastreamento de ações. Por padrão, eventos de gerenciamento são registrados e retidos por 90 dias, mas um "trail" pode ser configurado para armazenar eventos indefinidamente no Amazon S3. Pode ser configurado para registrar eventos em uma única região ou em todas as regiões, e é possível acionar eventos no _CloudWatch_ com base nas chamadas de API registradas.
+
+![](assets/2024-11-06-22-28-38.png)
+
+#### 12.3.1. Tipos de eventos
+
+- **Management events**: Informações sobre operações de gerenciamento dos recursos.
+- **Data events**: Informações sobre operações realizadas nos recursos.
+- **Insights events**: Identificação de atividades anômalas relacionadas a chamadas de API de escrita. Eventos podem ser transmitidos ao _CloudWatch Logs_ para monitoramento e automação.
+
+### 12.4. KMS: Key Management Service
+
+Permite criar e gerenciar chaves de criptografia simétricas e assimétricas. As chaves KMS são protegidas por módulos de segurança de hardware (HSMs). Os desenvolvedores podem criar e gerenciar chaves no AWS KMS, oferecendo controle sobre como os dados são criptografados e protegidos na AWS. KMS é integrado com diversos serviços da AWS, facilitando a criptografia de dados em repouso e a proteção de informações sensíveis.
+
+![](assets/2024-11-06-22-31-03.png)
+
+#### 12.4.1. Chaves
+
+São os principais recursos do KMS. Elas contêm o material da chave utilizado para criptografar e descriptografar dados. Por padrão, a AWS gera o material da chave para o KMS, mas é possível importar o seu próprio material. Cada chave pode criptografar dados de até 4KB e gerar, criptografar e descriptografar chaves de criptografia de dados (DEKs).
+
+Existem **Armazenamentos de Chaves Alternativos** para atender a diferentes necessidades de segurança e conformidade:
+
+- **External Key Store (XKS)**: Permite armazenar chaves fora da AWS, atendendo a requisitos regulatórios. O material da chave nunca sai do HSM e é gerido por um gerenciador de chaves externo.
+- **Custom Key Store**: Utiliza um _AWS CloudHSM_ para criar e armazenar chaves, com operações criptográficas realizadas exclusivamente no cluster CloudHSM que você gerencia. No entanto, os armazenamentos personalizados não são compatíveis com chaves assimétricas do KMS.
+
+**Comparação**
+
+| Tipo de chave KMS             | Pode visualizar | Pode gerenciar | Usada apenas pela minha conta AWS | Rotação automática           |
+| ----------------------------- | --------------- | -------------- | --------------------------------- | ---------------------------- |
+| Chave gerenciada pelo cliente | Sim             | Sim            | Sim                               | Opcional. A cada 365 dias    |
+| Chave gerenciada pela AWS     | Sim             | Não            | Sim                               | Obrigatória. A cada 365 dias |
+| Chave de propriedade da AWS   | Não             | Não            | Não                               | Varia                        |
+
+> [!WARNING]
+>
+> A rotação de chaves KMS **altera apenas o material da chave**, sem mudar a própria chave KMS. Isso permite que dados criptografados com a chave antiga sejam descriptografados com a nova.
+>
+> ![](assets/2024-11-06-22-44-40.png)
+
+> Na rotação automática, as propriedades da chave KMS não mudam, e não é necessário atualizar aplicativos ou aliases. A rotação ocorre anualmente.
+>
+> Na rotação manual, cria-se uma nova chave com ID diferente, exigindo atualização dos aplicativos. Mas usar um alias evita mudanças no código:
+>
+> ![](assets/2024-11-06-22-49-28.png)
+
+#### 12.4.2. API and CLI
+
+O AWS KMS oferece operações para criptografar, descriptografar e gerenciar chaves. Abaixo, estão os principais comandos:
+
+- **Encrypt (`aws kms encrypt`)**: Criptografa dados usando uma chave KMS, permitindo a movimentação de dados criptografados entre regiões da AWS.
+
+- **Decrypt (`aws kms decrypt`)**: Descriptografa dados cifrados por uma chave KMS.
+
+- **Re-encrypt (`aws kms re-encrypt`)**: Descriptografa e recriptografa dados dentro do AWS KMS, permitindo a troca de chave KMS ou alteração no contexto de criptografia.
+
+### 12.5. ACM: AWS Certificate Manager
+
+Permite criar, armazenar e renovar certificados SSL/TLS X.509 para proteger a comunicação em aplicações web. Ele suporta certificados para domínios únicos, múltiplos domínios e wildcards. Integra-se com diversos serviços da AWS, como _Elastic Load Balancing_, _Amazon CloudFront_, _Elastic Beanstalk_, _Nitro Enclaves_ e _CloudFormation_.
+
+Os certificados públicos são assinados pela **Autoridade Certificadora pública da AWS**. É possível criar uma Autoridade Certificadora Privada (Private CA) no ACM para emitir certificados privados ou importar certificados de terceiros.
+
+### 12.6. Systems Manager
+
+Ferramenta abrangente para gerenciar recursos da AWS, como _Amazon EC2_, _Amazon S3_ e _Amazon RDS_. Ele ajuda na automação e gerenciamento operacional de sistemas, tornando a administração de infraestrutura mais eficiente.
+
+- **Automation**: Permite automatizar tarefas de operações, como implantações e atualizações, com workflows configuráveis.
+
+- **Run Command**: Executa scripts e comandos em instâncias do EC2 e servidores locais sem precisar acessar diretamente o terminal.
+
+- **Inventory**: Coleta e organiza informações detalhadas sobre recursos da AWS, ajudando no gerenciamento e auditoria.
+
+- **Patch Manager**: Automatiza a aplicação de patches de segurança e atualizações em instâncias EC2, garantindo conformidade e segurança.
+
+- **Session Manager**: Fornece acesso seguro e auditável a instâncias EC2, sem a necessidade de abrir portas ou gerenciar chaves SSH.
+
+- **Parameter Store**: Armazena e gerencia dados sensíveis, como senhas e chaves de API, com criptografia integrada para segurança. Permite armazenar valores como texto simples ou criptografado e acessá-los por meio de um nome único. `Não realiza rotação automática de chaves`.
+
+#### 12.6.1. AppConfig
+
+Funcionalidade do AWS Systems Manager que permite criar, gerenciar e implantar configurações de aplicativos de maneira segura e eficiente. As configurações são coleções de definições que influenciam o comportamento de um aplicativo, e podem ser usadas em ambientes como _Amazon EC2_, _AWS Lambda_, dispositivos móveis e IoT. Ele ajuda a reduzir erros durante alterações de configuração e torna a implantação mais ágil, garantindo que as aplicações estejam sempre sincronizadas com as mudanças.
+
+As configurações podem ser armazenadas em diversos locais, como _Amazon S3_, _AWS AppConfig_, _Systems Manager Parameter Store_, _Systems Manager Document Store_, e repositórios de código como _Bitbucket_, _GitHub_ e _CodeCommit_ (via _CodePipeline_). O AppConfig oferece validação de dados de configuração para garantir que estejam corretos, usando validadores _JSON Schema_ ou _AWS Lambda_. As implantações podem ser feitas de forma linear ou exponencial, com opções de estratégias como `AppConfig.AllAtOnce` ou `AppConfig.Linear50PercentEvery30Seconds` para um controle mais preciso sobre a distribuição das configurações.
+
+#### 12.6.2. Secrets Manager
+
+Armazena e rotaciona segredos de forma segura, sem necessidade de implantação de código. Ele oferece rotação automática para credenciais de serviços como _Amazon RDS_ (_MySQL_, _PostgreSQL_ e _Aurora_), _Amazon Redshift_ e _Amazon DocumentDB_. Para outros serviços, é possível criar uma função _AWS Lambda_ personalizada para gerenciar a rotação automática dos segredos.
+
+![](assets/2024-11-06-23-15-48.png)
+
+**Secrets Manager $\times$ SSM Parameter Store** \
+![](assets/2024-11-06-23-16-53.png)
+
+### 12.7. Cognito
+
+O Amazon Cognito oferece soluções para autenticação e gerenciamento de usuários em aplicativos.
+
+O **Cognito User Pool** é utilizado para gerenciar e autenticar usuários diretamente, permitindo o registro, login e recuperação de senha.
+
+![](assets/2024-11-06-23-21-24.png)
+
+O **Cognito Identity Pool** permite o acesso a recursos AWS para usuários autenticados e não autenticados, criando identidades para que possam acessar serviços como _S3_, _DynamoDB_ e outros.
+
+![](assets/2024-11-06-23-21-50.png)
+
+Ambos podem ser integrados a provedores de identidade como Facebook, Google e SAML.
