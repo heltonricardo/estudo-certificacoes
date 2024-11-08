@@ -57,9 +57,10 @@
     - [4.2.4. Route 53 DNS](#424-route-53-dns)
 - [5. IaC e PaaS](#5-iac-e-paas)
   - [5.1. IaC: Infrastructure as Code com CloudFormation](#51-iac-infrastructure-as-code-com-cloudformation)
-    - [5.1.1. CloudFormation Template](#511-cloudformation-template)
-      - [5.1.1.1. Funções Intrínsecas](#5111-fun%C3%A7%C3%B5es-intr%C3%ADnsecas)
-      - [5.1.1.2. Seções](#5112-se%C3%A7%C3%B5es)
+    - [5.1.1. Principais componentes](#511-principais-componentes)
+    - [5.1.2. Template](#512-template)
+      - [5.1.2.1. Funções Intrínsecas](#5121-fun%C3%A7%C3%B5es-intr%C3%ADnsecas)
+      - [5.1.2.2. Seções](#5122-se%C3%A7%C3%B5es)
   - [5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk](#52-paas-platform-as-a-service-com-aws-elastic-beanstalk)
     - [5.2.1. Configurações avançadas e SSL/TLS](#521-configura%C3%A7%C3%B5es-avan%C3%A7adas-e-ssltls)
 - [6. Lambda e SAM](#6-lambda-e-sam)
@@ -113,7 +114,7 @@
     - [8.1.2. DLQ: Dead Letter Queue](#812-dlq-dead-letter-queue)
     - [8.1.3. Delay Queue](#813-delay-queue)
     - [8.1.4. Visibility Timeout](#814-visibility-timeout)
-    - [8.1.5. SQS Long Polling x Short Polling](#815-sqs-long-polling-x-short-polling)
+    - [8.1.5. Short Polling  Long Polling](#815-short-polling--long-polling)
   - [8.2. SNS: Simple Notification Service](#82-sns-simple-notification-service)
     - [8.2.1. Fan-Out](#821-fan-out)
   - [8.3. Step Functions](#83-step-functions)
@@ -126,7 +127,7 @@
     - [8.5.5. Implantações e Estágios](#855-implanta%C3%A7%C3%B5es-e-est%C3%A1gios)
     - [8.5.6. Caching](#856-caching)
     - [8.5.7. Throttling](#857-throttling)
-    - [8.5.8. Planos de Uso e Chaves de API](#858-planos-de-uso-e-chaves-de-api)
+    - [8.5.8. Planos de uso e chaves de API](#858-planos-de-uso-e-chaves-de-api)
     - [8.5.9. Controle de acesso](#859-controle-de-acesso)
       - [8.5.9.1. Políticas Baseadas em Recursos](#8591-pol%C3%ADticas-baseadas-em-recursos)
       - [8.5.9.2. Lambda Authorizer](#8592-lambda-authorizer)
@@ -207,6 +208,7 @@
     - [12.6.1. AppConfig](#1261-appconfig)
     - [12.6.2. Secrets Manager](#1262-secrets-manager)
   - [12.7. Cognito](#127-cognito)
+- [13. Resumo](#13-resumo)
 
 <!-- /TOC -->
 
@@ -340,7 +342,7 @@ São dois firewalls usados para proteger o tráfego na VPC:
 
 Serviço que oferece servidores virtuais. A AWS gerencia os hosts físicos, enquanto nós gerenciamos as instâncias, que podem executar Windows, Linux ou macOS.
 
-O EC2 é um tipo de **IaaS** (Infrastructure as a Service), permitindo que você escolha atributos de hardware para cada instância e instale suas aplicações. Cada instância opera dentro de uma _VPC (Virtual Private Cloud)_.
+É um tipo de **IaaS** (Infrastructure as a Service), permitindo que você escolha atributos de hardware para cada instância e instale suas aplicações. Cada instância opera dentro de uma _VPC (Virtual Private Cloud)_.
 
 No Amazon EC2, as instâncias operam com três tipos de endereços IP:
 
@@ -370,7 +372,7 @@ Os backups do EBS são chamados de snapshots, que são armazenados no S3 (um ser
 
 #### 3.2.3. EFS: Elastic File System
 
-O EFS é um sistema de arquivos compartilhado que permite que múltiplas instâncias EC2 se conectem a ele, mesmo em diferentes _Zonas de Disponibilidade (AZs)_. As instâncias se conectam a um ponto de montagem na AZ, utilizando o protocolo NFS (Network File System), que é **compatível apenas com Linux**.
+Sistema de arquivos compartilhado que permite que múltiplas instâncias EC2 se conectem a ele, mesmo em diferentes _Zonas de Disponibilidade (AZs)_. As instâncias se conectam a um ponto de montagem na AZ, utilizando o protocolo NFS (Network File System), que é **compatível apenas com Linux**.
 
 ![](assets/2024-10-24-22-31-00.png)
 
@@ -450,7 +452,7 @@ Oferece alta disponibilidade e tolerância a falhas, permitindo que múltiplas i
 
 ### 4.1. S3: Simple Storage Service
 
-O Amazon S3 é um serviço de armazenamento de objetos, onde cada bucket funciona como um contêiner para guardar arquivos de qualquer tipo, com capacidade para milhões de objetos. Com ótimo custo-benefício, ele permite gerenciar objetos por meio de métodos HTTP como GET, POST e DELETE e pode ser acessado globalmente pela internet via HTTPS.
+Serviço de armazenamento de objetos, onde cada bucket funciona como um contêiner para guardar arquivos de qualquer tipo, com capacidade para milhões de objetos. Com ótimo custo-benefício, ele permite gerenciar objetos por meio de métodos HTTP como GET, POST e DELETE e pode ser acessado globalmente pela internet via HTTPS.
 
 Formas de acessar um objeto (key) em um bucket: \
 ![](assets/2024-10-28-16-17-31.png)
@@ -578,48 +580,48 @@ Entre os recursos estão os **health checks**, que monitoram a saúde dos recurs
 
 ### 5.1. IaC: Infrastructure as Code com CloudFormation
 
-**IaC** com o **AWS CloudFormation** permite implementar a infraestrutura usando código, proporcionando uma maneira eficiente e padronizada de gerenciar recursos da AWS. Com CloudFormation, podemos definir a estrutura da infraestrutura em arquivos de texto no formato **JSON** ou **YAML**, que são então usados para criar e gerenciar os recursos de forma consistente e reutilizável.
+**IaC** com o **AWS CloudFormation** permite implementar a infraestrutura usando código, proporcionando uma maneira eficiente e padronizada de gerenciar recursos da AWS. Podemos definir a estrutura da infraestrutura em arquivos de texto no formato **JSON** ou **YAML**, que então são usados para criar e gerenciar os recursos de forma consistente e reutilizável.
 
 ![](assets/2024-10-29-22-04-33.png)
 
-Principais componentes do CloudFormation:
+#### 5.1.1. Principais componentes
 
 - **Templates**: Arquivos JSON ou YAML que contêm as instruções para construir o ambiente da AWS.
 - **Stacks**: A implementação completa do ambiente descrito por um template, gerenciada como uma única unidade para criação, atualização ou exclusão de recursos.
 - **StackSets**: Expande a funcionalidade dos stacks permitindo a criação, atualização ou exclusão de stacks em várias contas e regiões com uma única operação.
 - **Change Sets**: Um resumo das mudanças propostas em um stack, permitindo visualizar como essas alterações afetarão os recursos existentes antes de sua implementação.
 
-#### 5.1.1. CloudFormation Template
+#### 5.1.2. Template
 
-O **Template** é um arquivo em **YAML** ou **JSON** que descreve o estado final da infraestrutura que você está provisionando ou alterando. Após criar o template, ele pode ser enviado diretamente para o CloudFormation ou armazenado no **Amazon S3**.
+O **Template** é um arquivo em **YAML** ou **JSON** que descreve o estado final da infraestrutura que você está provisionando ou alterando. Após criado, ele pode ser enviado diretamente para o CloudFormation ou armazenado no _Amazon S3_.
 
 O CloudFormation lê o template e executa as chamadas de API necessárias em seu nome, criando os recursos definidos. Esses recursos gerados são conhecidos como um **Stack**. No template, você utiliza **IDs Lógicos** para referenciar os recursos internamente, enquanto os **IDs Físicos** identificam os recursos fora do CloudFormation, disponíveis apenas após sua criação.
 
-##### 5.1.1.1. Funções Intrínsecas
+##### 5.1.2.1. Funções Intrínsecas
 
-O AWS CloudFormation oferece diversas funções integradas que facilitam a gestão dos seus stacks. Essas funções permitem atribuir valores a propriedades que só estão disponíveis em tempo de execução, tornando os templates mais dinâmicos e adaptáveis.
+O AWS CloudFormation oferece diversas funções integradas que facilitam a gestão dos seus stacks. Essas funções permitem atribuir valores a propriedades que só estão disponíveis em tempo de execução, tornando os templates mais dinâmicos e adaptáveis:
 
-- **Ref**: Retorna o valor do parâmetro ou recurso especificado. Se você utilizar o nome lógico de um parâmetro, obterá seu valor; se usar o nome lógico de um recurso, receberá um valor que geralmente se refere ao ID físico desse recurso.
+- **`Ref`**: Retorna o valor do parâmetro ou recurso especificado. Se você utilizar o nome lógico de um parâmetro, obterá seu valor; se usar o nome lógico de um recurso, receberá um valor que geralmente se refere ao ID físico desse recurso.
 
-- **Fn::GetAtt**: Retorna o valor de um atributo de um recurso definido no template, permitindo acessar informações específicas sobre os recursos.
+- **`Fn::GetAtt`**: Retorna o valor de um atributo de um recurso definido no template, permitindo acessar informações específicas sobre os recursos.
 
-- **Fn::FindInMap**: Recupera um valor correspondente a chaves em um mapa de duas camadas definido na seção **Mappings**. Isso é útil para gerenciar valores que variam com base em condições, como regiões ou ambientes.
+- **`Fn::FindInMap`**: Recupera um valor correspondente a chaves em um mapa de duas camadas definido na seção **Mappings**. Isso é útil para gerenciar valores que variam com base em condições, como regiões ou ambientes.
 
-##### 5.1.1.2. Seções
+##### 5.1.2.2. Seções
 
 Os templates do AWS CloudFormation são organizados em seções que definem como os recursos serão provisionados e gerenciados:
 
-- **Resources** (obrigatória): Declara os recursos da AWS que você deseja incluir no stack, como instâncias do Amazon EC2 ou buckets do Amazon S3. Os recursos podem se referenciar mutuamente, permitindo dependências entre eles.
+- **Resources** (obrigatória): Declara os recursos da AWS que você deseja incluir no stack, como instâncias do _Amazon EC2_ ou buckets do _Amazon S3_. Os recursos podem se referenciar mutuamente, permitindo dependências entre eles.
 
 - **Parameters** (opcional): Permite a personalização do template, possibilitando a entrada de valores personalizados toda vez que um stack é criado ou atualizado. Isso é útil para a reutilização de templates.
 
 - **Mappings** (opcional): Permite criar correspondências entre chaves e um conjunto de valores nomeados, facilitando a adaptação do template a diferentes ambientes ou condições.
 
-- **Outputs** (opcional): Declara valores que podem ser importados para outros stacks, retornados em respostas ou visualizados no console do AWS CloudFormation.
+- **Outputs** (opcional): Declara valores que podem ser importados para outros stacks, retornados em respostas ou visualizados no console do _AWS CloudFormation_.
 
 - **Conditions** (opcional): Define as circunstâncias sob as quais os recursos são criados ou configurados, permitindo um provisionamento mais dinâmico.
 
-- **Transforms** (opcional): Especifica macros que o CloudFormation usa para processar o template, permitindo referenciar código adicional armazenado no S3.
+- **Transforms** (opcional): Especifica macros que o _CloudFormation_ usa para processar o template, permitindo referenciar código adicional armazenado no S3.
 
 **Exemplo de Código**
 
@@ -631,7 +633,7 @@ Parameters:
   InstanceType:
     Type: String
     Default: t2.micro
-    Description: Tipo de instância EC2 a ser criado
+    Description: Tipo de instância EC2 a ser criada
 
 Mappings:
   RegionMap:
@@ -655,17 +657,17 @@ Outputs:
 
 ### 5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk
 
-O **Elastic Beanstalk** é uma solução de PaaS que facilita o gerenciamento de aplicações na nuvem. Ele dá acesso ao sistema operacional e suporta diversas linguagens e ambientes. Utiliza serviços fundamentais da AWS, como EC2, ECS, Auto Scaling e Elastic Load Balancing, garantindo alta disponibilidade e desempenho.
+O **Elastic Beanstalk** é uma solução de PaaS que facilita o gerenciamento de aplicações na nuvem. Ele dá acesso ao sistema operacional e suporta diversas linguagens e ambientes. Utiliza serviços fundamentais da AWS, como _EC2_, _ECS_, _Auto Scaling_ e _Elastic Load Balancing_, garantindo alta disponibilidade e desempenho.
 
-Também oferece uma interface de usuário (UI) para monitorar e gerenciar a saúde das aplicações, além de atualizações gerenciadas da plataforma, que garantem que você esteja sempre usando as versões mais recentes do software e correções de segurança.
+Também oferece uma interface de usuário para monitorar e gerenciar a saúde das aplicações, além de atualizações gerenciadas da plataforma, que garantem que você esteja sempre usando as versões mais recentes do software e correções de segurança.
 
 **Estruturas do Elastic Beanstalk**
 
 - **Aplicações**: Contêm ambientes, configurações de ambiente e versões de aplicação. É possível ter várias versões de uma aplicação armazenadas dentro dela.
 
-- **Versão da Aplicação**: Refere-se a um código implantável específico, que normalmente aponta para um bucket do Amazon S3 contendo o código.
+- **Versão da Aplicação**: Refere-se a um código implantável específico, que normalmente aponta para um bucket do _Amazon S3_ contendo o código.
 
-- **Ambientes**: São versões de aplicação implantadas em recursos da AWS, configurados e provisionados pelo Elastic Beanstalk. O ambiente abrange todos os recursos criados, não se limitando apenas à instância EC2 com o código carregado.
+- **Ambientes**: São versões de aplicação implantadas em recursos da AWS, configurados e provisionados pelo _Elastic Beanstalk_. O ambiente abrange todos os recursos criados, não se limitando apenas à instância EC2 com o código carregado.
 
 ![](assets/2024-10-29-22-59-37.png)
 
@@ -673,23 +675,23 @@ Dentro do Beanstalk existem dois tipos de componentes: **Web Servers** e **Worke
 
 > **Web Servers** são aplicações padrão que escutam e processam requisições HTTP, geralmente na porta 80, permitindo que os usuários acessem o conteúdo de forma rápida e eficiente.
 >
-> **Workers** são aplicações especializadas que executam tarefas de processamento em segundo plano, ouvindo mensagens em uma fila do Amazon SQS. Eles são ideais para lidar com tarefas de longa duração, permitindo que as aplicações web permaneçam responsivas enquanto processam trabalhos intensivos de forma assíncrona.
+> **Workers** são aplicações especializadas que executam tarefas de processamento em segundo plano, ouvindo mensagens em uma fila do _Amazon SQS_. Eles são ideais para lidar com tarefas de longa duração, permitindo que as aplicações web permaneçam responsivas enquanto processam trabalhos intensivos de forma assíncrona.
 >
 > ![](assets/2024-10-29-23-03-37.png)
 
 #### 5.2.1. Configurações avançadas e SSL/TLS
 
-O AWS Elastic Beanstalk permite personalizar seu ambiente usando arquivos de configuração localizados em um diretório chamado `.ebextensions` dentro do código-fonte da aplicação. Esses arquivos têm a extensão `.config` e são escritos em formato YAML ou JSON.
+O _AWS Elastic Beanstalk_ permite personalizar seu ambiente usando arquivos de configuração localizados em um diretório chamado `.ebextensions` dentro do código-fonte da aplicação. Esses arquivos têm a extensão `.config` e são escritos em formato YAML ou JSON.
 
-Ele também permite a configuração de certificados SSL/TLS para o Elastic Load Balancer do ambiente, garantindo conexões seguras entre os clientes e o load balancer.
+Ele também permite a configuração de certificados SSL/TLS para o _Elastic Load Balancer_ do ambiente, garantindo conexões seguras entre os clientes e o load balancer.
 
 ## 6. Lambda e SAM
 
 ### 6.1. Arquitetura Orientada a Eventos e Serverless Services
 
-**Arquitetura Orientada a Eventos** é um padrão arquitetônico em que os serviços respondem a eventos de forma assíncrona, permitindo que as operações sejam desencadeadas apenas quando ocorrem eventos específicos, como mudanças de dados ou ações do usuário. Isso torna a comunicação entre serviços mais eficiente e desacoplada.
+**Arquitetura Orientada a Eventos** é um padrão arquitetônico em que os serviços respondem a eventos de forma assíncrona, permitindo que as operações sejam desencadeadas apenas quando ocorrem eventos específicos, como mudanças de dados ou ações do usuário.
 
-**Serverless Services** significa que o usuário não gerencia os servidores subjacentes. Esse modelo oferece serviços de computação, armazenamento e bancos de dados nos quais a infraestrutura é completamente gerenciada pela AWS, como é o caso do S3. Com Serverless, não há instâncias para gerenciar, e você não precisa provisionar hardware ou sistemas operacionais. Pode reduzir custos por funcionar de forma altamente otimizada e sob demanda.
+**Serverless Services** significa que o usuário não gerencia os servidores subjacentes. Esse modelo oferece serviços de computação, armazenamento e bancos de dados nos quais a infraestrutura é completamente gerenciada pela AWS, como é o caso do S3. Com Serverless, não há instâncias para gerenciar, e você não precisa provisionar hardware ou sistemas operacionais. Reduz custos por funcionar de forma altamente otimizada e sob demanda.
 
 > **Exemplo**
 >
@@ -699,13 +701,13 @@ Ele também permite a configuração de certificados SSL/TLS para o Elastic Load
 >
 > 2. A função Lambda processa o arquivo e o transfere para outro bucket S3. Simultaneamente, ela pode enviar uma mensagem para uma fila SQS, onde outras funções Lambda podem monitorar e identificar novos itens a serem processados.
 >
-> 3. A fila SQS pode acionar automaticamente outra função Lambda que, ao detectar um novo evento, grava os dados em uma tabela DynamoDB e envia uma notificação por e-mail via SNS.
+> 3. A fila SQS pode acionar automaticamente outra função Lambda que, ao detectar um novo evento, grava os dados em uma tabela _DynamoDB_ e envia uma notificação por e-mail via SNS.
 
 ### 6.2. AWS Lambda
 
-AWS Lambda é um serviço serverless que permite executar código em resposta a eventos. O desenvolvedor cria o código e define os acionadores, que podem ser outros serviços, como CLI, API, SDKs ou triggers de eventos. Também suporta execução agendada e possui um limite de duração de 15 minutos; para execuções mais longas, considere EC2. O serviço gerencia automaticamente o escalonamento e o balanceamento, podendo instanciar várias execuções simultâneas. O modelo de pagamento é baseado apenas no tempo de execução, o que o torna uma opção econômica.
+Serviço serverless que permite executar código em resposta a eventos. O desenvolvedor cria o código e define os acionadores, que podem ser outros serviços, como CLI, API, SDKs ou triggers de eventos. Também suporta execução agendada e possui um limite de duração de 15 minutos; para execuções mais longas, considere usar _EC2_. O serviço gerencia automaticamente o escalonamento e o balanceamento, podendo instanciar várias execuções simultâneas. O modelo de pagamento é baseado apenas no tempo de execução, o que o torna uma opção econômica.
 
-> Funções Lambda também podem ser invocadas diretamente pelo console Lambda, por um endpoint HTTP(S) dedicado, pela API Lambda, CLI AWS, AWS SDKs e Toolkits
+> Funções Lambda também podem ser invocadas diretamente pelo console Lambda, por um endpoint HTTP(S) dedicado, pela API Lambda, CLI AWS, AWS SDKs e Toolkits.
 
 #### 6.2.1. Modos de execução
 
@@ -713,20 +715,22 @@ AWS Lambda é um serviço serverless que permite executar código em resposta a 
 
 - **Assíncrono**: o evento é enfileirado, e a resposta é retornada imediatamente ao cliente. O AWS Lambda tenta processar o evento até três vezes e gerencia as tentativas de forma automática. Para invocar uma função de maneira assíncrona, basta definir o parâmetro de tipo de invocação como `Event`.
 
-- **Event Source Mapping**: permite à função Lambda fazer polling em uma origem de eventos, processando registros em ordem (exceto no caso de SQS standard). Isso facilita o processamento de itens de streams ou filas, como Amazon SQS, Kinesis e DynamoDB. O mapeamento de origem de eventos utiliza permissões no papel de execução da função para gerenciar itens na fonte de eventos.
+- **Event Source Mapping**: permite à função Lambda fazer polling em uma origem de eventos, processando registros em ordem (exceto no caso de SQS standard). Isso facilita o processamento de itens de streams ou filas, como _Amazon SQS_, _Kinesis_ e _DynamoDB_. O mapeamento de origem de eventos utiliza permissões no papel de execução da função para gerenciar itens na fonte de eventos.
 
 #### 6.2.2. Versões
 
-O AWS Lambda permite o uso de **versões** para gerenciar diferentes iterações de suas funções. Cada versão contém informações essenciais, como o código da função e suas dependências. Além disso, cada versão possui um ARN (Amazon Resource Name) exclusivo, facilitando a identificação e o gerenciamento das funções em ambientes distintos, como produção, homologação e desenvolvimento.
+O AWS Lambda permite o uso de **versões** para gerenciar diferentes iterações de suas funções. Cada versão contém informações essenciais, como o código da função e suas dependências. Além disso, cada versão possui um **ARN (Amazon Resource Name)** exclusivo, facilitando a identificação e o gerenciamento das funções em ambientes distintos, como produção, homologação e desenvolvimento.
 
 Ao trabalhar com a versão `$LATEST`, você está lidando com a versão mais recente do código, chamada quando uma versão não é especificada. Quando uma versão está pronta para publicação, um número é atribuído a ela, começando em 1 e aumentando sequencialmente para cada nova versão. Essas versões são imutáveis, ou seja, não podem ser alteradas após a publicação. Apenas a `$LATEST` pode ser alterada até que se transforme em uma versão numerada.
 
 #### 6.2.3. Aliases
 
-São **ponteiros** que permitem referenciar versões específicas de uma função, oferecendo flexibilidade e controle na invocação. Com um alias, você pode chamar uma função sem precisar saber exatamente qual versão está em uso. São mutáveis, ou seja, você pode alterá-los conforme necessário, e possuem ARNs estáticos que garantem uma referência constante, independentemente da versão que apontam.
+São **ponteiros** que permitem referenciar versões específicas de uma função, oferecendo flexibilidade e controle na invocação. Com um alias, você pode chamar uma função sem precisar saber exatamente qual versão está em uso. São mutáveis, ou seja, você pode alterá-los conforme necessário, e possuem **ARNs** estáticos que garantem uma referência constante, independentemente da versão que apontam.
 
 Possibilitam a configuração de implantações do tipo **blue/green**, permitindo dividir o tráfego entre duas versões diferentes. Isso permite que você teste novas funcionalidades com um número limitado de usuários antes de um lançamento completo.
 
+> [!CAUTION]
+>
 > O alias não pode apontar para a versão **$LATEST**. Você deve ter uma versão previamente publicada.
 
 ![](assets/2024-10-30-23-29-30.png)
@@ -735,9 +739,9 @@ Possibilitam a configuração de implantações do tipo **blue/green**, permitin
 
 É o processo de enviar o código da função e suas dependências para execução na plataforma. Existem duas opções para empacotar e implantar funções:
 
-- **Imagens de contêiner** incluem o sistema operacional base, o runtime, extensões do Lambda e o código da aplicação com suas dependências. Elas são carregadas no Amazon Elastic Container Registry (ECR) e, em seguida, implantadas na função Lambda. Essa abordagem oferece flexibilidade, permitindo usar qualquer linguagem ou biblioteca que funcione em um contêiner.
+- **Imagens de contêiner** incluem o sistema operacional base, o runtime, extensões do Lambda e o código da aplicação com suas dependências. Elas são carregadas no _Amazon Elastic Container Registry (ECR)_ e, em seguida, implantadas na função Lambda. Essa abordagem oferece flexibilidade, permitindo usar qualquer linguagem ou biblioteca que funcione em um contêiner.
 
-- **Arquivos .zip** contêm o código da aplicação e suas dependências, podendo ser enviados do seu computador ou diretamente do Amazon S3. Há limites de tamanho: 50 MB para arquivos compactados, 250 MB quando descompactados e 3 MB ao usar o editor do console. Para criar uma função Lambda usando um pacote .zip, é necessário armazenar o arquivo no S3 na mesma região onde o CloudFormation está sendo executado.
+- **Arquivos .zip** contêm o código da aplicação e suas dependências, podendo ser enviados do seu computador ou diretamente do Amazon S3. Há limites de tamanho: 50 MB para arquivos compactados, 250 MB quando descompactados e 3 MB ao usar o editor do console. Para criar uma função Lambda usando um pacote .zip, é necessário armazenar o arquivo no S3 na mesma região onde o _CloudFormation_ está sendo executado.
 
 #### 6.2.5. Layers
 
@@ -747,7 +751,7 @@ Uma função Lambda pode usar até cinco camadas simultaneamente, que são extra
 
 #### 6.2.6. Variáveis de Ambiente
 
-Permitem que você passe configurações e parâmetros para suas funções sem precisar modificar o código. Elas são úteis para gerenciar dados sensíveis, como credenciais, URLs de APIs e configurações específicas do ambiente (por exemplo, desenvolvimento ou produção). As variáveis são acessíveis dentro da função durante a execução, permitindo que você ajuste o comportamento da aplicação dinamicamente. Podem ser criptografadas usando o AWS Key Management Service (KMS).
+Permitem que você passe configurações e parâmetros para suas funções sem precisar modificar o código. Elas são úteis para gerenciar dados sensíveis, como credenciais, URLs de APIs e configurações específicas do ambiente (por exemplo, desenvolvimento ou produção). As variáveis são acessíveis dentro da função durante a execução, permitindo que você ajuste o comportamento da aplicação dinamicamente. Podem ser criptografadas usando o _AWS Key Management Service (KMS)_.
 
 #### 6.2.7. Limites
 
@@ -755,7 +759,7 @@ Permitem que você passe configurações e parâmetros para suas funções sem p
 
 #### 6.2.8. Destinations e DLQ: Dead-Letter Queues
 
-Permitem gerenciar o fluxo de eventos e o tratamento de falhas durante invocações assíncronas. Quando uma função Lambda é invocada, você pode enviar registros de execução para um destino específico, como uma fila SQS, um tópico SNS, outra função Lambda ou um barramento de eventos do EventBridge. Isso proporciona uma forma de monitorar e registrar o sucesso ou a falha da invocação para tomar ações apropriadas com base nos resultados.
+Permitem gerenciar o fluxo de eventos e o tratamento de falhas durante invocações assíncronas. Quando uma função Lambda é invocada, você pode enviar registros de execução para um destino específico, como uma fila SQS, um tópico SNS, outra função Lambda ou um barramento de eventos do _EventBridge_. Isso proporciona uma forma de monitorar e registrar o sucesso ou a falha da invocação para tomar ações apropriadas com base nos resultados.
 
 Os registros de execução são enviados em formato JSON e incluem informações como versão, timestamp e contexto da requisição. Para casos em que eventos não possam ser processados, as **DLQs** armazenam essas ocorrências, possibilitando que você as analise posteriormente. É possível configurar o número de tentativas de reprocessamento antes que um evento seja enviado para a **DLQ**.
 
@@ -767,11 +771,11 @@ Ajudam a gerenciar o limite de execuções simultâneas, especialmente em cenár
 
 - **Reserved Concurrency** garante um número mínimo de execuções simultâneas, evitando problemas de disponibilidade. Definir a concorrência reservada para zero efetivamente bloqueia a função, impedindo qualquer processamento até que o limite seja removido.
 
-- **Provisioned Concurrency** garante que instâncias da função sejam mantidas prontas para atender a demandas imediatas, reduzindo a latência. Ela permite que a função escale com a mesma capacidade de burst da concorrência padrão, com a possibilidade de escalar automaticamente via Application Auto Scaling para lidar com aumentos repentinos de tráfego.
+- **Provisioned Concurrency** garante que instâncias da função sejam mantidas prontas para atender a demandas imediatas, reduzindo a latência. Ela permite que a função escale com a mesma capacidade de burst da concorrência padrão, com a possibilidade de escalar automaticamente via _Application Auto Scaling_ para lidar com aumentos repentinos de tráfego.
 
 #### 6.2.10. Monitoramento, Logging, e Tracing
 
-O **monitoramento e logging** usam o Amazon CloudWatch para registrar métricas de desempenho e armazenar logs de execução.
+O **monitoramento e logging** usam o _Amazon CloudWatch_ para registrar métricas de desempenho e armazenar logs de execução.
 
 Para **tracing e análise de desempenho**, o AWS X-Ray coleta e visualiza dados sobre as execuções, tornando possível mapear os componentes da aplicação, identificar gargalos e depurar erros.
 
@@ -787,15 +791,17 @@ Além disso, o **Application Load Balancer (ALB)** permite que funções Lambda 
 
 #### 6.2.12. Signer
 
-Serviço de assinatura de código totalmente gerenciado que garante a integridade e a confiabilidade do código executado nas funções Lambda. Com ele, o código é validado por meio de uma assinatura digital, o que impede a execução de código não confiável. O Signer permite a criação de pacotes assinados digitalmente para implantação, e políticas do IAM podem ser configuradas para exigir que as funções Lambda só sejam criadas se tiverem a assinatura ativada. Em caso de mudanças na equipe, é possível revogar todas as versões do perfil de assinatura, garantindo que o código antigo não possa ser executado.
+Serviço de assinatura de código totalmente gerenciado que garante a integridade e a confiabilidade do código executado nas funções Lambda. Com ele, o código é validado por meio de uma assinatura digital, o que impede a execução de código não confiável. Permite a criação de pacotes assinados digitalmente para implantação, e políticas do IAM podem ser configuradas para exigir que as funções Lambda só sejam criadas se tiverem a assinatura ativada.
+
+> Em caso de mudanças na equipe, é possível revogar todas as versões do perfil de assinatura, garantindo que o código antigo não possa ser executado.
 
 ### 6.3. SAM: Serverless Application Model
 
 Oferece uma sintaxe abreviada para configurar funções, APIs, tabelas de banco de dados e mapeamentos de eventos. Você define todos os recursos de uma aplicação serverless em um único arquivo de configuração YAML, conhecido como **template SAM**. Oferece recursos como:
 
-- `AWS::Serverless::Function` para Lambda
-- `AWS::Serverless::Api` para API Gateway
-- `AWS::Serverless::SimpleTable` para DynamoDB.
+- `AWS::Serverless::Function` para _Lambda_
+- `AWS::Serverless::Api` para _API Gateway_
+- `AWS::Serverless::SimpleTable` para _DynamoDB_.
 
 > **Template SAM**: \
 > ![](assets/2024-10-31-16-05-47.png)
@@ -810,7 +816,7 @@ Oferece uma sintaxe abreviada para configurar funções, APIs, tabelas de banco 
 
 ## 7. Amazon DynamoDB
 
-Serviço de banco de dados NoSQL serverless totalmente gerenciado, que opera como um armazenamento de chave/valor e de documentos. O dimensionamento é horizontal, aumentando a taxa de transferência à medida que a demanda cresce, com dados armazenados em partições e replicados em várias Zonas de Disponibilidade.
+Serviço de banco de dados **NoSQL** serverless totalmente gerenciado, que opera como um armazenamento de chave/valor e de documentos. O dimensionamento é horizontal, aumentando a taxa de transferência à medida que a demanda cresce, com dados armazenados em partições e replicados em várias Zonas de Disponibilidade.
 
 Oferece baixa latência, geralmente na faixa de milissegundos, e pode atingir latências em microssegundos com o uso do **DynamoDB Accelerator (DAX)**. O recurso de _Tabelas Globais_ permite a sincronização de tabelas entre diferentes regiões.
 
@@ -840,7 +846,7 @@ Gerenciam a configuração e o estado das tabelas e índices.
 
 #### 7.3.2. Data Plane
 
-Lidam com a manipulação de dados dentro das tabelas. As operações podem ser realizadas usando PartiQL (compatível com SQL) ou as APIs clássicas CRUD do DynamoDB.
+Lidam com a manipulação de dados dentro das tabelas. As operações podem ser realizadas usando PartiQL (compatível com SQL) ou as APIs clássicas **CRUD** do _DynamoDB_.
 
 - **PutItem**: Escreve um único item em uma tabela.
 - **BatchWriteItem**: Escreve até 25 itens em uma tabela.
@@ -885,9 +891,7 @@ Representam múltiplos valores escalares.
 
 ### 7.6. Controle de acesso
 
-**Controle de Acesso no DynamoDB**
-
-O controle de acesso e a autenticação no DynamoDB são gerenciados exclusivamente pelo AWS Identity and Access Management (IAM). As políticas baseadas em identidade permitem:
+O controle de acesso e a autenticação no _DynamoDB_ são gerenciados exclusivamente pelo _AWS Identity and Access Management (IAM)_. As políticas baseadas em identidade permitem:
 
 - **Anexar políticas de permissão** a usuários ou grupos em sua conta.
 - **Anexar políticas de permissão** a roles para conceder permissões entre contas.
@@ -898,7 +902,7 @@ O controle de acesso e a autenticação no DynamoDB são gerenciados exclusivame
 
 #### 7.7.1. Chave de Partição
 
-Atributo exclusivo (como um ID de usuário) que determina a localização física dos dados no DynamoDB. O valor dessa chave é processado por uma função hash interna, garantindo que cada item tenha um valor único. Se a chave de partição for utilizada como chave primária, nenhum item pode compartilhar o mesmo valor.
+Atributo exclusivo (como um ID de usuário) que determina a localização física dos dados no _DynamoDB_. O valor dessa chave é processado por uma função hash interna, garantindo que cada item tenha um valor único. Se a chave de partição for utilizada como chave primária, nenhum outro item pode compartilhar o mesmo valor.
 
 #### 7.7.2. Chave de Ordenação
 
@@ -910,7 +914,11 @@ A chave composta combina uma chave de partição e uma chave de ordenação. Iss
 
 #### 7.7.4. Melhores práticas
 
-Para otimizar a performance, é crucial garantir uma distribuição uniforme do _throughput_ (unidades de capacidade de leitura e gravação) entre as partições. Se o acesso a um único valor de chave de partição ultrapassar _3000 RCU_ ou _1000 WCU_, as solicitações podem ser limitadas. Isso pode ocorrer devido à escolha inadequada da chave de partição ou ao acesso frequente a um mesmo item (chave "quente"). É recomendado usar atributos de alta cardinalidade e chaves compostas, além de adicionar números aleatórios para cenários de alta taxa de gravação, como um sufixo em um número de fatura.
+Para otimizar a performance, é crucial garantir uma distribuição uniforme do _throughput_ entre as partições. Se o acesso a um único valor de chave de partição ultrapassar _3000 RCU_ ou _1000 WCU_, as solicitações podem ser limitadas. Isso pode ocorrer devido à escolha inadequada da chave de partição ou ao acesso frequente a um mesmo item (chave "quente").
+
+É recomendado usar atributos de alta cardinalidade e chaves compostas, além de adicionar números aleatórios para cenários de alta taxa de gravação, como um sufixo em um número de fatura.
+
+> **Throughput**: quantidade de operações de leitura e gravação em uma tabela.
 
 ### 7.8. Consistência
 
@@ -918,9 +926,11 @@ Para otimizar a performance, é crucial garantir uma distribuição uniforme do 
 
   ![](assets/2024-11-01-14-47-44.png)
 
-  > **Throughput**: capacidade provisionada para operações de leitura e gravação em uma tabela.
+- **Strongly Consistent Reads**: retorna os dados mais atualizados, refletindo todas as operações de gravação anteriores bem-sucedidas. Pode ter maior latência e consumir mais _throughput_ que a leitura eventual.
 
-- **Strongly Consistent Reads**: retorna os dados mais atualizados, refletindo todas as operações de gravação anteriores e bem-sucedidas. Pode ter maior latência e consumir mais _throughput_ que a leitura eventual. Em casos de latência de rede ou falhas, DynamoDB pode retornar erro HTTP 500. É importante notar que leituras consistentes fortes não são suportadas em índices globais secundários.
+  > [!WARNING]
+  >
+  > Em casos de latência de rede ou falhas, o _DynamoDB_ pode retornar erro HTTP 500.
 
 > [!NOTE]
 >
@@ -934,7 +944,7 @@ Suporta transações que permitem mudanças coordenadas e "tudo ou nada" em múl
 
 - **Verificação de Condições**: Transações verificam condições prévias antes de escrever nos itens, aumentando a integridade dos dados.
 
-- **Cobrança e Execução**: Não há custo adicional para habilitar transações, mas cada operação na transação envolve duas leituras ou gravações — uma para preparar e outra para confirmar.
+- **Cobrança e Execução**: Não há custo adicional para habilitar transações, mas cada operação na transação envolve duas leituras ou duas gravações — uma para preparar e outra para confirmar.
 
 - **APIs de Transação**:
   - **TransactWriteItems**: agrupa várias operações como `Put`, `Update`, `Delete` e `ConditionCheck`, no modo tudo ou nada.
@@ -944,10 +954,11 @@ Suporta transações que permitem mudanças coordenadas e "tudo ou nada" em múl
 
 **Throttling** ocorre quando a taxa de leitura (RCU) ou gravação (WCU) configurada é excedida, resultando no erro `ProvisionedThroughputExceededException`. As SDKs da AWS automaticamente tentam novamente as solicitações, tornando-as bem-sucedidas, a menos que a fila de retentativas fique sobrecarregada.
 
-- **Causas de problemas de desempenho**:
-  - **Hot keys**: Uma única chave de partição é acessada com muita frequência, sobrecarregando a partição.
-  - **Hot partitions**: Quando o acesso aos dados é desequilibrado, algumas partições recebem mais tráfego de leitura e gravação que outras.
-  - **Itens grandes**: Itens maiores consomem mais RCUs e WCUs, o que aumenta a chance de throttling.
+**Causas de problemas de desempenho**:
+
+- **Hot keys**: Uma única chave de partição é acessada com muita frequência, sobrecarregando a partição.
+- **Hot partitions**: Quando o acesso aos dados é desequilibrado, algumas partições recebem mais tráfego de leitura e gravação que outras.
+- **Itens grandes**: Itens maiores consomem mais RCUs e WCUs, o que aumenta a chance de _throttling_.
 
 ### 7.11. Scan API
 
@@ -955,13 +966,15 @@ A operação **Scan** permite recuperar um ou mais itens e atributos, acessando 
 
 Cada operação Scan lê até 1 MB de dados por vez e procede de forma sequencial, mas pode ser paralelizada com os parâmetros `Segment` e `TotalSegments`, distribuindo a carga de leitura em múltiplas threads.
 
-> **Padrão de leitura**: eventualmente consistente
+> **Padrão de leitura**: `Eventually Consistent`
 
 ### 7.12. Query API
 
-A operação **Query** é usada para localizar itens em uma tabela com base em um valor específico de chave primária. Por exemplo, é possível buscar um item por um ID de usuário e retornar todos os atributos relacionados. Para resultados mais refinados, a operação permite definir um valor de **chave de ordenação** adicional, como um timestamp, para recuperar apenas os itens em um intervalo de tempo específico.
+A operação **Query** é usada para localizar itens em uma tabela com base em um valor específico de chave primária. Por exemplo, é possível buscar um item por um ID de usuário e retornar todos os atributos relacionados. 
 
-> **Padrão de leitura**: eventualmente consistente
+Para resultados mais refinados, a operação permite definir um valor de **chave de ordenação** adicional, como um timestamp, para recuperar apenas os itens em um intervalo de tempo específico.
+
+> **Padrão de leitura**: `Eventually Consistent`
 
 ### 7.13. Índices
 
@@ -985,7 +998,7 @@ Quando uma atualização é feita, o sistema verifica se a versão do item na ba
 
 ### 7.15. Streams
 
-Recurso que captura uma sequência ordenada de modificações em nível de item em qualquer tabela do DynamoDB. As alterações são registradas em um log por até 24 horas, permitindo que as aplicações acessem os dados antes e depois das modificações em quase tempo real. Isso é útil para monitoramento, replicação de dados e processamento de eventos. Para ativar ou modificar, você pode usar as operações da API **CreateTable** ou **UpdateTable**.
+Recurso que captura uma sequência ordenada de modificações em nível de item em qualquer tabela do _DynamoDB_. As alterações são registradas em um log por até 24 horas, permitindo que as aplicações acessem os dados antes e depois das modificações em quase tempo real. Isso é útil para monitoramento, replicação de dados e processamento de eventos. Para ativar ou modificar, você pode usar as operações da API: **CreateTable** ou **UpdateTable**.
 
 > **`Exemplo:`** quando uma aplicação insere, atualiza ou exclui um item, um registro correspondente é escrito no stream. Em seguida, uma função **Lambda** pode ser acionada para processar essa alteração, como gravar informações em **CloudWatch Logs**, permitindo análises e monitoramento das operações realizadas.
 >
@@ -993,7 +1006,7 @@ Recurso que captura uma sequência ordenada de modificações em nível de item 
 
 ### 7.16. DAX
 
-Oferece aceleração em memória para tabelas do DynamoDB, melhorando o desempenho de leituras de milissegundos para _**`microsegundos`**_, mesmo em cenários com milhões de requisições por segundo. A habilitação do DAX é simples, podendo ser feita pelo AWS Management Console ou utilizando o AWS SDK.
+Oferece aceleração em memória para tabelas do _DynamoDB_, melhorando o desempenho de leituras, antes de milissegundos, para _**`microssegundos`**_, mesmo em cenários com milhões de requisições por segundo. A habilitação do DAX é simples, podendo ser feita pelo _AWS Management Console_ ou utilizando o _AWS SDK_.
 
 ![](assets/2024-11-02-15-11-41.png)
 
@@ -1003,15 +1016,17 @@ Oferece aceleração em memória para tabelas do DynamoDB, melhorando o desempen
 
 ### 8.1. SQS: Simple Queue Service
 
-Serviço de fila baseado em **pull** (solicitação ativa), em que sistemas distribuídos colocam mensagens em uma fila para serem processadas de forma assíncrona, sem a necessidade de interação direta entre o remetente e o destinatário. Permite a troca de mensagens de até 256KB entre sistemas; para mensagens maiores, é possível usar a _SQS Extended Client Library for Java_. As mensagens podem ser mantidas na fila de 1 minuto a 14 dias, com um padrão de 4 dias. Garante que cada mensagem seja processada ao menos uma vez.
+Serviço de fila baseado em **pull** (solicitação ativa), em que sistemas distribuídos colocam mensagens em uma fila para serem processadas de forma assíncrona, sem a necessidade de interação direta entre o remetente e o destinatário. 
+
+Permite a troca de mensagens de até 256KB entre sistemas; para mensagens maiores, é possível usar a _SQS Extended Client Library for Java_. As mensagens podem ser mantidas na fila de 1 minuto a 14 dias, com um padrão de 4 dias. Garante que cada mensagem seja processada ao menos uma vez.
 
 ![](assets/2024-11-04-10-30-19.png)
 
 #### 8.1.1. Tipos
 
-- **Standard Queue**: Suporta alto throughput, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
+- **Standard Queue**: Suporta alto _throughput_, permitindo um número praticamente ilimitado de transações por segundo (TPS) por ação de API. A entrega de mensagens é garantida pelo menos uma vez, mas pode ocorrer duplicação. A ordem de entrega é baseada em "best-effort" (melhor esforço), então algumas mensagens podem ser recebidas em ordem diferente da enviada.
 
-- **FIFO Queue**: Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas (recurso chamado _deduplication_). Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
+- **FIFO Queue**: Garante ordem estrita de entrega e processamento único de mensagens, evitando duplicatas (recurso chamado **_deduplication_**). Suporta até 300 operações por segundo (envio, recebimento ou exclusão) ou até 3.000 mensagens por segundo quando agrupadas em lotes de 10. Ideal para cenários nos quais a ordem das mensagens e processamento exato são críticos.
 
 ![](assets/2024-11-04-10-38-47.png)
 
@@ -1029,7 +1044,7 @@ Permite atrasar o processamento de mensagens em toda a fila, útil para cenário
 
 ![](assets/2024-11-04-10-59-05.png)
 
-> Exemplo: pode ser usada para esperar alguns segundos após uma transação online, garantindo que dados de estoque ou de vendas sejam atualizados antes de notificar o cliente.
+> **Exemplo**: pode ser usada para esperar alguns segundos após uma transação online, garantindo que dados de estoque ou de vendas sejam atualizados antes de notificar o cliente.
 
 #### 8.1.4. Visibility Timeout
 
@@ -1039,23 +1054,24 @@ Define o tempo que uma mensagem fica invisível na fila após ser lida, garantin
 >
 > O tempo padrão de invisibilidade é de 30 segundos, com um limite máximo de 12 horas.
 
-#### 8.1.5. SQS Long Polling x Short Polling
+#### 8.1.5.  Short Polling $\times$ Long Polling
 
-O _long polling_ permite que a aplicação espere por mensagens antes de receber uma resposta, evitando retornos vazios e ajudando a reduzir custos. O _short polling_, por outro lado, verifica a fila e responde imediatamente, mesmo que não haja mensagens, o que pode gerar mais requisições.
+O _short polling_ verifica a fila e responde imediatamente, mesmo que não haja mensagens, o que pode gerar mais requisições.
 
-O _long polling_ pode ser configurado na fila ou via API com o parâmetro `WaitTimeSeconds`, que pode ser definido entre 1 e 20 segundos. Isso permite que a fila aguarde a chegada de novas mensagens antes de responder, melhorando a eficiência.
+O _long polling_ permite que a aplicação espere por mensagens antes de receber uma resposta, evitando retornos vazios e ajudando a reduzir custos. Pode ser configurado na fila ou via API com o parâmetro `WaitTimeSeconds`, que pode ser definido entre 1 e 20 segundos
+
 
 ### 8.2. SNS: Simple Notification Service
 
-Serviço de mensagens pub/sub gerenciado, altamente disponível e seguro, ideal para enviar mensagens push de alta taxa de transferência em sistemas distribuídos. Você pode configurar tópicos que agrupam múltiplos destinatários e permitem o envio de notificações idênticas para diferentes tipos de endpoint, como Amazon SQS, funções Lambda, webhooks HTTP/S, notificações push para dispositivos móveis e SMS.
+Serviço de **mensagens pub/sub** gerenciado, altamente disponível e seguro, ideal para enviar mensagens push de alta taxa de transferência em sistemas distribuídos. Você pode configurar tópicos que agrupam múltiplos destinatários e permitem o envio de notificações idênticas para diferentes tipos de endpoint, como _Amazon SQS_, _funções Lambda_, _webhooks HTTP/S_, notificações push para dispositivos móveis e _SMS_.
 
 Os tópicos são "pontos de acesso" nos quais os sistemas publicadores enviam mensagens que são automaticamente replicadas para todos os assinantes. A API é simples, permitindo integração ágil com aplicações e suporte a múltiplos protocolos para entrega flexível das mensagens.
 
 ![](assets/2024-11-04-18-02-25.png)
 
-> - **Publicadores**: sistemas que enviam mensagens para um ponto central, conhecido como tópico.
+> **Publicadores** são sistemas que enviam mensagens para um ponto central, conhecido como tópico.
 >
-> - **Assinantes**: sistemas ou serviços que "assinam" o tópico para receber mensagens enviadas pelos publicadores.
+> **Assinantes** são sistemas ou serviços que "assinam" o tópico para receber mensagens enviadas pelos publicadores.
 
 #### 8.2.1. Fan-Out
 
@@ -1063,27 +1079,31 @@ Permite enviar uma mensagem publicada em um tópico para várias filas SQS inscr
 
 ### 8.3. Step Functions
 
-Permite construir e executar aplicações distribuídas organizadas como uma série de etapas visuais em fluxos de trabalho, usando máquinas de estado. Você define cada passo no **Amazon States Language** (formato JSON), e a interface gráfica exibe a sequência de execução para fácil visualização. Ao iniciar uma execução, o Step Functions gerencia e escala automaticamente cada etapa, garantindo que a aplicação funcione de maneira confiável, mesmo sob aumento de demanda.
+Permite construir e executar aplicações distribuídas organizadas como uma série de etapas visuais em fluxos de trabalho, usando máquinas de estado.
+
+Você define cada passo no **Amazon States Language** (formato JSON), e a interface gráfica exibe a sequência de execução para fácil visualização. Ao iniciar uma execução, o Step Functions gerencia e escala automaticamente cada etapa, garantindo que a aplicação funcione de maneira confiável, mesmo sob aumento de demanda.
 
 ![](assets/2024-11-04-18-18-37.png)
 
 ### 8.4. EventBridge
 
-Sistema de comunicação que permite que diferentes serviços, aplicativos e componentes de uma arquitetura troquem informações de forma assíncrona e em tempo real. Permite configurar regras para rotear eventos em tempo real de fontes como aplicações AWS, SaaS e sistemas personalizados para serviços de destino, incluindo Lambda, SQS e Step Functions.
+Sistema de comunicação que permite que diferentes serviços, aplicativos e componentes de uma arquitetura troquem informações de forma assíncrona e em tempo real. Permite configurar regras para rotear eventos em tempo real de fontes como aplicações AWS, **SaaS** e sistemas personalizados para serviços de destino, incluindo _Lambda_, _SQS_ e _Step Functions_.
 
 ![](assets/2024-11-04-18-36-26.png)
 
 ### 8.5. API Gateway
 
-Serviço gerenciado da AWS que facilita a criação, publicação, monitoramento e segurança de APIs em escala. Ele permite que aplicações cliente (como web, mobile e IoT) se comuniquem com serviços de backend de forma segura e eficiente, possibilitando a criação de APIs RESTful e WebSocket. Lida automaticamente com o gerenciamento de tráfego, controle de acesso e monitoramento, além de oferecer opções de autenticação (como AWS IAM, Lambda Authorizers e Amazon Cognito) e recursos de throttling para proteger suas APIs contra sobrecarga. Suporta **REST APIs**, **HTTP APIs** e **WebSocket APIs**.
+Serviço gerenciado da AWS que facilita a criação, publicação, monitoramento e segurança de APIs em escala. Ele permite que aplicações cliente (como web, mobile e IoT) se comuniquem com serviços de backend de forma segura e eficiente, possibilitando a criação de APIs **RESTful**, **WebSocket** e **HTTP**. 
+
+Lida automaticamente com o gerenciamento de tráfego, controle de acesso e monitoramento, além de oferecer opções de autenticação (como _AWS IAM_, _Lambda Authorizers_ e _Amazon Cognito_) e recursos de _throttling_ para proteger suas APIs contra sobrecarga.
 
 ![](assets/2024-11-04-18-44-40.png)
 
 #### 8.5.1. Tipos de implantação
 
-- **Edge-optimized endpoint**: Reduz a latência para solicitações de qualquer lugar do mundo, utilizando a rede de distribuição de conteúdo (CDN) da AWS, o Amazon CloudFront. É ideal para clientes geograficamente distribuídos, pois as solicitações são roteadas para o ponto de presença (POP) mais próximo. Este é o tipo de endpoint **padrão** para APIs REST do API Gateway.
+- **Edge-optimized endpoint**: Reduz a latência para solicitações de qualquer lugar do mundo, utilizando a rede de distribuição de conteúdo (CDN) da AWS, o _Amazon CloudFront_. É ideal para clientes geograficamente distribuídos, pois as solicitações são roteadas para o ponto de presença (POP) mais próximo. Este é o tipo de endpoint **padrão** para APIs REST do _API Gateway_.
 
-- **Regional endpoint**: Ideal para solicitações originadas na mesma região, proporciona baixa latência e permite a configuração de uma CDN personalizada, além de proteger a aplicação com o AWS WAF. É destinado a clientes na mesma região. Domínios personalizados são específicos para a região em que a API está implantada e podem ser usados em várias regiões.
+- **Regional endpoint**: Ideal para solicitações originadas na mesma região, proporciona baixa latência e permite a configuração de uma CDN personalizada, além de proteger a aplicação com o AWS WAF. Domínios personalizados são específicos para a região em que a API está implantada e podem ser usados em várias regiões.
 
 - **Private endpoint**: Permite expor suas APIs REST de forma segura apenas para serviços dentro de sua VPC ou através de conexões dedicadas via _AWS Direct Connect_, garantindo que os dados permaneçam privados e seguros. Pode ser acessada apenas a partir de uma VPC usando um endpoint de interface VPC.
 
@@ -1099,11 +1119,11 @@ Um **recurso** representa um caminho na sua API, que pode ser usado para organiz
 
 - **AWS**: Permite que a API exponha ações de serviços da AWS. Requer a configuração das solicitações e respostas de integração, além do mapeamento de dados entre a solicitação do método e a solicitação de integração.
 
-- **AWS_PROXY (Lambda Proxy Integration)**: Facilita a interação direta entre o cliente e a função Lambda. O API Gateway passa a solicitação recebida diretamente para a função Lambda, que extrai dados de cabeçalhos, parâmetros e corpo, retornando o resultado em um formato específico. Não é necessário configurar solicitações e respostas de integração.
+- **AWS_PROXY (Lambda Proxy Integration)**: Facilita a interação direta entre o cliente e a função _Lambda_. O _API Gateway_ passa a solicitação recebida diretamente para a função _Lambda_, que extrai dados de cabeçalhos, parâmetros e corpo, retornando o resultado em um formato específico. Não é necessário configurar solicitações e respostas de integração.
 
 - **HTTP**: Expõe endpoints HTTP no backend e requer a configuração das solicitações e respostas de integração. É necessário estabelecer o mapeamento de dados entre a solicitação do método e a solicitação de integração.
 
-- **MOCK**: Permite que o API Gateway retorne uma resposta sem encaminhar a solicitação ao backend, útil para testar configurações e apoiar o desenvolvimento colaborativo. As equipes podem simular componentes da API sem incorrer em custos de uso do backend.
+- **MOCK**: Permite que o _API Gateway_ retorne uma resposta sem encaminhar a solicitação ao backend, útil para testar configurações e apoiar o desenvolvimento colaborativo. As equipes podem simular componentes da API sem incorrer em custos de uso do backend.
 
 #### 8.5.4. Mapping Templates
 
@@ -1113,36 +1133,36 @@ Scripts escritos em _Velocity Template Language (VTL)_, que possibilitam a trans
 
 #### 8.5.5. Implantações e Estágios
 
-Implantações no Amazon API Gateway representam uma _snapshot_ dos recursos e métodos da API. Para que a API seja acessível, as implantações devem ser criadas e associadas a um estágio, que serve como uma referência lógica a um estado do ciclo de vida da API (por exemplo, 'dev', 'prod', 'beta'). Cada estágio é identificado pelo ID da API e pelo nome do estágio.
+Implantações no _Amazon API Gateway_ representam uma _snapshot_ dos recursos e métodos da API. Para que a API seja acessível, as implantações devem ser criadas e associadas a um estágio, que serve como uma referência lógica a um estado do ciclo de vida da API (por exemplo, 'dev', 'prod', 'beta'). Cada estágio é identificado pelo ID da API e pelo nome do estágio.
 
 ![](assets/2024-11-04-19-49-49.png)
 
-As variáveis de estágio funcionam como variáveis de ambiente para o API Gateway e podem ser utilizadas em diversas configurações, como ARNs de funções Lambda, endpoints HTTP e templates de mapeamento de parâmetros.
+As variáveis de estágio funcionam como variáveis de ambiente para o _API Gateway_ e podem ser utilizadas em diversas configurações, como ARNs de _funções Lambda_, endpoints HTTP e templates de mapeamento de parâmetros.
 
 #### 8.5.6. Caching
 
-O Amazon API Gateway permite adicionar caching às chamadas da API através da provisão de um cache, com tamanho especificado em gigabytes. O caching armazena a resposta do endpoint, reduzindo o número de chamadas ao backend e melhorando a latência das requisições à API. As respostas são armazenadas em cache por um período determinado, conhecido como _Time to Live (TTL)_, com um valor padrão de 300 segundos (mínimo de 0, máximo de 3600).
+O _Amazon API Gateway_ permite adicionar caching às chamadas da API através da provisão de um cache, com tamanho especificado em gigabytes. O caching armazena a resposta do endpoint, reduzindo o número de chamadas ao backend e melhorando a latência das requisições à API. As respostas são armazenadas por um período determinado, conhecido como _Time to Live (TTL)_, com um valor padrão de 300 segundos (intervalo: 0~3600).
 
-Os caches são definidos por estágio e têm capacidade que varia de 0,5 GB a 237 GB. É possível criptografar os caches e sobrescrever as configurações de cache para métodos específicos. Se necessário, todo o cache pode ser invalidado imediatamente. Além disso, os clientes têm a opção de invalidar o cache utilizando o cabeçalho: `Cache-Control: max-age=0`.
+Os caches são definidos por estágio e têm capacidade que varia de 0,5 a 237 GB. É possível criptografar os caches e sobrescrever as configurações de cache para métodos específicos. Se necessário, todo o cache pode ser invalidado imediatamente. Além disso, os clientes têm a opção de invalidar o cache utilizando o cabeçalho: `Cache-Control: max-age=0`.
 
 ![](assets/2024-11-04-19-57-51.png)
 
 #### 8.5.7. Throttling
 
-O Amazon API Gateway impõe limites à taxa de requisições em estado constante e a picos de submissão de requisições em todas as APIs da sua conta. Por padrão, a taxa de requisições contínuas é limitada a 10.000 requisições por segundo, enquanto o número máximo de requisições simultâneas é de 5.000. Exceder esses limites resulta em um erro **429 (Too Many Requests)**, e o cliente deve reencaminhar as requisições com uma abordagem de controle de taxa, respeitando os limites de throttling.
+O _Amazon API Gateway_ impõe limites à taxa de requisições em estado constante e a picos de submissão de requisições em todas as APIs da sua conta. Por padrão, a taxa de requisições contínuas é limitada a 10.000 requisições por segundo, enquanto o número máximo de requisições simultâneas é de 5.000. Exceder esses limites resulta em um erro **429 (Too Many Requests)**, e o cliente deve reencaminhar as requisições com uma abordagem de controle de taxa, respeitando os limites de _throttling_.
 
-Existem dois tipos básicos de configurações relacionadas ao throttling no API Gateway:
+Existem dois tipos básicos de configurações relacionadas ao _throttling_ no _API Gateway_:
 
-- os limites de throttling do lado do servidor, que se aplicam a todos os clientes para evitar sobrecarga, e;
-- os limites de throttling por cliente, que se aplicam a clientes utilizando chaves de API associadas às suas políticas de uso.
+- os limites de _throttling_ do lado do servidor, que se aplicam a todos os clientes para evitar sobrecarga; e
+- os limites de _throttling_ por cliente, que se aplicam a clientes utilizando chaves de API associadas às suas políticas de uso.
 
-#### 8.5.8. Planos de Uso e Chaves de API
+#### 8.5.8. Planos de uso e chaves de API
 
-Um plano de uso define quem pode acessar um ou mais estágios e métodos de API implantados, além de regular a quantidade e a velocidade de acesso. Com ele, é possível configurar limites de throttling e cotas, que são aplicados a chaves de API específicas de cada cliente.
+Um plano de uso define quem pode acessar um ou mais estágios e métodos de API implantados, além de regular a quantidade e a velocidade de acesso. Com ele, é possível configurar limites de _throttling_ e cotas, que são aplicados a chaves de API específicas de cada cliente.
 
 ![](assets/2024-11-04-22-21-22.png)
 
-Os planos de uso utilizam chaves de API para identificar os clientes e monitorar o acesso aos estágios da API associados. Eles permitem a configuração de limites de throttling e cotas, que são aplicados a cada chave de API individualmente.
+Os planos de uso utilizam chaves de API para identificar os clientes e monitorar o acesso aos estágios da API associados. Eles permitem a configuração de limites de _throttling_ e cotas, que são aplicados a cada chave de API individualmente.
 
 #### 8.5.9. Controle de acesso
 
@@ -1152,7 +1172,7 @@ São documentos JSON que você anexa a uma API para controlar se um principal es
 
 > [!NOTE]
 >
-> "Principal" refere-se à entidade que está fazendo uma chamada ou tentando acessar um recurso. Um principal pode ser um usuário, uma função (role), uma conta da AWS ou um serviço que está fazendo a solicitação de acesso a um recurso.
+> "Principal" refere-se à entidade que está fazendo uma chamada ou tentando acessar um recurso: pode ser um usuário, uma função (role), uma conta da AWS ou um serviço que está fazendo a solicitação de acesso a um recurso.
 
 ##### 8.5.9.2. Lambda Authorizer
 
@@ -1163,7 +1183,7 @@ Utilizam funções Lambda para controlar o acesso às APIs, retornando uma polí
 
 ##### 8.5.9.3. Cognito User Pools
 
-Funcionam como um diretório de usuários, permitindo logins via Amazon Cognito ou provedores de identidade externos, como Google, Facebook ou SAML. Com um user pool, você pode criar um authorizer do tipo `COGNITO USER POOLS` e configurá-lo para controlar o acesso aos métodos da API.
+Funcionam como um diretório de usuários, permitindo logins via _Amazon Cognito_ ou provedores de identidade externos, como Google, Facebook ou SAML. Com um user pool, você pode criar um authorizer do tipo `COGNITO USER POOLS` e configurá-lo para controlar o acesso aos métodos da API.
 
 ## 9. Contêineres
 
@@ -1182,17 +1202,17 @@ Os contêineres utilizam imagens armazenadas no Amazon _ECR (Elastic Container R
 | Cluster            | Agrupamento lógico de tarefas (_tasks_) ou serviços (_services_) no ECS.                                          |
 | Container Instance | Instância EC2 executando o agente ECS para comunicação e execução de tarefas dentro de um cluster.                |
 | Task Definition    | Blueprint que define como um contêiner Docker deve ser lançado, incluindo configurações de CPU, memória e imagem. |
-| Task               | Contêiner em execução baseado em uma Task Definition, podendo conter um ou mais contêineres.                      |
+| Task               | Unidade de execução no ECS, baseada em uma _Task Definition_, e pode conter um ou mais contêineres.                      |
 | Service            | Controla tarefas de execução contínua, permitindo definir contagem de tarefas e usar Auto Scaling e ELB.          |
 
 #### 9.1.2. Funcionalidades
 
 - **AWS Fargate**: Execução sem servidor, totalmente gerenciada e escalável para contêineres.
 - **Orquestração de contêineres gerenciada**: Plano de controle automatizado pela AWS.
-- **Suporte a Docker**: Execução e gerenciamento de contêineres Docker, com integração ao Docker Compose CLI.
+- **Suporte a Docker**: Execução e gerenciamento de contêineres Docker, com integração ao _Docker Compose CLI_.
 - **Suporte a contêineres Windows**: Gerenciamento de contêineres baseados no Windows.
-- **Integração com Elastic Load Balancing**: Distribuição de tráfego entre contêineres usando ALB ou NLB.
-- **Amazon ECS Anywhere (Novo)**: Permite usar o controle do ECS para gerenciar implementações locais (on-premises).
+- **Integração com _Elastic Load Balancing_**: Distribuição de tráfego entre contêineres usando ALB ou NLB.
+- **Amazon ECS Anywhere**: Permite usar o controle do ECS para gerenciar implementações locais (on-premises).
 
 #### 9.1.3. Cluster
 
@@ -1200,7 +1220,7 @@ Agrupamento lógico de instâncias de contêineres onde você pode executar tare
 
 #### 9.1.4. Imagens
 
-Os **contêineres** são criados a partir de imagens, que são templates somente leitura com instruções para construir contêineres Docker. As imagens são geradas a partir de um **Dockerfile** e somente contêineres Docker são compatíveis. Elas podem ser armazenadas em repositórios como **DockerHub** ou o **Amazon Elastic Container Registry (ECR)**. Você pode usar a **Docker CLI** para fazer push, pull e gerenciar as imagens armazenadas.
+Os **contêineres** são criados a partir de imagens, que são templates somente leitura com instruções para construir contêineres Docker. As imagens são geradas a partir de um **Dockerfile** e somente contêineres Docker são compatíveis. Elas podem ser armazenadas em repositórios como **DockerHub** ou o **_Amazon Elastic Container Registry (ECR)_**. Você pode usar a **Docker CLI** para fazer push, pull e gerenciar as imagens armazenadas.
 
 #### 9.1.5. Task definition
 
@@ -1245,7 +1265,7 @@ Permite criar expressões para agrupar objetos com base em atributos específico
 
 ##### 9.1.9.1. Service Auto Scaling
 
-Ajusta automaticamente a contagem desejada de tarefas para cima ou para baixo, utilizando o serviço **Application Auto Scaling**. Ele suporta três tipos de políticas de escalonamento:
+Ajusta automaticamente a contagem desejada de tarefas para cima ou para baixo, utilizando o serviço **_Application Auto Scaling_**. Ele suporta três tipos de políticas de escalonamento:
 
 1. **Target Tracking Scaling Policies**: Aumenta ou diminui o número de tarefas com base em um valor-alvo de uma métrica específica do _CloudWatch_.
 2. **Step Scaling Policies**: Ajusta o número de tarefas em resposta a alarmes do _CloudWatch_, com ajustes baseados no tamanho da violação do alarme.
@@ -1255,7 +1275,7 @@ Ajusta automaticamente a contagem desejada de tarefas para cima ou para baixo, u
 
 ##### 9.1.9.2. Cluster Auto Scaling
 
-Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser associado a um **EC2 Auto Scaling Group (ASG)**. O ASG pode escalar automaticamente utilizando:
+Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser associado a um **_EC2 Auto Scaling Group (ASG)_**. O ASG pode escalar automaticamente utilizando:
 
 - **Managed Scaling**: Criação automática de políticas de escalonamento no ASG.
 - **Managed Instance Termination Protection**: Proteção que permite a resiliência das instâncias em execução durante o processo de redução de escala, garantindo que as instâncias com tarefas ativas sejam mantidas.
@@ -1264,9 +1284,9 @@ Utiliza um tipo de recurso do ECS chamado **Capacity Provider**, que pode ser as
 
 ### 9.2. ECR: Elastic Container Registry
 
-Registro de contêiner totalmente gerenciado e integrado ao **Amazon ECS** e **Amazon EKS**, suportando os padrões **OCI** e **Docker Registry HTTP API V2**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker: nuvem, localmente ou on-premises.
+Registro de contêiner totalmente gerenciado e integrado ao **_Amazon ECS_** e **_Amazon EKS_**, suportando os padrões **OCI** e **_Docker Registry HTTP API V2_**. Ele permite o uso de ferramentas Docker e comandos como `push`, `pull`, `list` e `tag`, sendo acessível a partir de qualquer ambiente Docker: nuvem, localmente ou on-premises.
 
-As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR permite a organização dos repositórios por namespaces. Há suporte para **repositórios públicos** (para acesso global) e **repositórios privados** (com controle de acesso).
+As **imagens de contêiner e artefatos** são armazenados no _Amazon S3_, e o ECR permite a organização dos repositórios por namespaces. Há suporte para **repositórios públicos** (para acesso global) e **repositórios privados** (com controle de acesso).
 
 > O controle de acesso em repositórios privados inclui:
 >
@@ -1278,9 +1298,9 @@ As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR 
 
 | **Nome**                | **Descrição**                                                                                                                                                                                    |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Registry**            | Cada conta AWS tem um registro privado Amazon ECR, no qual é possível criar múltiplos repositórios para armazenar imagens.                                                                       |
-| **Authorization Token** | O cliente deve autenticar-se no Amazon ECR com um token de autorização como usuário AWS para realizar operações de `push` e `pull` de imagens.                                                   |
-| **Repository**          | Um repositório Amazon ECR armazena imagens Docker, imagens compatíveis com OCI e artefatos compatíveis com OCI, permitindo a organização e versionamento dos contêineres.                        |
+| **Registry**            | Cada conta AWS tem um registro privado _Amazon ECR_, no qual é possível criar múltiplos repositórios para armazenar imagens.                                                                       |
+| **Authorization Token** | O cliente deve autenticar-se no _Amazon ECR_ com um token de autorização como usuário AWS para realizar operações de `push` e `pull` de imagens.                                                   |
+| **Repository**          | Um repositório _Amazon ECR_ armazena imagens Docker, imagens compatíveis com OCI e artefatos compatíveis com OCI, permitindo a organização e versionamento dos contêineres.                        |
 | **Repository Policy**   | Políticas de repositório permitem definir o controle de acesso sobre os repositórios e as imagens contidas neles, garantindo segurança e permissões personalizadas.                              |
 | **Image**               | Imagens de contêiner que podem ser enviadas (`push`) para o repositório ou baixadas (`pull`) a partir dele, facilitando o armazenamento, a distribuição e a execução de contêineres gerenciados. |
 
@@ -1298,7 +1318,7 @@ As **imagens de contêiner e artefatos** são armazenados no Amazon S3, e o ECR 
 
 ### 9.3. EKS: Elastic Kubernetes Service
 
-Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. Ele é útil para quatro cenários:
+Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes, ideal para padronizar operações em múltiplos ambientes. É útil para quatro cenários:
 
 - **Implantação híbrida**: Permite gerenciar clusters e aplicações Kubernetes em ambientes híbridos, tanto na AWS quanto on-premises, oferecendo flexibilidade para arquiteturas mistas.
 
@@ -1312,7 +1332,7 @@ Serviço gerenciado que facilita a orquestração de contêineres com Kubernetes
 
 #### 9.3.1. Auto Scaling
 
-Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamicamente os recursos para maximizar o desempenho e otimizar custos. Ele abrange duas abordagens:
+Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamicamente os recursos para maximizar o desempenho e otimizar custos. Tem duas abordagens:
 
 ##### 9.3.1.1. Cluster Auto Scaling
 
@@ -1326,7 +1346,7 @@ Oferece escalabilidade automatizada para clusters e workloads, ajustando dinamic
 
 #### 9.3.2. Redes de pods
 
-O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que cada pod receba um endereço IP privado (IPv4 ou IPv6) da sua VPC. Faz isso através de um plugin que é implementado como um _DaemonSet_ chamado `aws-node` em cada instância Amazon EC2.
+O Amazon EKS oferece suporte ao VPC nativo para redes de pods, garantindo que cada pod receba um endereço IP privado (IPv4 ou IPv6) da sua VPC. Faz isso através de um plugin que é implementado como um _DaemonSet_ chamado `aws-node` em cada instância _Amazon EC2_.
 
 #### 9.3.3. Balanceamento de carga
 
@@ -1337,7 +1357,7 @@ O Amazon EKS integra-se aos serviços de balanceamento de carga da AWS, suportan
 
 ### 9.4. AWS Copilot
 
-Interface de linha de comando (CLI) que facilita o lançamento e gerenciamento de contêineres em serviços como **Amazon ECS**, **Fargate** e **AWS AppRunner**. Ele é baseado em templates de **Infrastructure as Code (IaC)**, permitindo a criação e configuração de ambientes e serviços de forma simples e automatizada.
+Interface de linha de comando (CLI) que facilita o lançamento e gerenciamento de contêineres em serviços como **_Amazon ECS_**, **_Fargate_** e **_AWS AppRunner_**. Ele é baseado em templates de **Infrastructure as Code (IaC)**, permitindo a criação e configuração de ambientes e serviços de forma simples e automatizada.
 
 ![](assets/2024-11-05-21-52-17.png)
 
@@ -1361,21 +1381,21 @@ Interface de linha de comando (CLI) que facilita o lançamento e gerenciamento d
 
 ### 10.1. CodeCommit
 
-Serviço totalmente gerenciado de controle de versão baseado em Git, similar ao **GitHub** ou **GitLab**, permitindo hospedar repositórios privados de código. Ele oferece armazenamento centralizado para código, binários, imagens e bibliotecas, além de gerenciar mudanças de código, manter o histórico de versões e facilitar a colaboração entre equipes.
+Serviço totalmente gerenciado de controle de versão baseado em Git, similar ao **_GitHub_** ou **_GitLab_**, permitindo hospedar repositórios privados de código. Ele oferece armazenamento centralizado para código, binários, imagens e bibliotecas, além de gerenciar mudanças de código, manter o histórico de versões e facilitar a colaboração entre equipes.
 
-O CodeCommit é integrado com ferramentas de CI/CD como **Jenkins** e **AWS CodeBuild** e oferece escalabilidade automática. Seus repositórios são criptografados automaticamente com o **AWS KMS** para segurança. Você pode acessar seus repositórios usando **HTTPS** ou **SSH**, e o IAM fornece diferentes tipos de credenciais, como **Git credentials**, **SSH keys** e **AWS access keys**, para facilitar o acesso e a comunicação com os repositórios.
+O CodeCommit é integrado com ferramentas de CI/CD como **_Jenkins_** e **_AWS CodeBuild_** e oferece escalabilidade automática. Seus repositórios são criptografados automaticamente com o **AWS KMS** para segurança. Você pode acessar seus repositórios usando **HTTPS** ou **SSH**, e o IAM fornece diferentes tipos de credenciais, como **Git credentials**, **SSH keys** e **AWS access keys**, para facilitar o acesso e a comunicação com os repositórios.
 
 ### 10.2. CodePipeline
 
-Serviço totalmente gerenciado de entrega contínua, semelhante ao **Jenkins** ou **GitLab CI/CD**, que automatiza as fases de **build**, **test** e **deploy** de seu processo de lançamento sempre que há uma alteração no código. Ele permite criar pipelines de forma rápida e confiável para atualizações de aplicações e infraestrutura.
+Serviço totalmente gerenciado de entrega contínua, semelhante ao **_Jenkins_** ou **GitLab CI/CD**, que automatiza as fases de **build**, **test** e **deploy** de seu processo de lançamento sempre que há uma alteração no código. Ele permite criar pipelines de forma rápida e confiável para atualizações de aplicações e infraestrutura.
 
-É altamente integrável, com suporte para várias ferramentas da AWS e de terceiros, incluindo **S3**, **CodeCommit**, **GitHub**, **Jenkins**, **CodeBuild**, **CloudFormation**, **ECS**, **Elastic Beanstalk**, entre outras, em cada estágio da pipeline.
+É altamente integrável, com suporte para várias ferramentas da AWS e de terceiros, incluindo **_S3_**, **_CodeCommit_**, **_GitHub_**, **_Jenkins_**, **_CodeBuild_**, **_CloudFormation_**, **_ECS_**, **_Elastic Beanstalk_**, entre outras, em cada estágio da pipeline.
 
 #### 10.2.1. Definições
 
 - **Pipelines**: Fluxos de trabalho que descrevem como as mudanças de software passam pelo processo de lançamento.
-- **Artefatos**: Arquivos ou alterações trabalhadas nas ações e estágios da pipeline. São passados entre os estágios e armazenados no **Amazon S3**.
-- **Estágios**: Cada pipeline é dividida em estágios como **build**, **test**, **deploy**, **load test**, etc. Ações sequenciais ou paralelas podem ser realizadas em cada estágio.
+- **Artefatos**: Arquivos ou alterações trabalhadas nas ações e estágios da pipeline. São passados entre os estágios e armazenados no *Amazon S3*.
+- **Estágios**: Cada pipeline é dividida em estágios como **build**, **test**, **deploy**, **load test** etc. Ações sequenciais ou paralelas podem ser realizadas em cada estágio.
 - **Ações**: Cada estágio contém ao menos uma ação, que afeta os artefatos e pode ter entradas, saídas ou ambos.
 - **Transições**: Movimentação de um estágio para outro na pipeline, podendo envolver aprovação manual em qualquer estágio.
 
@@ -1385,7 +1405,7 @@ Ferramenta da AWS semelhante ao **SonarQube** e **FindBugs**, fornecendo recomen
 
 #### 10.3.1. CodeGuru Reviewer
 
-Analisa código Java e Python, oferecendo sugestões baseadas em boas práticas, como a detecção de vazamentos de recursos e análise de segurança. Ele integra-se com serviços como **AWS CodeCommit**, **Bitbucket**, **GitHub** e **Amazon S3**. Além disso, usa o **Secrets Manager** para detectar segredos não protegidos no código.
+Analisa código Java e Python, oferecendo sugestões baseadas em boas práticas, como a detecção de vazamentos de recursos e análise de segurança. Ele integra-se com serviços como **_AWS CodeCommit_**, **_Bitbucket_**, **_GitHub_** e **_Amazon S3_**. Além disso, usa o **_Secrets Manager_** para detectar segredos não protegidos no código.
 
 #### 10.3.2. CodeGuru Profiler
 
@@ -1395,7 +1415,7 @@ Coleta dados de desempenho em tempo real de aplicações em produção, fornecen
 
 Serviço totalmente gerenciado de **integração contínua (CI)**, semelhante ao **Jenkins**. Ele compila código-fonte, executa testes e gera pacotes de software prontos para implantação, escalando automaticamente para processar vários builds simultaneamente. O custo é baseado no tempo de execução de cada build.
 
-O CodeBuild pode buscar o código-fonte em repositórios como **GitHub**, **CodeCommit**, **CodePipeline** e **S3**. As instruções de build são configuradas no arquivo **`buildspec.yml`**, e os logs gerados durante o processo podem ser armazenados em **Amazon S3** e **Amazon CloudWatch Logs** para monitoramento e análise.
+O CodeBuild pode buscar o código-fonte em repositórios como **_GitHub_**, **_CodeCommit_**, **_CodePipeline_** e **_S3_**. As instruções de build são configuradas no arquivo **`buildspec.yml`**, e os logs gerados durante o processo podem ser armazenados em **_Amazon S3_** e **_Amazon CloudWatch Logs_** para monitoramento e análise.
 
 ![](assets/2024-11-05-23-04-55.png)
 
@@ -1409,25 +1429,25 @@ O CodeBuild pode buscar o código-fonte em repositórios como **GitHub**, **Code
 
 #### 10.4.2. CodeDeploy
 
-Serviço de implantação que automatiza o processo de deploy de aplicações em diversas plataformas, como instâncias EC2, instâncias on-premises, funções serverless Lambda e Amazon ECS. Ele é capaz de gerenciar uma ampla variedade de conteúdos de aplicação, como funções Lambda, arquivos web, executáveis, pacotes, scripts e arquivos multimídia.
+Serviço de implantação que automatiza o processo de deploy de aplicações em diversas plataformas, como instâncias _EC2_, instâncias on-premises, funções serverless _Lambda_ e _Amazon ECS_. Ele é capaz de gerenciar uma ampla variedade de conteúdos de aplicação, como funções _Lambda_, arquivos web, executáveis, pacotes, scripts e arquivos multimídia.
 
 Um **CodeDeploy application** contém informações sobre o que e como implantar, exigindo que você escolha a plataforma de computação adequada:
 
-- **EC2/On-Premises**: Usa instâncias EC2 ou servidores locais, com o tráfego redirecionado por dois tipos de deployment: in-place (atualiza a aplicação no lugar) ou blue/green (cria um novo ambiente e troca o tráfego para ele).
+- **_EC2_/On-Premises**: Usa instâncias _EC2_ ou servidores locais, com o tráfego redirecionado por dois tipos de deployment: in-place (atualiza a aplicação no lugar) ou blue/green (cria um novo ambiente e troca o tráfego para ele).
 
-- **AWS Lambda**: Deploys para funções Lambda com opções de controle do tráfego: canário (distribuição gradual), linear ou total (toda a carga é direcionada de uma vez).
+- **_AWS Lambda_**: Deploys para funções Lambda com opções de controle do tráfego: canário (distribuição gradual), linear ou total (toda a carga é direcionada de uma vez).
 
-- **Amazon ECS**: Deploys de aplicativos containerizados no ECS, usando o modelo blue/green para criar um novo conjunto de tarefas. O tráfego de produção é redirecionado para a nova versão após a conclusão do deployment, com opções de controle de tráfego similares ao Lambda.
+- **_Amazon ECS_**: Deploys de aplicativos conteinerizados no ECS, usando o modelo blue/green para criar um novo conjunto de tarefas. O tráfego de produção é redirecionado para a nova versão após a conclusão do deployment, com opções de controle de tráfego similares ao _Lambda_.
 
 ##### 10.4.2.1. Blue/Green Traffic Shifting
 
 Permite a atualização gradual ou total do tráfego para novas versões de aplicativos. Ele funciona de forma diferente dependendo da plataforma:
 
-- **AWS Lambda**: O tráfego é redirecionado de uma versão para outra da função Lambda durante o deployment.
+- **_AWS Lambda_**: O tráfego é redirecionado de uma versão para outra da função _Lambda_ durante o deployment.
 - **Amazon ECS**: O tráfego é transferido de um conjunto de tarefas para um conjunto de tarefas substituto no mesmo serviço ECS.
 - **EC2/On-Premises**: O tráfego é movido de um conjunto de instâncias para outro em um ambiente EC2 ou servidores locais.
 
-No **ECS** e **AWS Lambda**, existem três formas de movimentação do tráfego durante o deployment:
+No **_ECS_** e **_AWS Lambda_**, existem três formas de movimentação do tráfego durante o deployment:
 
 - **Canary**: O tráfego é movido em dois incrementos, com uma porcentagem do tráfego transferido na primeira parte e o restante após um intervalo determinado.
 - **Linear**: O tráfego é movido em incrementos iguais, com intervalos regulares entre cada um.
@@ -1437,7 +1457,7 @@ No **ECS** e **AWS Lambda**, existem três formas de movimentação do tráfego 
 
 Ambiente de desenvolvimento integrado (IDE) que permite aos desenvolvedores escrever, executar e depurar código diretamente na nuvem. Ele oferece recursos como destaque de sintaxe, autocompletar e verificação de erros, além de um terminal para navegação no sistema de arquivos, execução de comandos e gerenciamento de código.
 
-A plataforma facilita a colaboração em tempo real, permitindo que múltiplos desenvolvedores trabalhem simultaneamente na mesma base de código. Também integra-se facilmente com serviços da AWS, como **AWS Lambda**, **Amazon EC2** e **AWS CodePipeline**, proporcionando uma experiência de desenvolvimento mais fluida e integrada.
+A plataforma facilita a colaboração em tempo real, permitindo que múltiplos desenvolvedores trabalhem simultaneamente na mesma base de código. Também integra-se facilmente com serviços da AWS, como **_AWS Lambda_**, **_Amazon EC2_** e **_AWS CodePipeline_**, proporcionando uma experiência de desenvolvimento mais fluida e integrada.
 
 > [!TIP]
 >
@@ -1445,13 +1465,13 @@ A plataforma facilita a colaboração em tempo real, permitindo que múltiplos d
 
 ### 10.6. Amplify
 
-Plataforma para desenvolvimento de aplicações full-stack, oferecendo ferramentas para construir backends de aplicativos móveis e web, além de interfaces frontend, como o **Firebase** do Google. **Amplify Studio** é uma interface visual que permite criar aplicativos móveis e web sem a necessidade de conhecimentos aprofundados de backend, incluindo funcionalidades como definição de modelos de dados, autenticação de usuários e armazenamento de arquivos.
+Plataforma para desenvolvimento de aplicações full-stack, oferecendo ferramentas para construir backends de aplicativos móveis e web, além de interfaces frontend, semelhante ao **Firebase** da Google. **Amplify Studio** é uma interface visual que permite criar aplicativos móveis e web sem a necessidade de conhecimentos aprofundados de backend, incluindo funcionalidades como definição de modelos de dados, autenticação de usuários e armazenamento de arquivos.
 
-Você também pode integrar serviços AWS adicionais usando o **AWS Cloud Development Kit (CDK)**, além de conectar apps móveis e web com **Amplify Libraries** para diversas plataformas como iOS, Android, Flutter, React Native e JavaScript. O **AWS Amplify Hosting** oferece um serviço totalmente gerenciado para CI/CD e hospedagem de aplicações estáticas e renderizadas no lado do servidor, garantindo rapidez e segurança.
+Você também pode integrar serviços AWS adicionais usando o **_AWS Cloud Development Kit (CDK)_**, além de conectar apps móveis e web com **_Amplify Libraries_** para diversas plataformas como iOS, Android, Flutter, React Native e JavaScript. O **_AWS Amplify Hosting_** oferece um serviço totalmente gerenciado para CI/CD e hospedagem de aplicações estáticas e renderizadas no lado do servidor, garantindo rapidez e segurança.
 
 ### 10.7. AppSync
 
-Serviço totalmente gerenciado que facilita o desenvolvimento de APIs **GraphQL**, como o **Apollo Server**. Ele permite que aplicações acessem, manipulem e recebam atualizações em tempo real de múltiplas fontes de dados, como bancos de dados e APIs. O AppSync escala automaticamente o motor de execução da API GraphQL conforme o volume de requisições, além de suportar integrações com **AWS Lambda**, **Amazon DynamoDB** e **Amazon Elasticsearch**.
+Serviço totalmente gerenciado que facilita o desenvolvimento de APIs **GraphQL**, como o **Apollo Server**. Ele permite que aplicações acessem, manipulem e recebam atualizações em tempo real de múltiplas fontes de dados, como bancos de dados e APIs. Escala automaticamente o motor de execução da API GraphQL conforme o volume de requisições, além de suportar integrações com **_AWS Lambda_**, **_Amazon DynamoDB_** e **_Amazon Elasticsearch_**.
 
 ![](assets/2024-11-05-23-27-35.png)
 
@@ -1461,7 +1481,7 @@ Além disso, o AppSync permite configurar quais dados devem ser acessados em tem
 
 ### 11.1. RDS: Relational Database Service
 
-Serviço gerenciado de banco de dados relacional, ideal para casos de uso de processamento de transações online (OLTP). Ele é executado em instâncias do **Amazon EC2** e utiliza volumes do **Amazon EBS** para armazenamento, com a possibilidade de realizar backups por meio de **EBS snapshots**. No RDS, você escolhe o tipo de instância de banco de dados, e uma instância pode hospedar múltiplos bancos de dados criados pelo usuário. Oferece suporte a diferentes mecanismos de banco de dados:
+Serviço gerenciado de banco de dados relacional, ideal para casos de uso de processamento de transações online (OLTP). Ele é executado em instâncias do **_Amazon EC2_** e utiliza volumes do ***Amazon EBS*** para armazenamento, com a possibilidade de realizar backups por meio de ***EBS snapshots***. No RDS, você escolhe o tipo de instância de banco de dados, e uma instância pode hospedar múltiplos bancos de dados criados pelo usuário. Oferece suporte a diferentes mecanismos de banco de dados:
 
 - **Amazon Aurora**: compatível com MySQL e PostgreSQL;
 - **MySQL**: um dos sistemas de gerenciamento de banco de dados relacional open-source mais populares;
@@ -1513,7 +1533,7 @@ As réplicas de leitura são criptografadas automaticamente quando a instância 
 
 ### 11.2. ElastiCache
 
-Serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. O ElastiCache pode ser usado como cache na frente de bancos de dados como RDS e _DynamoDB_ para otimizar o acesso aos dados. Os nós do ElastiCache rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
+Serviço totalmente gerenciado que oferece implementações de _Redis_ e _Memcached_, duas soluções populares de **banco de dados em memória**. Ele funciona como um armazenamento de chave/valor, proporcionando alto desempenho e baixa latência. Pode ser usado como cache na frente de bancos de dados como RDS e _DynamoDB_ para otimizar o acesso aos dados. Seus nós rodam em instâncias EC2, o que permite escolher o tipo de instância adequado.
 
 ![](assets/2024-11-06-16-42-16.png)
 
@@ -1555,7 +1575,7 @@ Oferece **resharding online** para adicionar ou remover shards e escalar vertica
 
 ### 11.3. MemoryDB para Redis
 
-Serviço de banco de dados in-memory compatível com Redis, projetado para alta durabilidade e desempenho ultra-rápido. Ele armazena todo o dataset na memória, permitindo latência de leitura em microssegundos e latência de escrita em milissegundos, com alta taxa de transferência. É ideal para aplicações modernas e arquiteturas de microserviços, utilizando as estruturas de dados, APIs e comandos Redis de forma nativa.
+Serviço de banco de dados in-memory compatível com Redis, projetado para alta durabilidade e desempenho ultra-rápido. Ele armazena todo o dataset na memória, permitindo latência de leitura em microssegundos e latência de escrita em milissegundos, com alta taxa de transferência. É ideal para aplicações modernas e arquiteturas de microsserviços, utilizando as estruturas de dados, APIs e comandos Redis de forma nativa.
 
 Para durabilidade, os dados são distribuídos em um log transacional replicado em múltiplas zonas de disponibilidade (AZs). Permite escalabilidade de escrita com sharding e de leitura com réplicas, suportando uma grande quantidade de acessos simultâneos sem comprometer o desempenho.
 
@@ -1565,7 +1585,7 @@ Para durabilidade, os dados são distribuídos em um log transacional replicado 
 > | ----------------------------- | ------------------------------------------------------------ | ---------------------------------------- |
 > | **Propósito**                 | Solução completa de banco de dados e cache                   | Cache de dados para melhorar performance |
 > | **Persistência de dados**     | Sim, dados duráveis com log distribuído                      | Opcional, geralmente volátil             |
-> | **Latência**                  | Microsegundos para leitura, milissegundos para gravação      | Depende do engine e da configuração      |
+> | **Latência**                  | Microssegundos para leitura, milissegundos para gravação     | Depende do engine e da configuração      |
 > | **Consistência**              | Consistência forte nos nós principais, eventual nas réplicas | Pode variar de acordo com a configuração |
 > | **Escalabilidade de leitura** | Réplicas adicionais                                          | Réplicas (Redis), escalável em cluster   |
 > | **Escalabilidade de escrita** | Sharding e réplicas                                          | Sharding (Redis cluster mode)            |
@@ -1615,7 +1635,7 @@ Clusters, chamados de "domínios", podem ser configurados pelo Console de Gerenc
 
 ### 11.6. Athena
 
-Permite realizar consultas SQL diretamente nos dados armazenados no S3, sem necessidade de um servidor. É compatível com formatos como CSV, TSV, JSON, Parquet e ORC e pode ser integrado a outras fontes de dados via AWS Lambda. O serviço utiliza o AWS Glue como catálogo de dados gerenciado para armazenar informações e esquemas de bancos de dados e tabelas.
+Permite realizar consultas SQL diretamente nos dados armazenados no S3, sem necessidade de um servidor. É compatível com formatos como CSV, TSV, JSON, Parquet e ORC e pode ser integrado a outras fontes de dados via _AWS Lambda_. O serviço utiliza o _AWS Glue_ como catálogo de dados gerenciado para armazenar informações e esquemas de bancos de dados e tabelas.
 
 **Para melhorar o desempenho das consultas no Athena**:
 
@@ -1629,8 +1649,6 @@ Permite realizar consultas SQL diretamente nos dados armazenados no S3, sem nece
 Serviço totalmente gerenciado de _ETL (extrair, transformar e carregar)_ voltado para a preparação de dados para análise, executando tarefas de ETL em um ambiente escalável de _Apache Spark_. Ele descobre dados automaticamente e armazena o metadado associado (como definições de tabela e esquemas) no _AWS Glue Data Catalog_, facilitando a integração com data lakes (como dados no S3), data warehouses (como o RedShift) e data stores (como RDS e bancos de dados no EC2).
 
 O AWS Glue utiliza crawlers para automatizar a criação e atualização de tabelas no _Data Catalog_, permitindo que múltiplos data stores sejam varridos em uma única execução. As tabelas do _Data Catalog_ são então usadas como fontes e alvos nos jobs de ETL, simplificando a integração e o processamento dos dados para uso em aplicações analíticas.
-
-Entendi! Nesse caso, a reorganização pode ser feita com base na hierarquia e na relação entre os serviços. Aqui está uma sugestão de como organizá-los, considerando os serviços que estão dentro de outros:
 
 ## 12. Gestão e Segurança
 
@@ -1650,7 +1668,7 @@ O CloudWatch também oferece insights acionáveis a partir de logs, permitindo v
 
 #### 12.2.1. Metrics
 
-Coleta dados temporais de serviços, com métricas enviadas por diversos serviços da AWS, como o EC2. Por padrão, as métricas do EC2 são enviadas a cada 5 minutos, sem custo adicional, enquanto o monitoramento detalhado do EC2 envia dados a cada 1 minuto, com cobrança adicional. O _Unified CloudWatch Agent_ também pode ser utilizado para coletar métricas de sistemas, tanto para instâncias EC2 quanto para servidores on-premises.
+Coleta dados temporais de serviços, com métricas enviadas por diversos serviços da AWS, como o _EC2_. Por padrão, as métricas do _EC2_ são enviadas a cada 5 minutos, sem custo adicional, enquanto o monitoramento detalhado do _EC2_ envia dados a cada 1 minuto, com cobrança adicional. O _Unified CloudWatch Agent_ também pode ser utilizado para coletar métricas de sistemas, tanto para instâncias _EC2_ quanto para servidores on-premises.
 
 As métricas personalizadas podem ter duas resoluções:
 
@@ -1680,19 +1698,19 @@ Os estados de um _metric alarm_ incluem:
 
 Oferece uma coleta centralizada de logs de sistema e aplicação. Ele permite armazenar e monitorar logs, com políticas de expiração definidas e criptografia via KMS para garantir a segurança dos dados. Os logs podem ser enviados para outros destinos, como:
 
-- **Amazon S3** (para exportação)
-- **Kinesis Data Streams**
-- **Kinesis Data Firehose**
+- **_Amazon S3_** (para exportação)
+- **_Kinesis Data Streams_**
+- **_Kinesis Data Firehose_**
 
 ![](assets/2024-11-06-22-17-31.png)
 
 #### 12.2.4. Events
 
-Serviço que permite monitorar e reagir a alterações em recursos da AWS em tempo real. Ele captura eventos do sistema, como modificações em instâncias EC2, lançamentos de recursos ou alterações no status de serviços, e pode disparar ações automáticas, como invocar funções Lambda, enviar notificações ou iniciar fluxos de trabalho no _AWS Step Functions_.
+Serviço que permite monitorar e reagir a alterações em recursos da AWS em tempo real. Ele captura eventos do sistema, como modificações em instâncias _EC2_, lançamentos de recursos ou alterações no status de serviços, e pode disparar ações automáticas, como invocar funções _Lambda_, enviar notificações ou iniciar fluxos de trabalho no _AWS Step Functions_.
 
 #### 12.2.5. The Unified CloudWatch Agent
 
-Coleta métricas e logs de instâncias EC2 e servidores locais. Ele permite a coleta de métricas internas do sistema, como uso de CPU, memória e disco, além de métricas personalizadas de aplicativos usando protocolos como `StatsD` e `collectd`. Para utilizá-lo, o agente precisa ser instalado nas instâncias EC2 ou servidores locais. Ele é compatível com ambientes **Linux**, **Windows Server** e **macOS**. O agente também coleta logs, possibilitando uma visão unificada do desempenho e das atividades de sistemas em nuvem e locais.
+Coleta métricas e logs de instâncias _EC2_ e servidores locais. Ele permite a coleta de métricas internas do sistema, como uso de CPU, memória e disco, além de métricas personalizadas de aplicativos usando protocolos como `StatsD` e `collectD`. Para utilizá-lo, o agente precisa ser instalado nas instâncias _EC2_ ou servidores locais. Ele é compatível com ambientes **Linux**, **Windows Server** e **macOS**. O agente também coleta logs, possibilitando uma visão unificada do desempenho e das atividades de sistemas em nuvem e locais.
 
 ### 12.3. CloudTrail
 
@@ -1775,9 +1793,11 @@ Ferramenta abrangente para gerenciar recursos da AWS, como _Amazon EC2_, _Amazon
 
 #### 12.6.1. AppConfig
 
-Funcionalidade do AWS Systems Manager que permite criar, gerenciar e implantar configurações de aplicativos de maneira segura e eficiente. As configurações são coleções de definições que influenciam o comportamento de um aplicativo, e podem ser usadas em ambientes como _Amazon EC2_, _AWS Lambda_, dispositivos móveis e IoT. Ele ajuda a reduzir erros durante alterações de configuração e torna a implantação mais ágil, garantindo que as aplicações estejam sempre sincronizadas com as mudanças.
+Serviço do **AWS Systems Manager** criado para facilitar o gerenciamento e a implantação de configurações de aplicativos, permitindo realizar alterações sem precisar mexer no código. Essas configurações definem como o aplicativo se comporta e podem ser aplicadas em vários ambientes, como **_Amazon EC2_**, **_AWS Lambda_**, dispositivos móveis e **IoT**.
 
-As configurações podem ser armazenadas em diversos locais, como _Amazon S3_, _AWS AppConfig_, _Systems Manager Parameter Store_, _Systems Manager Document Store_, e repositórios de código como _Bitbucket_, _GitHub_ e _CodeCommit_ (via _CodePipeline_). O AppConfig oferece validação de dados de configuração para garantir que estejam corretos, usando validadores _JSON Schema_ ou _AWS Lambda_. As implantações podem ser feitas de forma linear ou exponencial, com opções de estratégias como `AppConfig.AllAtOnce` ou `AppConfig.Linear50PercentEvery30Seconds` para um controle mais preciso sobre a distribuição das configurações.
+O AppConfig ajuda a minimizar o risco de erros durante mudanças nas configurações e acelera a implantação, mantendo as aplicações atualizadas conforme as mudanças são implementadas. Ele permite armazenar essas configurações em locais como **_Amazon S3_**, **_Systems Manager Parameter Store_**, **_AppConfig_** e repositórios de código (ex.: **_GitHub_**, **_Bitbucket_** e **_CodeCommit_** via **_CodePipeline_**).
+
+Para garantir a precisão dos dados, o AppConfig permite validação usando **_JSON Schema_** ou **_AWS Lambda_**. Já a implantação das configurações pode seguir diferentes estratégias: por exemplo, distribuir tudo de uma vez (_`AllAtOnce`_) ou aplicar gradualmente (_`Linear50PercentEvery30Seconds`_), proporcionando controle sobre a velocidade de distribuição e evitando impactos no funcionamento do sistema.
 
 #### 12.6.2. Secrets Manager
 
@@ -1801,3 +1821,226 @@ O **Cognito Identity Pool** permite o acesso a recursos AWS para usuários auten
 ![](assets/2024-11-06-23-21-50.png)
 
 Ambos podem ser integrados a provedores de identidade como Facebook, Google e SAML.
+
+## 13. Resumo
+
+- **1. Conta AWS e IAM**: Serviço para gerenciar recursos da AWS e controlar o acesso a eles.
+
+  - **1.1. Perfis**: Conjunto de permissões que definem o acesso de usuários ou serviços.
+  - **1.2. IAM: Identity and Access Management**: Serviço para controlar quem pode acessar os recursos da AWS e como.
+  - **1.3. Custos**: Monitoramento e controle dos gastos com recursos na AWS.
+  - **1.4. STS: Security Token Service**: Serviço que fornece credenciais temporárias para acessar recursos da AWS.
+  - **1.5. Métodos de controle de acesso**: Estratégias para gerenciar quem tem acesso aos recursos e como esse acesso é concedido.
+
+- **2. CLI: Command Line Interface**: Ferramenta para interagir com os serviços da AWS por meio de comandos no terminal.
+
+  - **2.1. Comandos**: Instruções para realizar operações específicas na AWS pela linha de comando.
+  - **2.2. Arquivos importantes**: Arquivos usados para configuração e execução de comandos na CLI.
+
+- **3. VPC, EC2 e ELB**: Serviços essenciais para a infraestrutura de rede, computação e balanceamento de carga na AWS.
+
+  - **3.1. VPC: Virtual Private Cloud**: Rede isolada dentro da AWS para rodar recursos de forma segura.
+  - **3.1.1. Conexões e Componentes Adicionais**: Elementos que expandem e conectam a VPC a outras redes ou serviços.
+  - **3.1.2. Segurança**: Mecanismos para proteger a VPC e os recursos dentro dela.
+  - **3.2. EC2: Elastic Compute Cloud**: Serviço de computação escalável que permite executar servidores virtuais na AWS.
+  - **3.2.1. EBS: Elastic Block Store**: Armazenamento de blocos persistente para instâncias EC2.
+  - **3.2.2. Instance Stores**: Armazenamento temporário ligado às instâncias EC2.
+  - **3.2.3. EFS: Elastic File System**: Sistema de arquivos compartilhado e escalável para múltiplas instâncias EC2.
+  - **3.2.3.1. Classes de armazenamento**: Diferentes níveis de desempenho e custo para o EFS.
+  - **3.2.3.2. Desempenho**: Atributos que definem a capacidade de leitura e escrita do EFS.
+  - **3.2.4. Metadata**: Dados que fornecem informações sobre as instâncias EC2 e seus recursos.
+  - **3.2.5. User Data**: Informações configuráveis que são passadas para as instâncias EC2 na inicialização.
+  - **3.2.6. Access Keys e IAM Roles**: Credenciais para permitir o acesso e a execução de operações pelas instâncias EC2.
+  - **3.2.7. Auto Scaling**: Mecanismo que ajusta automaticamente o número de instâncias EC2 com base na demanda.
+  - **3.2.7.1. ASG: Auto Scaling Groups**: Conjunto de instâncias EC2 que são escaladas automaticamente para atender à demanda.
+  - **3.3. ELB: Elastic Load Balancing**: Serviço que distribui tráfego de rede entre várias instâncias EC2.
+  - **3.3.1. Tipos**: Diferentes formas de balanceamento de carga oferecidas pelo ELB.
+
+- **4. Amazon S3 e CloudFront**: Serviços para armazenamento e distribuição de conteúdo na AWS.
+
+  - **4.1. S3: Simple Storage Service**: Serviço de armazenamento de objetos na nuvem da AWS.
+  - **4.1.1. Classes de Armazenamento**: Diferentes opções de armazenamento com base no custo e no desempenho.
+  - **4.1.2. Controles de acesso**: Métodos para gerenciar quem pode acessar os dados armazenados no S3.
+  - **4.1.2.1. IAM Policies**: Políticas do IAM para definir permissões de acesso no S3.
+  - **4.1.2.2. Bucket Policies**: Políticas aplicadas diretamente a um bucket S3 para controlar o acesso.
+  - **4.1.2.3. ACLs: Access Control Lists**: Listas para controlar o acesso aos objetos no S3.
+  - **4.1.3. Versioning**: Recurso que permite armazenar múltiplas versões de um objeto no S3.
+  - **4.1.4. Replication**: Processo de duplicação automática de objetos entre buckets S3.
+  - **4.1.5. Lifecycle Rules**: Regras para gerenciar o ciclo de vida dos objetos no S3, como arquivamento ou exclusão.
+  - **4.1.6. MFA: Multi-Factor Authentication**: Recurso para exigir múltiplos fatores de autenticação ao excluir objetos no S3.
+  - **4.1.7. Criptografia**: Proteção dos dados armazenados no S3 por meio de criptografia.
+  - **4.1.8. Registro de Acesso ao Servidor**: Funcionalidade para registrar e monitorar acessos aos objetos no S3.
+  - **4.1.9. CORS: Cross-Origin Resource Sharing**: Configuração para permitir que recursos do S3 sejam acessados por diferentes origens.
+  - **4.2. CloudFront**: Serviço de distribuição de conteúdo globalmente com baixa latência.
+  - **4.2.1. Signed URLs**: URLs com assinatura para controlar o acesso a conteúdo no CloudFront.
+  - **4.2.2. Signed Cookies**: Cookies com assinatura para fornecer acesso controlado ao conteúdo no CloudFront.
+  - **4.2.3. OAC: Origin Access Control**: Controle de acesso para restringir o acesso aos dados de origem no CloudFront.
+  - **4.2.4. Route 53 DNS**: Serviço de DNS para gerenciar nomes de domínio e roteamento de tráfego na AWS.
+
+- **5. IaC e PaaS**: Modelos de entrega de infraestrutura e plataformas como serviço na AWS.
+
+  - **5.1. IaC: Infrastructure as Code com CloudFormation**: Serviço para provisionar e gerenciar recursos AWS com código.
+  - **5.1.1. Principais componentes**: Elementos fundamentais do CloudFormation para definir e criar recursos.
+  - **5.1.2. Template**: Arquivo que define a infraestrutura a ser provisionada no CloudFormation.
+  - **5.1.2.1. Funções Intrínsecas**: Funções embutidas no CloudFormation para realizar tarefas como manipulação de valores.
+  - **5.1.2.2. Seções**: Divisões dentro de um template do CloudFormation para organizar os recursos e parâmetros.
+  - **5.2. PaaS: Platform as a Service com AWS Elastic Beanstalk**: Serviço para implantar e gerenciar aplicativos sem gerenciar a infraestrutura.
+  - **5.2.1. Configurações avançadas e SSL/TLS**: Opções de configuração para personalizar o ambiente e habilitar segurança com SSL/TLS.
+
+- **6. Lambda e SAM**: Serviços para computação sem servidor e modelagem de aplicações sem servidor.
+
+  - **6.1. Arquitetura Orientada a Eventos e Serverless Services**: Modelo de arquitetura baseado em eventos e sem servidores.
+  - **6.2. AWS Lambda**: Serviço de computação sem servidor para executar código em resposta a eventos.
+  - **6.2.1. Modos de execução**: Formas de executar funções Lambda com diferentes configurações.
+  - **6.2.2. Versões**: Diferentes versões de uma função Lambda que podem ser gerenciadas e executadas.
+  - **6.2.3. Aliases**: Nomes atribuídos a versões específicas de uma função Lambda para facilitar o gerenciamento.
+  - **6.2.4. Deploy de pacotes**: Processo de envio de pacotes de código para o Lambda para execução.
+  - **6.2.5. Layers**: Componentes reutilizáveis de código e bibliotecas usadas em funções Lambda.
+  - **6.2.6. Variáveis de Ambiente**: Parâmetros configuráveis usados pelas funções Lambda em tempo de execução.
+  - **6.2.7. Limites**: Restrições impostas ao uso de recursos nas funções Lambda, como tempo de execução e memória.
+  - **6.2.8. Destinations e DLQ: Dead-Letter Queues**: Recursos para gerenciar o destino de eventos e falhas em funções Lambda.
+  - **6.2.9. Reserved e Provisioned Concurrency**: Funcionalidades para controlar o número de instâncias simultâneas de funções Lambda.
+  - **6.2.10. Monitoramento, Logging, e Tracing**: Ferramentas para monitorar e registrar a execução de funções Lambda.
+  - **6.2.11. Usando com VPC e ALB**: Integração do Lambda com VPC e Application Load Balancer para maior flexibilidade.
+  - **6.2.12. Signer**: Serviço que assina digitalmente o código Lambda para garantir a autenticidade.
+  - **6.3. SAM: Serverless Application Model**: Framework para desenvolver e implantar aplicações sem servidor.
+  - **6.3.1. Comandos**: Instruções para interagir com o SAM e gerenciar aplicativos serverless.
+
+- **7. Amazon DynamoDB**: Banco de dados NoSQL gerenciado da AWS para aplicações de alta performance.
+
+  - **7.1. Características**: Aspectos essenciais do DynamoDB, como escalabilidade e alta disponibilidade.
+  - **7.2. Componentes**: Elementos fundamentais que formam a estrutura do DynamoDB, como tabelas e índices.
+  - **7.3. API**: Interface para interagir programaticamente com o DynamoDB.
+  - **7.3.1. Control Plane**: API para gerenciar a infraestrutura e operações administrativas do DynamoDB.
+  - **7.3.2. Data Plane**: API para realizar operações de leitura e gravação nos dados armazenados.
+  - **7.4. Tipos de dados**: Formatos de dados suportados pelo DynamoDB.
+  - **7.4.1. Escalares**: Tipos simples de dados, como números e strings.
+  - **7.4.2. Documento**: Dados estruturados em formato de documento, como JSON.
+  - **7.4.3. Conjunto**: Tipos de dados compostos por múltiplos valores, como listas e conjuntos.
+  - **7.5. Classes**: Variantes do DynamoDB que atendem a diferentes necessidades de desempenho e custo.
+  - **7.6. Controle de acesso**: Mecanismos para gerenciar permissões de acesso aos recursos do DynamoDB.
+  - **7.7. Chaves**: Elementos usados para identificar e acessar itens no DynamoDB.
+  - **7.7.1. Chave de Partição**: Chave única usada para distribuir os dados entre partições no DynamoDB.
+  - **7.7.2. Chave de Ordenação**: Chave usada para organizar os itens dentro de uma partição.
+  - **7.7.3. Chave Composta**: Combinação de chave de partição e chave de ordenação para identificar um item.
+  - **7.7.4. Melhores práticas**: Diretrizes para projetar chaves eficientes no DynamoDB.
+  - **7.8. Consistência**: Configuração para controlar a consistência das leituras no DynamoDB.
+  - **7.9. Transactions**: Recurso para garantir operações atômicas e consistentes no DynamoDB.
+  - **7.10. Performance**: Estratégias para otimizar o desempenho das operações no DynamoDB.
+  - **7.11. Scan API**: API para ler dados de uma tabela DynamoDB de forma sequencial.
+  - **7.12. Query API**: API para realizar buscas rápidas com base na chave de partição.
+  - **7.13. Índices**: Estruturas que permitem consultas rápidas e eficientes em tabelas DynamoDB.
+  - **7.13.1. LSI: Local Secondary Index**: Índice que permite consultar dados de uma tabela com base em uma chave de ordenação alternativa.
+  - **7.13.2. GSI: Global Secondary Index**: Índice que permite consultar dados de uma tabela com base em uma chave de partição alternativa.
+  - **7.14. Optimistic Locking**: Técnica para evitar conflitos de gravação em dados no DynamoDB.
+  - **7.15. Streams**: Recurso para capturar alterações de dados em uma tabela DynamoDB e enviá-las para outros serviços.
+  - **7.16. DAX**: Cache de leitura para o DynamoDB que melhora o desempenho das consultas.
+
+- **8. Integrações e APIs**: Serviços e APIs para integrar sistemas e facilitar a comunicação entre componentes na AWS.
+
+  - **8.1. SQS: Simple Queue Service**: Serviço gerenciado de filas para armazenar e gerenciar mensagens.
+  - **8.1.1. Tipos**: Diferentes tipos de filas oferecidas pelo SQS, como padrão e FIFO.
+  - **8.1.2. DLQ: Dead Letter Queue**: Fila de mensagens que não puderam ser processadas corretamente.
+  - **8.1.3. Delay Queue**: Fila onde as mensagens são atrasadas antes de serem processadas.
+  - **8.1.4. Visibility Timeout**: Tempo durante o qual uma mensagem não será visível para outros consumidores após ser lida.
+  - **8.1.5. SQS Long Polling x Short Polling**: Técnicas para controlar a frequência de verificação de novas mensagens nas filas do SQS.
+  - **8.2. SNS: Simple Notification Service**: Serviço de notificação para enviar mensagens e alertas para múltiplos destinatários.
+  - **8.2.1. Fan-Out**: Técnica para enviar uma única mensagem a múltiplos destinos no SNS.
+  - **8.3. Step Functions**: Serviço para coordenar componentes de aplicativos e fluxos de trabalho.
+  - **8.4. EventBridge**: Serviço para gerenciar eventos e integrar aplicações em tempo real.
+  - **8.5. API Gateway**: Serviço para criar, gerenciar e proteger APIs RESTful e WebSocket.
+  - **8.5.1. Tipos de implantação**: Diferentes métodos para implantar APIs, como regional e edge-optimized.
+  - **8.5.2. Recursos e métodos**: Componentes para definir endpoints e métodos de API.
+  - **8.5.3. Tipos de integração**: Métodos para integrar APIs com outros serviços, como Lambda ou HTTP.
+  - **8.5.4. Mapping Templates**: Modelos para transformar dados entre diferentes formatos na API Gateway.
+  - **8.5.5. Implantações e Estágios**: Processo de publicar e versionar APIs no API Gateway.
+  - **8.5.6. Caching**: Recurso para armazenar em cache as respostas das APIs e melhorar o desempenho.
+  - **8.5.7. Throttling**: Limitação de chamadas de API para evitar sobrecarga e abuso.
+  - **8.5.8. Planos de Uso e Chaves de API**: Mecanismos para controlar e gerenciar o uso das APIs.
+  - **8.5.9. Controle de acesso**: Métodos para gerenciar o acesso às APIs com segurança.
+  - **8.5.9.1. Políticas Baseadas em Recursos**: Controle de acesso usando políticas diretamente associadas a recursos da API.
+  - **8.5.9.2. Lambda Authorizer**: Método de autenticação de requisições utilizando funções Lambda.
+  - **8.5.9.3. Cognito User Pools**: Usando o Amazon Cognito para autenticar usuários em APIs.
+
+- **9. Contêineres**: Serviços da AWS para executar e gerenciar contêineres de forma escalável e segura.
+
+  - **9.1. ECS: Elastic Container Service**: Serviço gerenciado para executar e gerenciar contêineres Docker.
+  - **9.1.1. Componentes**: Elementos essenciais para usar o ECS, como clusters, tarefas e definições de serviço.
+  - **9.1.2. Funcionalidades**: Capacidades do ECS, incluindo escalabilidade e integração com outros serviços.
+  - **9.1.3. Cluster**: Grupo de instâncias que executam tarefas e serviços do ECS.
+  - **9.1.4. Imagens**: Arquivos que contêm o código e as dependências de um contêiner.
+  - **9.1.5. Task definition**: Definição que descreve como um contêiner deve ser executado no ECS.
+  - **9.1.6. Launch Type**: Tipos de implantação de tarefas no ECS, como EC2 ou Fargate.
+  - **9.1.7. Task Placement Strategies**: Estratégias para posicionar as tarefas dentro do cluster ECS.
+  - **9.1.8. CQL: Cluster Query Language**: Linguagem para interagir com clusters ECS.
+  - **9.1.9. Scaling**: Estratégias para ajustar automaticamente a capacidade do ECS conforme a demanda.
+  - **9.1.9.1. Service Auto Scaling**: Escalonamento automático dos serviços do ECS para ajustar a capacidade conforme a carga.
+  - **9.1.9.2. Cluster Auto Scaling**: Escalonamento automático de instâncias no cluster ECS.
+  - **9.2. ECR: Elastic Container Registry**: Serviço de registro de contêineres Docker na AWS.
+  - **9.2.1. Componentes**: Elementos essenciais para usar o ECR, como repositórios e imagens.
+  - **9.2.2. Funcionalidades**: Capacidades do ECR, como gerenciamento e distribuição de imagens de contêineres.
+  - **9.3. EKS: Elastic Kubernetes Service**: Serviço gerenciado para rodar clusters Kubernetes na AWS.
+  - **9.3.1. Auto Scaling**: Ajuste automático da escala de pods e nós no EKS.
+  - **9.3.1.1. Cluster Auto Scaling**: Escalonamento automático de nós no EKS.
+  - **9.3.1.2. Workload Auto Scaling**: Escalonamento automático de cargas de trabalho no EKS.
+  - **9.3.2. Redes de pods**: Configurações para gerenciar a comunicação entre pods no EKS.
+  - **9.3.3. Balanceamento de carga**: Distribui o tráfego de rede entre os pods no EKS.
+  - **9.4. AWS Copilot**: Facilita a criação e implantação de aplicações em contêineres.
+
+- **10. Developer Tools CI/CD**:
+
+  - **10.1. CodeCommit**: Serviço de controle de versão baseado em Git.
+  - **10.2. CodePipeline**: Serviço de automação de fluxos de CI/CD.
+  - **10.2.1. Definições**: Definições do pipeline e suas etapas.
+  - **10.3. CodeGuru**: Ferramenta para revisão e análise de código.
+  - **10.3.1. CodeGuru Reviewer**: Analisa código e sugere melhorias.
+  - **10.3.2. CodeGuru Profiler**: Identifica e analisa gargalos de desempenho.
+  - **10.4. CodeBuild**: Serviço de build e testes automatizados.
+  - **10.4.1. Componentes**: Elementos que compõem o processo de build.
+  - **10.4.2. CodeDeploy**: Serviço de automação de deploy.
+  - **10.4.2.1. Blue/Green Traffic Shifting**: Estratégia de deploy para reduzir riscos.
+  - **10.5. Cloud9**: Ambiente de desenvolvimento integrado (IDE) na nuvem.
+  - **10.6. Amplify**: Plataforma para desenvolvimento de aplicações web e móveis.
+  - **10.7. AppSync**: Serviço de gerenciamento de GraphQL e APIs.
+
+- **11. Bancos de Dados e Análises**:
+
+  - **11.1. RDS: Relational Database Service**: Serviço gerenciado de banco de dados relacional.
+  - **11.1.1. Disponibilidade e escalabilidade**: Garantia de alta disponibilidade e escalabilidade.
+  - **11.1.2. Backup and Recuperação**: Funcionalidades de backup e recuperação de dados.
+  - **11.1.3. Aurora**: Banco de dados relacional de alta performance.
+  - **11.1.4. Segurança**: Funcionalidades de segurança e controle de acesso.
+  - **11.2. ElastiCache**: Serviço gerenciado de cache na memória.
+  - **11.2.1. Comparações**: Diferenças entre tipos de cache.
+  - **11.2.2. Escalabilidade**: Capacidade de escalar o serviço de cache.
+  - **11.2.2.1. Memcached**: Sistema de cache simples e rápido.
+  - **11.2.2.2. Redis modo de cluster desativado**: Modo de uso do Redis sem cluster.
+  - **11.2.2.3. Redis modo de cluster ativado**: Modo de uso do Redis com cluster.
+  - **11.3. MemoryDB para Redis**: Banco de dados em memória com compatibilidade com Redis.
+  - **11.4. Kinesis**: Plataforma para processamento de dados em tempo real.
+  - **11.4.1. Kinesis Data Streams**: Serviço de fluxo de dados em tempo real.
+  - **11.4.2. Kinesis Data Firehose**: Serviço de entrega de dados em tempo real.
+  - **11.4.3. Kinesis Data Analytics**: Análise de dados em tempo real.
+  - **11.4.4. KCL: Kinesis Client Library**: Biblioteca para interagir com Kinesis Streams.
+  - **11.5. OpenSearch Service**: Serviço de busca e análise em tempo real.
+  - **11.6. Athena**: Serviço para consultas SQL em dados armazenados no S3.
+  - **11.7. Glue**: Serviço de preparação e transformação de dados.
+
+- **12. Gestão e Segurança**:
+  - **12.1. CDK: Cloud Development Kit**: Framework para definir infraestrutura como código.
+  - **12.2. CloudWatch**: Serviço de monitoramento de recursos AWS.
+  - **12.2.1. Metrics**: Coleta de dados e métricas de desempenho.
+  - **12.2.2. Alarms**: Definição de alarmes com base em métricas.
+  - **12.2.3. Logs**: Coleta e monitoramento de logs de recursos.
+  - **12.2.4. Events**: Monitoramento de eventos de recursos AWS.
+  - **12.2.5. The Unified CloudWatch Agent**: Agente unificado para coleta de métricas e logs.
+  - **12.3. CloudTrail**: Serviço de auditoria e registros de ações realizadas na AWS.
+  - **12.3.1. Tipos de eventos**: Classificação dos eventos registrados pelo CloudTrail.
+  - **12.4. KMS: Key Management Service**: Serviço de gerenciamento de chaves de criptografia.
+  - **12.4.1. Chaves**: Gerenciamento de chaves para criptografia de dados.
+  - **12.4.2. API and CLI**: Interfaces de programação para interagir com o KMS.
+  - **12.5. ACM: AWS Certificate Manager**: Serviço de gerenciamento de certificados SSL/TLS.
+  - **12.6. Systems Manager**: Serviço para automação de gerenciamento de recursos.
+  - **12.6.1. AppConfig**: Gerenciamento de configurações de aplicativos.
+  - **12.6.2. Secrets Manager**: Serviço para gerenciar segredos e credenciais.
+  - **12.7. Cognito**: Serviço de autenticação e controle de acesso para aplicativos.
