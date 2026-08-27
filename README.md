@@ -2,6 +2,10 @@
 
 Repositório dedicado aos estudo para certificações:
 
+### Anthropic
+
+- [CCAR-F: Anthropic Claude Certified Architect – Foundations](/anthropic/ccar-f/README.md)
+
 ### AWS
 
 - [CLF-C01: AWS Cloud Practitioner](/aws/clf-c01/README.md)
